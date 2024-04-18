@@ -1,0 +1,15 @@
+# Use a imagem oficial do Node.js como base
+FROM node:19-alpine
+
+# Copie os arquivos do seu projeto para o contêiner
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+RUN npm run swagger
+
+# Exponha a porta do Node.js
+EXPOSE 3000
+
+# Comando para iniciar o servidor Node.js
+CMD ["npm", "start"]
