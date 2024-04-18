@@ -1,0 +1,67 @@
+{
+	// VSCODE IDE COMMON SETTINGS
+	"git.enabled": true,
+	"terminal.integrated.defaultProfile.windows": "Git Bash",
+	"workbench.editor.labelFormat": "default",
+	"workbench.iconTheme": "material-icon-theme",
+	"editor.formatOnSave": true,
+	"editor.suggestSelection": "first",
+	"editor.renderLineHighlight": "gutter",
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit"
+	},
+	"eslint.validate": ["javascript"],
+	"explorer.compactFolders": false,
+	"explorer.confirmDragAndDrop": false,
+	"explorer.confirmDelete": false,
+	"task.allowAutomaticTasks": "off",
+	"task.autoDetect": "off",
+	"files.exclude": {
+		".idea": true,
+		".husky": true,
+		".vscode": true,
+		".github": true,
+		".gitignore": false,
+		".gitattributes": true,
+		".editorconfig": false,
+		"**/swagger-output.json": true,
+		"**/tsconfig.json": true,
+		"**/package-lock.json": true,
+		"**/target": true,
+		"**/build": true,
+		"**/node": true,
+		"**/node_modules": true,
+		"**/.classpath": true,
+		"**/.project": true,
+		"**/.settings": true,
+		"**/.factorypath": true
+	},
+	// PROGRAMING LANGUAGES SETTINGS
+	"javascript.suggest.autoImports": true,
+	"typescript.suggest.autoImports": true,
+	"javascript.preferences.quoteStyle": "double",
+	"typescript.preferences.quoteStyle": "double",
+	"[json]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	},
+	// EXTENSIONS IDE SETTINGS
+	"prettier.embeddedLanguageFormatting": "off",
+	"material-icon-theme.folders.theme": "specific",
+	"material-icon-theme.hidesExplorerArrows": false,
+	"material-icon-theme.saturation": 1,
+	"material-icon-theme.folders.associations": {
+		"adapters": "queue",
+		"pages": "shared",
+		"pulse": "api",
+		"impulse": "api",
+		"actions": "hook",
+		"models": "hook",
+		"bundle": "hook",
+		"app.config": "config",
+		"structure": "api",
+		"v1": "wakatime",
+		"v2": "wakatime",
+		"v3": "wakatime",
+		"v4": "wakatime"
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"resolveJsonModule": true,
+		"allowJs": true,
+		"paths": {
+			"@types/*": ["src/@types/*"],
+			"@routes/*": ["src/api/routes/*"]
+		},
+		"baseUrl": "./"
+	}
+}
