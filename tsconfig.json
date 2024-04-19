@@ -6,6 +6,7 @@
 		"emitDecoratorMetadata": true,
 		"resolveJsonModule": true,
 		"allowJs": true,
+		"target": "es6",
 		"paths": {
 			"@types/*": ["src/@types/*"],
 			"@routes/*": ["src/api/routes/*"]

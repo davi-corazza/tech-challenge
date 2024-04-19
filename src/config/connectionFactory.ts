@@ -1,3 +1,4 @@
+import pg from "pg";
 import { Sequelize } from "sequelize-typescript";
 
 const database = new Sequelize({
@@ -7,7 +8,8 @@ const database = new Sequelize({
 	host: process.env.DB_HOST,
 	port: parseInt(process.env.DB_PORT),
 	dialect: "postgres",
-	models: [__dirname + "/src/adapters/database/v1"],
+	dialectModule: pg,
+	models: [__dirname + "\\adapters\\database\\v1"],
 });
 
 export default {

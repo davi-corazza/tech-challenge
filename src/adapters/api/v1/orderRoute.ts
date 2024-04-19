@@ -5,12 +5,18 @@ export const orderRoute = Router();
 
 const orderService = new OrderService();
 
+orderService.initModel();
+
 orderRoute.get("/all", (req, res) => {
 	// #swagger.tags = ['Order']
-	return orderService.getAll();
+	orderService.getAll(req, res);
 });
 
-// orderRoute.post("/create", userController.create());
+orderRoute.post("/create", (req, res) => {
+	// #swagger.tags = ['Order']
+	orderService.createOrder(req, res);
+});
+
 // orderRoute.put("/update/:id", userController.update());
 // orderRoute.delete("/delete/:id", userController.delete());
 // orderRoute.get("/index/:id", userController.index());
