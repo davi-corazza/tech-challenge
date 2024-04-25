@@ -1,0 +1,13 @@
+# Use a imagem leve do PostgreSQL
+FROM postgres:alpine
+
+# Defina variáveis de ambiente para o PostgreSQL
+ENV POSTGRES_USER=myuser \
+    POSTGRES_PASSWORD=mypassword \
+    POSTGRES_DB=mydb
+
+# Copie os scripts SQL necessários para a pasta de inicialização
+COPY ./postgresql.sql /docker-entrypoint-initdb.d/
+
+# Exponha a porta do PostgreSQL (opcional)
+EXPOSE 5432
