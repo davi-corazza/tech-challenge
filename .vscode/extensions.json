@@ -1,0 +1,16 @@
+{
+	"recommendations": [
+		"editorconfig.editorconfig",
+		"dbaeumer.vscode-eslint",
+		"waderyan.gitblame",
+		"mhutchie.git-graph",
+		"donjayamanne.githistory",
+		"eamodio.gitlens",
+		"xabikos.javascriptsnippets",
+		"ms-vscode.vscode-typescript-next",
+		"pkief.material-icon-theme",
+		"esbenp.prettier-vscode",
+		"rvest.vs-code-prettier-eslint",
+		"zuoez02.tslint-snippets"
+	]
+}
