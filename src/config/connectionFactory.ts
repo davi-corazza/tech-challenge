@@ -2,11 +2,11 @@ import pg from "pg";
 import { Sequelize } from "sequelize-typescript";
 
 const database = new Sequelize({
-	database: process.env.DB_NAME,
-	username: process.env.DB_USERNAME,
-	password: process.env.DB_PASSWORD,
-	host: process.env.DB_HOST,
-	port: parseInt(process.env.DB_PORT),
+	database: process.env.POSTGRES_DB,
+	username: process.env.POSTGRES_USER,
+	password: process.env.POSTGRES_PASSWORD,
+	host: process.env.POSTGRES_HOST,
+	port: parseInt(process.env.POSTGRES_PORT),
 	dialect: "postgres",
 	dialectModule: pg,
 	models: [__dirname + "\\adapters\\database\\v1"],
