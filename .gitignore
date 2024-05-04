@@ -56,6 +56,6 @@ package-lock.json
 
 # dotenv environment variables file
 #.env
-
+.vscode
 .idea
 © 2024 GitHub, Inc.

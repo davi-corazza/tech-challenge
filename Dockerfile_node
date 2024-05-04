@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Instala as dependências
-RUN npm install && npm run swagger && npm cache clean --force
+RUN npm install && npm run swagger
 
 # Stage 2: Run
 FROM node:19-alpine as runtime
