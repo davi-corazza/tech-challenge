@@ -32,6 +32,7 @@ services:
       - '5432:5432'
     volumes:
         - ./postgresql.sql:/docker-entrypoint-initdb.d/init-db.sql
+        - ./postgresql_data:/var/lib/postgresql/data
     environment:
         POSTGRES_USER: ${POSTGRES_USER}
         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -48,5 +49,6 @@ networks:
     tech-network:
         driver: bridge
 
-
+volumes:
+    postgresql_data:
 
