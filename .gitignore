@@ -1,6 +1,9 @@
 # API Logs
 logs/*.log
 
+# POSTGRES
+postgresql_data
+
 # Swagger Output
 src/config/swagger-output.json
 
