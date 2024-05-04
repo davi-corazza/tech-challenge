@@ -1,3 +1,8 @@
+-- Database Root
+CREATE DATABASE IF NOT EXISTS root;
+
+CREATE ROLE IF NOT EXISTS root WITH LOGIN PASSWORD 'root';
+
 -- Table 'cliente'
 CREATE TABLE IF NOT EXISTS clientes (
 	idCliente INT NOT NULL,

@@ -10,8 +10,6 @@ services:
     networks:
       - tech-network
     tty: true
-    environment:
-        DB_HOST: postgres-db
     ports:
       - '3000:3000'
     depends_on:
@@ -31,13 +29,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-        - ./postgresql.sql:/docker-entrypoint-initdb.d/init-db.sql
         - ./postgresql_data:/var/lib/postgresql/data
-    environment:
-        POSTGRES_USER: ${POSTGRES_USER}
-        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-        POSTGRES_DB: ${POSTGRES_DB}
-        POSTGRES_PORT: ${POSTGRES_PORT}
     healthcheck:
         test: [ "CMD-SHELL", "pg_isready" ]
         interval: 10s
