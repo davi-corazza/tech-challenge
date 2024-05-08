@@ -23,8 +23,13 @@ export default class ProductService {
 	}
 
 	async createProduct(req, res) {
-		const { name, minValue, fk_idCategory } = req.body;
-		return await ProductRepository.create({ name, minValue, fk_idCategory })
+		const { name, price, description, fk_idCategory } = req.body;
+		return await ProductRepository.create({
+			name,
+			price,
+			description,
+			fk_idCategory,
+		})
 			.then((result) => {
 				res.json({
 					status: 200,

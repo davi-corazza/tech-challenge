@@ -28,8 +28,14 @@ export class ProductRepository extends Model implements Product {
 	name: string;
 
 	@Column({
+		type: DataType.STRING,
+		allowNull: false,
+	})
+	description: string;
+
+	@Column({
 		type: DataType.FLOAT,
 		allowNull: false,
 	})
-	minValue: number;
+	price: number;
 }

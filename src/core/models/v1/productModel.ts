@@ -1,6 +1,7 @@
 export default interface Product {
 	id: number;
 	name: string;
-	minValue: number;
+	price: number;
+	description: string;
 	fk_idCategory: number;
 }
