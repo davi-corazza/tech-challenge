@@ -22,14 +22,27 @@ export default class ProductService {
 			});
 	}
 
-	async createProduct(req, res) {
-		const { name, price, description, fk_idCategory } = req.body;
-		return await ProductRepository.create({
-			name,
-			price,
-			description,
-			fk_idCategory,
+	getProductByCategory(req, res) {
+		const categoryId = req.params.categoryId;
+		return ProductRepository.findAll({
+			where: { fk_idCategory: categoryId },
 		})
+			.then((products) => {
+				res.json({
+					status: 200,
+					Products: products,
+				});
+			})
+			.catch((err) => {
+				res.json({
+					status: 500,
+					err: err,
+				});
+			});
+	}
+
+	async createProduct(req, res) {
+		return await ProductRepository.create({ ...req.body })
 			.then((result) => {
 				res.json({
 					status: 200,

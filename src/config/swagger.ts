@@ -12,12 +12,23 @@ const doc = {
 			description: "",
 		},
 	],
-	components: {
-		securitySchemes: {
-			bearerAuth: {
-				type: "http",
-				scheme: "bearer",
+	definitions: {
+		Category: {
+			name: "Lanche",
+		},
+		Product: {
+			name: "Big MC",
+			price: "8.90",
+			description: "Big MC",
+			category: {
+				$ref: "#/definitions/Category",
 			},
+		},
+		AddProduct: {
+			name: "Big MC",
+			price: "8.90",
+			description: "Big MC",
+			fk_idCategory: 1,
 		},
 	},
 };

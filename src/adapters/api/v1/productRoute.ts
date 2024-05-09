@@ -14,6 +14,15 @@ productRoute.get("/all", (req, res) => {
 
 productRoute.post("/create", (req, res) => {
 	// #swagger.tags = ['Product']
+	/* #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    schema: { $ref: '#/definitions/AddProduct' }
+                }
+            }
+        }
+    */
 	productService.createProduct(req, res);
 });
 
@@ -21,5 +30,10 @@ productRoute.post("/create", (req, res) => {
 // productRoute.delete("/delete/:id", userController.delete());
 // productRoute.get("/index/:id", userController.index());
 // productRoute.post("/verifica", userController.verificaCampo());
+
+productRoute.get("/category/:categoryId", (req, res) => {
+	// #swagger.tags = ['Product']
+	productService.getProductByCategory(req, res);
+});
 
 export default { routes: productRoute };
