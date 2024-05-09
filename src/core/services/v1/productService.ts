@@ -56,4 +56,77 @@ export default class ProductService {
 				});
 			});
 	}
+	async updateProduct(req, res) {
+		const { id, name, price, description, fk_idCategory } = req.body;
+		if (!id) {
+		  return res.status(400).json({
+			status: 400,
+			message: "Missing required field: id",
+		  });
+		}
+	
+		try {
+		  const [updatedCount] = await ProductRepository.update({
+			name,
+			price,
+			description,
+			fk_idCategory,
+		  }, {
+			where: { id },
+		  });
+	
+		  if (updatedCount === 0) {
+			return res.status(404).json({
+			  status: 404,
+			  message: "Product not found",
+			});
+		  }
+	
+		  return res.json({
+			status: 200,
+			message: "Product updated successfully",
+		  });
+		  
+		} catch (err) {
+		  console.error(err);
+		  return res.status(500).json({
+			status: 500,
+			err: err,
+		  });
+		}
+	}
+	async deleteProduct(req, res) {
+		const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({
+        status: 400,
+        message: "Missing required parameter: id",
+      });
+    }
+
+    try {
+      const deletedCount = await ProductRepository.destroy({
+        where: { id },
+      });
+
+      if (deletedCount === 0) {
+        return res.status(404).json({
+          status: 404,
+          message: "Product not found",
+        });
+      }
+      return res.json({
+        status: 200,
+        message: "Product deleted successfully",
+      });
+
+    } catch (err) {
+      console.error(err); 
+      return res.status(500).json({
+        status: 500,
+        err: err,
+      });
+    }
+  }
 }

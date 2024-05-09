@@ -26,6 +26,16 @@ productRoute.post("/create", (req, res) => {
 	productService.createProduct(req, res);
 });
 
+productRoute.delete("/delete/:id", (req, res) =>{
+	// #swagger.tags = ['Product']
+	productService.deleteProduct(req,res);
+})
+
+productRoute.put("/update/:id", (req, res) =>{
+	// #swagger.tags = ['Product']
+	productService.updateProduct(req,res);
+})
+
 // productRoute.put("/update/:id", userController.update());
 // productRoute.delete("/delete/:id", userController.delete());
 // productRoute.get("/index/:id", userController.index());
