@@ -3,7 +3,7 @@ services:
   node-app:
     build:
       context: .
-      dockerfile: Dockerfile_node
+      dockerfile: ./docker/Dockerfile_node
     container_name: node-app
     hostname: node-app
     restart: always
@@ -19,7 +19,7 @@ services:
   postgres-db:
     build:
       context: .
-      dockerfile: Dockerfile_postgres
+      dockerfile: ./docker/Dockerfile_postgres
     container_name: postgres-db
     hostname: postgres-db
     restart: always
