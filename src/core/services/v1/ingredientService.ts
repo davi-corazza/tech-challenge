@@ -1,11 +1,6 @@
-import connection from "../../../config/connectionFactory";
 import { IngredientRepository } from "../../../adapters/database/v1/ingredientRepository";
 
 export default class IngredientService {
-	initModel() {
-		connection.database.addModels([IngredientRepository]);
-	}
-
 	getAll(req, res) {
 		return IngredientRepository.findAll()
 			.then((ingredient) => {

@@ -5,8 +5,6 @@ export const categoryRoute = Router();
 
 const categoryService = new CategoryService();
 
-categoryService.initModel();
-
 categoryRoute.get("/all", (req, res) => {
 	// #swagger.tags = ['Category']
 	categoryService.getAll(req, res);

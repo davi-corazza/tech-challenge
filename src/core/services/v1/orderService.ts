@@ -1,11 +1,6 @@
-import connection from "../../../config/connectionFactory";
 import { OrderRepository } from "../../../adapters/database/v1/orderRepository";
 
 export default class OrderService {
-	initModel() {
-		connection.database.addModels([OrderRepository]);
-	}
-
 	getAll(req, res) {
 		return OrderRepository.findAll()
 			.then((orders) => {

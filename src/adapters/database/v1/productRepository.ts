@@ -1,7 +1,7 @@
 import { Table, Column, DataType, Model } from "sequelize-typescript";
 import Product from "../../../core/models/v1/productModel";
 import { ForeignKey } from "sequelize";
-import Category from "src/core/models/v1/categoryModel";
+import Category from "../../../core/models/v1/categoryModel";
 
 @Table({
 	timestamps: true,

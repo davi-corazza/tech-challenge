@@ -5,8 +5,6 @@ export const ingredientRoute = Router();
 
 const ingredientService = new IngredientService();
 
-ingredientService.initModel();
-
 ingredientRoute.get("/all", (req, res) => {
 	// #swagger.tags = ['Ingredient']
 	ingredientService.getAll(req, res);

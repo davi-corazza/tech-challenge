@@ -5,8 +5,6 @@ export const clientRoute = Router();
 
 const clientService = new ClientService();
 
-clientService.initModel();
-
 clientRoute.get("/all", (req, res) => {
 	// #swagger.tags = ['Client']
 	clientService.getAll(req, res);

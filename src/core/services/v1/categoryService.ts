@@ -1,41 +1,21 @@
-import connection from "../../../config/connectionFactory";
+import { defaultReturnStatement } from "../../../core/utils/serviceUtils";
 import { CategoryRepository } from "../../../adapters/database/v1/categoryRepository";
 
 export default class CategoryService {
-	initModel() {
-		connection.database.addModels([CategoryRepository]);
-	}
-
 	getAll(req, res) {
-		return CategoryRepository.findAll()
-			.then((categories) => {
-				res.json({
-					status: 200,
-					Categories: categories,
-				});
-			})
-			.catch((err) => {
-				res.json({
-					status: 500,
-					err: err,
-				});
-			});
+		return defaultReturnStatement(
+			res,
+			"Categories",
+			CategoryRepository.findAll()
+		);
 	}
 
-	async createCategory(req, res) {
+	createCategory(req, res) {
 		const { name } = req.body;
-		return await CategoryRepository.create({ name })
-			.then((result) => {
-				res.json({
-					status: 200,
-					CategoryCreated: result,
-				});
-			})
-			.catch((err) => {
-				res.json({
-					status: 500,
-					err: err,
-				});
-			});
+		return defaultReturnStatement(
+			res,
+			"CategoryCreated",
+			CategoryRepository.create({ name })
+		);
 	}
 }

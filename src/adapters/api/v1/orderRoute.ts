@@ -5,8 +5,6 @@ export const orderRoute = Router();
 
 const orderService = new OrderService();
 
-orderService.initModel();
-
 orderRoute.get("/all", (req, res) => {
 	// #swagger.tags = ['Order']
 	orderService.getAll(req, res);

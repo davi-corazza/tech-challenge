@@ -5,8 +5,6 @@ export const productRoute = Router();
 
 const productService = new ProductService();
 
-productService.initModel();
-
 productRoute.get("/all", (req, res) => {
 	// #swagger.tags = ['Product']
 	productService.getAll(req, res);
@@ -26,15 +24,15 @@ productRoute.post("/create", (req, res) => {
 	productService.createProduct(req, res);
 });
 
-productRoute.delete("/delete/:id", (req, res) =>{
+productRoute.delete("/delete/:id", (req, res) => {
 	// #swagger.tags = ['Product']
-	productService.deleteProduct(req,res);
-})
+	productService.deleteProduct(req, res);
+});
 
-productRoute.put("/update/:id", (req, res) =>{
+productRoute.put("/update/:id", (req, res) => {
 	// #swagger.tags = ['Product']
-	productService.updateProduct(req,res);
-})
+	productService.updateProduct(req, res);
+});
 
 // productRoute.put("/update/:id", userController.update());
 // productRoute.delete("/delete/:id", userController.delete());

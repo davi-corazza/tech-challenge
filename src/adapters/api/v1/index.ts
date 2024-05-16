@@ -5,8 +5,11 @@ import { ingredientRoute } from "./ingredientRoute";
 import { comboRoute } from "./comboRoute";
 import { categoryRoute } from "./categoryRoute";
 import { productRoute } from "./productRoute";
+import initRepository from "../../../core/services/v1/connectionService";
 
 export const v1Routes = express.Router();
+
+initRepository();
 
 v1Routes.use("/order", orderRoute);
 v1Routes.use("/client", clientRoute);
