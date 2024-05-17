@@ -28,9 +28,4 @@ categoryRoute.post("/create", (req, res) => {
 	categoryService.createCategory(req, res);
 });
 
-// categoryRoute.put("/update/:id", userController.update());
-// categoryRoute.delete("/delete/:id", userController.delete());
-// categoryRoute.get("/index/:id", userController.index());
-// categoryRoute.post("/verifica", userController.verificaCampo());
-
 export default { routes: categoryRoute };

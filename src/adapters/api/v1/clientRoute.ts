@@ -28,9 +28,4 @@ clientRoute.post("/create", (req, res) => {
 	clientService.createClient(req, res);
 });
 
-// clientRoute.put("/update/:id", userController.update());
-// clientRoute.delete("/delete/:id", userController.delete());
-// clientRoute.get("/index/:id", userController.index());
-// clientRoute.post("/verifica", userController.verificaCampo());
-
 export default { routes: clientRoute };

@@ -28,7 +28,7 @@ comboRoute.post("/create", (req, res) => {
 	comboService.createCombo(req, res);
 });
 
-comboRoute.post("/association/create", (req, res) => {
+comboRoute.post("/product/association/create", (req, res) => {
 	// #swagger.tags = ['Combo']
 	/* #swagger.requestBody = {
             required: true,
@@ -46,10 +46,5 @@ comboRoute.get("/:id/products", (req, res) => {
 	// #swagger.tags = ['Combo']
 	comboService.getComboProducts(req, res);
 });
-
-// comboRoute.put("/update/:id", userController.update());
-// comboRoute.delete("/delete/:id", userController.delete());
-// comboRoute.get("/index/:id", userController.index());
-// comboRoute.post("/verifica", userController.verificaCampo());
 
 export default { routes: comboRoute };

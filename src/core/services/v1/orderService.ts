@@ -7,11 +7,10 @@ export default class OrderService {
 	}
 
 	createOrder(req, res) {
-		const { title, type } = req.body;
 		return defaultReturnStatement(
 			res,
-			"OrderCreated",
-			OrderRepository.create({ title, type })
+			"Order Created",
+			OrderRepository.create({ ...req.body })
 		);
 	}
 }

@@ -11,15 +11,10 @@ export default class IngredientService {
 	}
 
 	createIngredient(req, res) {
-		const { name, price, description } = req.body;
 		return defaultReturnStatement(
 			res,
-			"IngredientCreated",
-			IngredientRepository.create({
-				name,
-				price,
-				description,
-			})
+			"Ingredient Created",
+			IngredientRepository.create({ ...req.body })
 		);
 	}
 }

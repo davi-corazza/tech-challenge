@@ -11,9 +11,10 @@ const defaultReturnStatement = (
 			});
 		})
 		.catch((err) => {
+			console.error(err);
 			response.json({
 				status: 500,
-				err: err,
+				error: err,
 			});
 		});
 };

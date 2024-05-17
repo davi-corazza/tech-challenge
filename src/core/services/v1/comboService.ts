@@ -13,26 +13,18 @@ export default class ComboService {
 	}
 
 	createCombo(req, res) {
-		const { name, discount } = req.body;
 		return defaultReturnStatement(
 			res,
-			"ComboCreated",
-			ComboRepository.create({
-				name,
-				discount,
-			})
+			"Combo Created",
+			ComboRepository.create({ ...req.body })
 		);
 	}
 
 	createComboProductAssociation(req, res) {
-		const { fk_idCombo, fk_idProduct } = req.body;
 		return defaultReturnStatement(
 			res,
-			"AssociationCreated",
-			ComboProductRepository.create({
-				fk_idCombo,
-				fk_idProduct,
-			})
+			"Product Association Created",
+			ComboProductRepository.create({ ...req.body })
 		);
 	}
 

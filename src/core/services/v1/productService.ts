@@ -1,4 +1,7 @@
-import { defaultReturnStatement } from "../../../core/utils/serviceUtils";
+import {
+	defaultReturnStatement,
+	formatObjectResponse,
+} from "../../../core/utils/serviceUtils";
 import { IngredientRepository } from "../../../adapters/database/v1/ingredientRepository";
 import { ProductRepository } from "../../../adapters/database/v1/productRepository";
 import { ProductIngredientRepository } from "../../../adapters/database/v1/productIngredientRepository";
@@ -27,10 +30,11 @@ export default class ProductService {
 	createProduct(req, res) {
 		return defaultReturnStatement(
 			res,
-			"ProductCreated",
+			"Product Created",
 			ProductRepository.create({ ...req.body })
 		);
 	}
+
 	async updateProduct(req, res) {
 		const { id, name, price, description, fk_idCategory } = req.body;
 		if (!id) {
@@ -106,26 +110,14 @@ export default class ProductService {
 		}
 	}
 
-	async createProductIngredientAssociation(req, res) {
-		const{fk_idProduct, fk_idIngredient} = req.body;
-		return await ProductIngredientRepository.create({
-			fk_idIngredient,
-			fk_idProduct,
-		})
-			.then((result) =>{
-				res.json({
-					status:200,
-					ProductCreated: result,
-				})
-			})
-			.catch((err) => {
-				res.json({
-					status:500,
-					err: err,
-				})
-			})
+	createProductIngredientAssociation(req, res) {
+		return defaultReturnStatement(
+			res,
+			"Ingredient Association Created",
+			ProductIngredientRepository.create({ ...req.body })
+		);
 	}
-	getProductIngredients(req,res) {
+	getProductIngredients(req, res) {
 		const productID = req.params.id;
 		return ProductIngredientRepository.findAll({
 			attributes: [],
@@ -135,33 +127,23 @@ export default class ProductService {
 					on: {
 						"$ingredient.id$": {
 							[Op.col]: "ProductIngredient.fk_idIngredient",
-						}
-					}
-				}
+						},
+					},
+				},
 			],
-			where: { fk_idProduct: productID}
+			where: { fk_idProduct: productID },
 		})
-			.then((result) =>{
+			.then((result) => {
 				res.json({
 					status: 200,
-					Ingredients: this.formatIngredientResponse(result),
+					Ingredients: formatObjectResponse(result, "ingredient"),
 				});
 			})
 			.catch((err) => {
-				console.log(err);
 				res.json({
-					status:500,
+					status: 500,
 					err: err,
-				})
+				});
 			});
-	}
-
-	formatIngredientResponse(ingredient) {
-		let result = [];
-		ingredient.map((ingredient) => {
-			result.push(ingredient["ingredient"][0]);
-		});
-
-		return result;
 	}
 }

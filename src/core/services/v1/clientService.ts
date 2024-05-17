@@ -11,16 +11,10 @@ export default class ClientService {
 	}
 
 	createClient(req, res) {
-		const { cpf, name, phoneNumer, email } = req.body;
 		return defaultReturnStatement(
 			res,
-			"ClientCreated",
-			ClientRepository.create({
-				cpf,
-				name,
-				phoneNumer,
-				email,
-			})
+			"Costumer Created",
+			ClientRepository.create({ ...req.body })
 		);
 	}
 }

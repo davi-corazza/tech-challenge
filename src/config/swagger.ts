@@ -9,7 +9,6 @@ const doc = {
 	servers: [
 		{
 			url: "http://localhost:3000",
-			description: "",
 		},
 	],
 	definitions: {
@@ -35,22 +34,26 @@ const doc = {
 			name: "Order Name",
 		},
 		Product: {
-			name: "Big MC",
+			name: "Product Name",
 			price: "8.90",
-			description: "Big MC",
+			description: "Product Name",
 			category: {
 				$ref: "#/definitions/Category",
 			},
 		},
 		AddProduct: {
 			name: "Product Name",
-			price: "2.90",
+			price: "8.90",
 			description: "Product Description",
 			fk_idCategory: 1,
 		},
 		AddComboProduct: {
 			fk_idCombo: 1,
 			fk_idProduct: 1,
+		},
+		AddProductIngredient: {
+			fk_idProduct: 1,
+			fk_idIngredient: 1,
 		},
 	},
 };

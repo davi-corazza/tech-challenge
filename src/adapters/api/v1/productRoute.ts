@@ -38,18 +38,23 @@ productRoute.put("/update/:id", (req, res) => {
 	productService.updateProduct(req, res);
 });
 
-// productRoute.put("/update/:id", userController.update());
-// productRoute.delete("/delete/:id", userController.delete());
-// productRoute.get("/index/:id", userController.index());
-// productRoute.post("/verifica", userController.verificaCampo());
-
 productRoute.get("/bycategory/:categoryId", (req, res) => {
 	// #swagger.tags = ['Product']
 	productService.getProductByCategory(req, res);
 });
 
-productRoute.post("/association/create", (req, res) => {
+productRoute.post("/ingredient/association/create", (req, res) => {
 	// #swagger.tags = ['Product']
+	// #swagger.tags = ['Product']
+	/* #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    schema: { $ref: '#/definitions/AddProductIngredient' }
+                }
+            }
+        }
+    */
 	productService.createProductIngredientAssociation(req, res);
 });
 
@@ -57,6 +62,5 @@ productRoute.get("/:id/ingredients", (req, res) => {
 	// #swagger.tags = ['Product']
 	productService.getProductIngredients(req, res);
 });
-
 
 export default { routes: productRoute };

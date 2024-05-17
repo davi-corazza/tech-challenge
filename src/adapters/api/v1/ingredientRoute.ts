@@ -28,9 +28,4 @@ ingredientRoute.post("/create", (req, res) => {
 	ingredientService.createIngredient(req, res);
 });
 
-// ingredientRoute.put("/update/:id", userController.update());
-// ingredientRoute.delete("/delete/:id", userController.delete());
-// ingredientRoute.get("/index/:id", userController.index());
-// ingredientRoute.post("/verifica", userController.verificaCampo());
-
 export default { routes: ingredientRoute };

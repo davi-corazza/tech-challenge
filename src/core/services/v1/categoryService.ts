@@ -11,11 +11,10 @@ export default class CategoryService {
 	}
 
 	createCategory(req, res) {
-		const { name } = req.body;
 		return defaultReturnStatement(
 			res,
-			"CategoryCreated",
-			CategoryRepository.create({ name })
+			"Category Created",
+			CategoryRepository.create({ ...req.body })
 		);
 	}
 }

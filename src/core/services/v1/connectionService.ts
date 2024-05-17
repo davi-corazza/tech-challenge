@@ -6,14 +6,16 @@ import { ClientRepository } from "../../../adapters/database/v1/clientRepository
 import { OrderRepository } from "../../../adapters/database/v1/orderRepository";
 import { IngredientRepository } from "../../../adapters/database/v1/ingredientRepository";
 import { CategoryRepository } from "../../../adapters/database/v1/categoryRepository";
+import { ProductIngredientRepository } from "../../../adapters/database/v1/productIngredientRepository";
 
 const initRepository = () => {
 	connection.database.addModels([
 		OrderRepository,
 		ClientRepository,
-		IngredientRepository,
 		CategoryRepository,
 		ProductRepository,
+		IngredientRepository,
+		ProductIngredientRepository,
 		ComboRepository,
 		ComboProductRepository,
 	]);
