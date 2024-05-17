@@ -27,7 +27,6 @@ const doc = {
 		},
 		Ingredient: {
 			name: "Ingredient Name",
-			price: "3.90",
 			description: "Ingredient Description",
 		},
 		Order: {
@@ -40,6 +39,11 @@ const doc = {
 			category: {
 				$ref: "#/definitions/Category",
 			},
+			ingredients: [
+				{
+					$ref: "#/definitions/Ingredient",
+				},
+			],
 		},
 		AddProduct: {
 			name: "Product Name",

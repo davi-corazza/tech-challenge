@@ -20,12 +20,6 @@ export class IngredientRepository extends Model {
 	declare name: string;
 
 	@Column({
-		type: DataType.FLOAT,
-		allowNull: false,
-	})
-	declare price: number;
-
-	@Column({
 		type: DataType.STRING,
 	})
 	declare description: string;
