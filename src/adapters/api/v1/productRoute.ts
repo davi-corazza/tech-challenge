@@ -48,4 +48,15 @@ productRoute.get("/bycategory/:categoryId", (req, res) => {
 	productService.getProductByCategory(req, res);
 });
 
+productRoute.post("/association/create", (req, res) => {
+	// #swagger.tags = ['Combo']
+	productService.createProductIngredientAssociation(req, res);
+});
+
+productRoute.get("/:id/products", (req, res) => {
+	// #swagger.tags = ['Combo']
+	productService.getProductIngredient(req, res);
+});
+
+
 export default { routes: productRoute };
