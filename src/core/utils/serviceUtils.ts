@@ -18,4 +18,13 @@ const defaultReturnStatement = (
 		});
 };
 
-export { defaultReturnStatement };
+const formatObjectResponse = (includedObject, objectName: string) => {
+	let result = [];
+	includedObject.map((object) => {
+		result.push(object[objectName][0]);
+	});
+
+	return result;
+};
+
+export { defaultReturnStatement, formatObjectResponse };

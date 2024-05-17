@@ -1,36 +1,17 @@
+import { defaultReturnStatement } from "../../../core/utils/serviceUtils";
 import { OrderRepository } from "../../../adapters/database/v1/orderRepository";
 
 export default class OrderService {
 	getAll(req, res) {
-		return OrderRepository.findAll()
-			.then((orders) => {
-				res.json({
-					status: 200,
-					orders: orders,
-				});
-			})
-			.catch((err) => {
-				res.json({
-					status: 500,
-					err: err,
-				});
-			});
+		return defaultReturnStatement(res, "Orders", OrderRepository.findAll());
 	}
 
-	async createOrder(req, res) {
+	createOrder(req, res) {
 		const { title, type } = req.body;
-		return await OrderRepository.create({ title, type })
-			.then((result) => {
-				res.json({
-					status: 200,
-					orderCreated: result,
-				});
-			})
-			.catch((err) => {
-				res.json({
-					status: 500,
-					err: err,
-				});
-			});
+		return defaultReturnStatement(
+			res,
+			"OrderCreated",
+			OrderRepository.create({ title, type })
+		);
 	}
 }

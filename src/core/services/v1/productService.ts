@@ -1,55 +1,32 @@
+import { defaultReturnStatement } from "../../../core/utils/serviceUtils";
 import { ProductRepository } from "../../../adapters/database/v1/productRepository";
 
 export default class ProductService {
 	getAll(req, res) {
-		return ProductRepository.findAll()
-			.then((products) => {
-				res.json({
-					status: 200,
-					Products: products,
-				});
-			})
-			.catch((err) => {
-				res.json({
-					status: 500,
-					err: err,
-				});
-			});
+		return defaultReturnStatement(
+			res,
+			"Products",
+			ProductRepository.findAll()
+		);
 	}
 
 	getProductByCategory(req, res) {
 		const categoryId = req.params.categoryId;
-		return ProductRepository.findAll({
-			where: { fk_idCategory: categoryId },
-		})
-			.then((products) => {
-				res.json({
-					status: 200,
-					Products: products,
-				});
+		return defaultReturnStatement(
+			res,
+			"Products",
+			ProductRepository.findAll({
+				where: { fk_idCategory: categoryId },
 			})
-			.catch((err) => {
-				res.json({
-					status: 500,
-					err: err,
-				});
-			});
+		);
 	}
 
-	async createProduct(req, res) {
-		return await ProductRepository.create({ ...req.body })
-			.then((result) => {
-				res.json({
-					status: 200,
-					ProductCreated: result,
-				});
-			})
-			.catch((err) => {
-				res.json({
-					status: 500,
-					err: err,
-				});
-			});
+	createProduct(req, res) {
+		return defaultReturnStatement(
+			res,
+			"ProductCreated",
+			ProductRepository.create({ ...req.body })
+		);
 	}
 	async updateProduct(req, res) {
 		const { id, name, price, description, fk_idCategory } = req.body;

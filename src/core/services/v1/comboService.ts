@@ -1,62 +1,39 @@
+import {
+	defaultReturnStatement,
+	formatObjectResponse,
+} from "../../../core/utils/serviceUtils";
 import { ComboRepository } from "../../../adapters/database/v1/comboRepository";
 import { ComboProductRepository } from "../../../adapters/database/v1/comboProductRepository";
 import { ProductRepository } from "../../../adapters/database/v1/productRepository";
 import { Op } from "sequelize";
+
 export default class ComboService {
 	getAll(req, res) {
-		return ComboRepository.findAll()
-			.then((combo) => {
-				res.json({
-					status: 200,
-					Combo: combo,
-				});
-			})
-			.catch((err) => {
-				res.json({
-					status: 500,
-					err: err,
-				});
-			});
+		return defaultReturnStatement(res, "Combos", ComboRepository.findAll());
 	}
 
-	async createCombo(req, res) {
+	createCombo(req, res) {
 		const { name, discount } = req.body;
-		return await ComboRepository.create({
-			name,
-			discount,
-		})
-			.then((result) => {
-				res.json({
-					status: 200,
-					ComboCreated: result,
-				});
+		return defaultReturnStatement(
+			res,
+			"ComboCreated",
+			ComboRepository.create({
+				name,
+				discount,
 			})
-			.catch((err) => {
-				res.json({
-					status: 500,
-					err: err,
-				});
-			});
+		);
 	}
 
-	async createComboProductAssociation(req, res) {
+	createComboProductAssociation(req, res) {
 		const { fk_idCombo, fk_idProduct } = req.body;
-		return await ComboProductRepository.create({
-			fk_idCombo,
-			fk_idProduct,
-		})
-			.then((result) => {
-				res.json({
-					status: 200,
-					ComboCreated: result,
-				});
+		return defaultReturnStatement(
+			res,
+			"AssociationCreated",
+			ComboProductRepository.create({
+				fk_idCombo,
+				fk_idProduct,
 			})
-			.catch((err) => {
-				res.json({
-					status: 500,
-					err: err,
-				});
-			});
+		);
 	}
 
 	getComboProducts(req, res) {
@@ -78,24 +55,14 @@ export default class ComboService {
 			.then((result) => {
 				res.json({
 					status: 200,
-					Products: this.formatProductResponse(result),
+					Products: formatObjectResponse(result, "product"),
 				});
 			})
 			.catch((err) => {
-				console.log(err);
 				res.json({
 					status: 500,
 					err: err,
 				});
 			});
-	}
-
-	formatProductResponse(products) {
-		let result = [];
-		products.map((product) => {
-			result.push(product["product"][0]);
-		});
-
-		return result;
 	}
 }

@@ -1,41 +1,26 @@
+import { defaultReturnStatement } from "../../../core/utils/serviceUtils";
 import { ClientRepository } from "../../../adapters/database/v1/clientRepository";
 
 export default class ClientService {
 	getAll(req, res) {
-		return ClientRepository.findAll()
-			.then((clients) => {
-				res.json({
-					status: 200,
-					Clients: clients,
-				});
-			})
-			.catch((err) => {
-				res.json({
-					status: 500,
-					err: err,
-				});
-			});
+		return defaultReturnStatement(
+			res,
+			"Costumers",
+			ClientRepository.findAll()
+		);
 	}
 
-	async createClient(req, res) {
+	createClient(req, res) {
 		const { cpf, name, phoneNumer, email } = req.body;
-		return await ClientRepository.create({
-			cpf,
-			name,
-			phoneNumer,
-			email,
-		})
-			.then((result) => {
-				res.json({
-					status: 200,
-					ClientCreated: result,
-				});
+		return defaultReturnStatement(
+			res,
+			"ClientCreated",
+			ClientRepository.create({
+				cpf,
+				name,
+				phoneNumer,
+				email,
 			})
-			.catch((err) => {
-				res.json({
-					status: 500,
-					err: err,
-				});
-			});
+		);
 	}
 }

@@ -39,7 +39,7 @@ productRoute.put("/update/:id", (req, res) => {
 // productRoute.get("/index/:id", userController.index());
 // productRoute.post("/verifica", userController.verificaCampo());
 
-productRoute.get("/category/:categoryId", (req, res) => {
+productRoute.get("/bycategory/:categoryId", (req, res) => {
 	// #swagger.tags = ['Product']
 	productService.getProductByCategory(req, res);
 });
