@@ -49,13 +49,13 @@ productRoute.get("/bycategory/:categoryId", (req, res) => {
 });
 
 productRoute.post("/association/create", (req, res) => {
-	// #swagger.tags = ['Combo']
+	// #swagger.tags = ['Product']
 	productService.createProductIngredientAssociation(req, res);
 });
 
-productRoute.get("/:id/products", (req, res) => {
-	// #swagger.tags = ['Combo']
-	productService.getProductIngredient(req, res);
+productRoute.get("/:id/ingredients", (req, res) => {
+	// #swagger.tags = ['Product']
+	productService.getProductIngredients(req, res);
 });
 
 

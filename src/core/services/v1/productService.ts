@@ -1,5 +1,5 @@
 import { defaultReturnStatement } from "../../../core/utils/serviceUtils";
-import { IngredientRepository } from "src/adapters/database/v1/ingredientRepository";
+import { IngredientRepository } from "../../../adapters/database/v1/ingredientRepository";
 import { ProductRepository } from "../../../adapters/database/v1/productRepository";
 import { ProductIngredientRepository } from "../../../adapters/database/v1/productIngredientRepository";
 import { Op } from "sequelize";
@@ -125,7 +125,7 @@ export default class ProductService {
 				})
 			})
 	}
-	getProductIngredient(req,res) {
+	getProductIngredients(req,res) {
 		const productID = req.params.id;
 		return ProductIngredientRepository.findAll({
 			attributes: [],

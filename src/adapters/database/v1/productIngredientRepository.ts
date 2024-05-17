@@ -27,5 +27,5 @@ export class ProductIngredientRepository extends Model implements ProductIngredi
 	declare product?: NonAttribute<Product[]>;
 
 	@HasMany(() => IngredientRepository, "id")
-	declare combo?: NonAttribute<Ingredient[]>;
+	declare ingredient?: NonAttribute<Ingredient[]>;
 }
