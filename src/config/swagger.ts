@@ -14,7 +14,25 @@ const doc = {
 	],
 	definitions: {
 		Category: {
-			name: "Lanche",
+			name: "Category Name",
+		},
+		Costumer: {
+			cpf: "555.555.555-55",
+			name: "Name of costumer",
+			phoneNumer: "(99) 99999-9999",
+			email: "email@example.com",
+		},
+		Combo: {
+			name: "Combo Name",
+			discount: "10",
+		},
+		Ingredient: {
+			name: "Ingredient Name",
+			price: "3.90",
+			description: "Ingredient Description",
+		},
+		Order: {
+			name: "Order Name",
 		},
 		Product: {
 			name: "Big MC",
@@ -25,10 +43,14 @@ const doc = {
 			},
 		},
 		AddProduct: {
-			name: "Big MC",
-			price: "8.90",
-			description: "Big MC",
+			name: "Product Name",
+			price: "2.90",
+			description: "Product Description",
 			fk_idCategory: 1,
+		},
+		AddComboProduct: {
+			fk_idCombo: 1,
+			fk_idProduct: 1,
 		},
 	},
 };

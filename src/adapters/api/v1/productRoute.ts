@@ -7,6 +7,10 @@ const productService = new ProductService();
 
 productRoute.get("/all", (req, res) => {
 	// #swagger.tags = ['Product']
+	/* #swagger.responses[200] = {
+            description: 'Return all products',
+            schema: { $ref: '#/definitions/Product' }
+    } */
 	productService.getAll(req, res);
 });
 
