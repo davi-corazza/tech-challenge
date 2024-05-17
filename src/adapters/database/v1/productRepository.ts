@@ -1,14 +1,13 @@
 import { Table, Column, DataType, Model } from "sequelize-typescript";
-import Product from "../../../core/models/v1/productModel";
 import { ForeignKey } from "sequelize";
-import Category from "../../../core/models/v1/categoryModel";
+import { CategoryRepository } from "./categoryRepository";
 
 @Table({
 	timestamps: true,
 	tableName: "product",
 	modelName: "Product",
 })
-export class ProductRepository extends Model implements Product {
+export class ProductRepository extends Model {
 	@Column({
 		type: DataType.INTEGER,
 		autoIncrement: true,
@@ -19,7 +18,7 @@ export class ProductRepository extends Model implements Product {
 	@Column({
 		type: DataType.INTEGER,
 	})
-	declare fk_idCategory: ForeignKey<Category["id"]>;
+	declare fk_idCategory: ForeignKey<CategoryRepository["id"]>;
 
 	@Column({
 		type: DataType.STRING,

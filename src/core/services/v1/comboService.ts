@@ -2,21 +2,18 @@ import {
 	defaultReturnStatement,
 	formatObjectResponse,
 } from "../../../core/utils/serviceUtils";
-import { ComboRepository } from "../../../adapters/database/v1/comboRepository";
-import { ComboProductRepository } from "../../../adapters/database/v1/comboProductRepository";
-import { ProductRepository } from "../../../adapters/database/v1/productRepository";
-import { Op } from "sequelize";
+import Combo from "../../../core/models/v1/comboModel";
 
 export default class ComboService {
 	getAll(req, res) {
-		return defaultReturnStatement(res, "Combos", ComboRepository.findAll());
+		return defaultReturnStatement(res, "Combos", Combo.allCombos());
 	}
 
 	createCombo(req, res) {
 		return defaultReturnStatement(
 			res,
 			"Combo Created",
-			ComboRepository.create({ ...req.body })
+			Combo.newCombo({ ...req.body })
 		);
 	}
 
@@ -24,26 +21,13 @@ export default class ComboService {
 		return defaultReturnStatement(
 			res,
 			"Product Association Created",
-			ComboProductRepository.create({ ...req.body })
+			Combo.newProductAssociation({ ...req.body })
 		);
 	}
 
 	getComboProducts(req, res) {
 		const comboID = req.params.id;
-		return ComboProductRepository.findAll({
-			attributes: [],
-			include: [
-				{
-					model: ProductRepository,
-					on: {
-						"$product.id$": {
-							[Op.col]: "ComboProduct.fk_idProduct",
-						},
-					},
-				},
-			],
-			where: { fk_idCombo: comboID },
-		})
+		return Combo.productsOfCombo(comboID)
 			.then((result) => {
 				res.json({
 					status: 200,

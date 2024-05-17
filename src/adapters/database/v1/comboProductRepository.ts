@@ -3,16 +3,12 @@ import { Table, Column, DataType, Model, HasMany } from "sequelize-typescript";
 import { ProductRepository } from "./productRepository";
 import { ComboRepository } from "./comboRepository";
 
-import ComboProduct from "../../../core/models/v1/comboProductModel";
-import Product from "../../../core/models/v1/productModel";
-import Combo from "../../../core/models/v1/comboModel";
-
 @Table({
 	timestamps: true,
 	tableName: "combo_product",
 	modelName: "ComboProduct",
 })
-export class ComboProductRepository extends Model implements ComboProduct {
+export class ComboProductRepository extends Model {
 	@Column({
 		type: DataType.INTEGER,
 	})
@@ -24,8 +20,8 @@ export class ComboProductRepository extends Model implements ComboProduct {
 	declare fk_idProduct: ForeignKey<ProductRepository["id"]>;
 
 	@HasMany(() => ProductRepository, "id")
-	declare product?: NonAttribute<Product[]>;
+	declare product?: NonAttribute<ProductRepository[]>;
 
 	@HasMany(() => ComboRepository, "id")
-	declare combo?: NonAttribute<Combo[]>;
+	declare combo?: NonAttribute<ComboRepository[]>;
 }

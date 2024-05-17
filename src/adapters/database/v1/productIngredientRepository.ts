@@ -3,16 +3,12 @@ import { Table, Column, DataType, Model, HasMany } from "sequelize-typescript";
 import { ProductRepository } from "./productRepository";
 import { IngredientRepository } from "./ingredientRepository";
 
-import ProductIngredient from "../../../core/models/v1/productIngredientModel";
-import Product from "../../../core/models/v1/productModel";
-import Ingredient from "../../../core/models/v1/ingredientModel";
-
 @Table({
 	timestamps: true,
 	tableName: "product_ingredient",
 	modelName: "ProductIngredient",
 })
-export class ProductIngredientRepository extends Model implements ProductIngredient {
+export class ProductIngredientRepository extends Model {
 	@Column({
 		type: DataType.INTEGER,
 	})
@@ -24,8 +20,8 @@ export class ProductIngredientRepository extends Model implements ProductIngredi
 	declare fk_idIngredient: ForeignKey<IngredientRepository["id"]>;
 
 	@HasMany(() => ProductRepository, "id")
-	declare product?: NonAttribute<Product[]>;
+	declare product?: NonAttribute<ProductRepository[]>;
 
 	@HasMany(() => IngredientRepository, "id")
-	declare ingredient?: NonAttribute<Ingredient[]>;
+	declare ingredient?: NonAttribute<IngredientRepository[]>;
 }

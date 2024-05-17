@@ -1,12 +1,12 @@
 import { defaultReturnStatement } from "../../../core/utils/serviceUtils";
-import { CategoryRepository } from "../../../adapters/database/v1/categoryRepository";
+import Category from "../../../core/models/v1/categoryModel";
 
 export default class CategoryService {
 	getAll(req, res) {
 		return defaultReturnStatement(
 			res,
 			"Categories",
-			CategoryRepository.findAll()
+			Category.allCategories()
 		);
 	}
 
@@ -14,7 +14,7 @@ export default class CategoryService {
 		return defaultReturnStatement(
 			res,
 			"Category Created",
-			CategoryRepository.create({ ...req.body })
+			Category.newCategory({ ...req.body })
 		);
 	}
 }

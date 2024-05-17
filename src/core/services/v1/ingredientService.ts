@@ -1,12 +1,12 @@
 import { defaultReturnStatement } from "../../../core/utils/serviceUtils";
-import { IngredientRepository } from "../../../adapters/database/v1/ingredientRepository";
+import Ingredient from "../../../core/models/v1/ingredientModel";
 
 export default class IngredientService {
 	getAll(req, res) {
 		return defaultReturnStatement(
 			res,
 			"Ingredients",
-			IngredientRepository.findAll()
+			Ingredient.allIngredients()
 		);
 	}
 
@@ -14,7 +14,7 @@ export default class IngredientService {
 		return defaultReturnStatement(
 			res,
 			"Ingredient Created",
-			IngredientRepository.create({ ...req.body })
+			Ingredient.newIngredient({ ...req.body })
 		);
 	}
 }

@@ -1,12 +1,11 @@
 import { Table, Column, DataType, Model } from "sequelize-typescript";
-import Client from "../../../core/models/v1/clientModel";
 
 @Table({
 	timestamps: true,
 	tableName: "client",
 	modelName: "Client",
 })
-export class ClientRepository extends Model implements Client {
+export class ClientRepository extends Model {
 	@Column({
 		type: DataType.INTEGER,
 		autoIncrement: true,

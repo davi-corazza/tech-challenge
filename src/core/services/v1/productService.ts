@@ -2,18 +2,11 @@ import {
 	defaultReturnStatement,
 	formatObjectResponse,
 } from "../../../core/utils/serviceUtils";
-import { IngredientRepository } from "../../../adapters/database/v1/ingredientRepository";
-import { ProductRepository } from "../../../adapters/database/v1/productRepository";
-import { ProductIngredientRepository } from "../../../adapters/database/v1/productIngredientRepository";
-import { Op } from "sequelize";
+import Product from "../../../core/models/v1/productModel";
 
 export default class ProductService {
 	getAll(req, res) {
-		return defaultReturnStatement(
-			res,
-			"Products",
-			ProductRepository.findAll()
-		);
+		return defaultReturnStatement(res, "Products", Product.allProducts());
 	}
 
 	getProductByCategory(req, res) {
@@ -21,7 +14,7 @@ export default class ProductService {
 		return defaultReturnStatement(
 			res,
 			"Products",
-			ProductRepository.findAll({
+			Product.allProducts({
 				where: { fk_idCategory: categoryId },
 			})
 		);
@@ -31,7 +24,7 @@ export default class ProductService {
 		return defaultReturnStatement(
 			res,
 			"Product Created",
-			ProductRepository.create({ ...req.body })
+			Product.newProduct({ ...req.body })
 		);
 	}
 
@@ -45,7 +38,7 @@ export default class ProductService {
 		}
 
 		try {
-			const [updatedCount] = await ProductRepository.update(
+			const [updatedCount] = await Product.updateProduct(
 				{
 					name,
 					price,
@@ -76,6 +69,7 @@ export default class ProductService {
 			});
 		}
 	}
+
 	async deleteProduct(req, res) {
 		const { id } = req.params;
 
@@ -87,7 +81,7 @@ export default class ProductService {
 		}
 
 		try {
-			const deletedCount = await ProductRepository.destroy({
+			const deletedCount = await Product.deleteProduct({
 				where: { id },
 			});
 
@@ -114,25 +108,13 @@ export default class ProductService {
 		return defaultReturnStatement(
 			res,
 			"Ingredient Association Created",
-			ProductIngredientRepository.create({ ...req.body })
+			Product.newIngredientAssociation({ ...req.body })
 		);
 	}
+
 	getProductIngredients(req, res) {
 		const productID = req.params.id;
-		return ProductIngredientRepository.findAll({
-			attributes: [],
-			include: [
-				{
-					model: IngredientRepository,
-					on: {
-						"$ingredient.id$": {
-							[Op.col]: "ProductIngredient.fk_idIngredient",
-						},
-					},
-				},
-			],
-			where: { fk_idProduct: productID },
-		})
+		return Product.ingredientsOfCombo(productID)
 			.then((result) => {
 				res.json({
 					status: 200,

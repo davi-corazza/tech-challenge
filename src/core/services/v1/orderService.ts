@@ -1,16 +1,16 @@
 import { defaultReturnStatement } from "../../../core/utils/serviceUtils";
-import { OrderRepository } from "../../../adapters/database/v1/orderRepository";
+import Order from "../../../core/models/v1/orderModel";
 
 export default class OrderService {
 	getAll(req, res) {
-		return defaultReturnStatement(res, "Orders", OrderRepository.findAll());
+		return defaultReturnStatement(res, "Orders", Order.allOrders());
 	}
 
 	createOrder(req, res) {
 		return defaultReturnStatement(
 			res,
 			"Order Created",
-			OrderRepository.create({ ...req.body })
+			Order.newOrder({ ...req.body })
 		);
 	}
 }

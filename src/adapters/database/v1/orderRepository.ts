@@ -1,12 +1,11 @@
 import { Table, Column, DataType, Model } from "sequelize-typescript";
-import Order from "../../../core/models/v1/orderModel";
 
 @Table({
 	timestamps: true,
 	tableName: "orders",
 	modelName: "Order",
 })
-export class OrderRepository extends Model implements Order {
+export class OrderRepository extends Model {
 	@Column({
 		type: DataType.INTEGER,
 		autoIncrement: true,
