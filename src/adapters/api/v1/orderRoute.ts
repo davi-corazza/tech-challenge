@@ -28,4 +28,14 @@ orderRoute.post("/create", (req, res) => {
 	orderService.createOrder(req, res);
 });
 
+orderRoute.delete("/delete/:id", (req, res) => {
+	// #swagger.tags = ['Order']
+	orderService.deleteOrder(req, res);
+});
+
+orderRoute.put("/update/:id", (req, res) => {
+	// #swagger.tags = ['Order']
+	orderService.updateOrder(req, res);
+});
+
 export default { routes: orderRoute };
