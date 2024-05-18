@@ -1,8 +1,10 @@
+import { ForeignKey } from "sequelize";
 import { Table, Column, DataType, Model } from "sequelize-typescript";
+import { CostumerRepository } from "./costumerRepository";
 
 @Table({
 	timestamps: true,
-	tableName: "orders",
+	tableName: "order",
 	modelName: "Order",
 })
 export class OrderRepository extends Model {
@@ -14,14 +16,19 @@ export class OrderRepository extends Model {
 	declare id: number;
 
 	@Column({
-		type: DataType.STRING,
-		allowNull: false,
+		type: DataType.INTEGER,
 	})
-	title: string;
+	declare fk_idCostumer: ForeignKey<CostumerRepository["id"]>;
 
 	@Column({
 		type: DataType.STRING,
 		allowNull: false,
 	})
-	type: string;
+	status: string;
+
+	@Column({
+		type: DataType.FLOAT,
+		allowNull: false,
+	})
+	price: string;
 }

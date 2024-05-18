@@ -30,7 +30,9 @@ const doc = {
 			description: "Ingredient Description",
 		},
 		Order: {
-			name: "Order Name",
+			fk_idCostumer: 1,
+			status: "Initial Status",
+			price: "19.90",
 		},
 		Product: {
 			name: "Product Name",
@@ -50,6 +52,11 @@ const doc = {
 			price: "8.90",
 			description: "Product Description",
 			fk_idCategory: 1,
+		},
+		AddOrder: {
+			fk_idCostumer: 1,
+			status: "Initial Status",
+			price: "19.90",
 		},
 		AddComboProduct: {
 			fk_idCombo: 1,

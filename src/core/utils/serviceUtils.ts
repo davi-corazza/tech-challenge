@@ -1,7 +1,8 @@
 const defaultReturnStatement = (
 	response: any,
 	responseName: string,
-	promise: Promise<any>
+	promise: Promise<any>,
+	errorObject?: any
 ) => {
 	return promise
 		.then((result) => {
@@ -12,10 +13,14 @@ const defaultReturnStatement = (
 		})
 		.catch((err) => {
 			console.error(err);
-			response.json({
-				status: 500,
-				error: err,
-			});
+			response.json(
+				errorObject
+					? errorObject
+					: {
+							status: 500,
+							error: err,
+					  }
+			);
 		});
 };
 
