@@ -7,6 +7,7 @@ import { OrderRepository } from "../../../adapters/database/v1/orderRepository";
 import { IngredientRepository } from "../../../adapters/database/v1/ingredientRepository";
 import { CategoryRepository } from "../../../adapters/database/v1/categoryRepository";
 import { ProductIngredientRepository } from "../../../adapters/database/v1/productIngredientRepository";
+import { PaymentRepository } from "../../../adapters/database/v1/paymentRepository";
 
 const initRepository = () => {
 	connection.database.addModels([
@@ -18,6 +19,7 @@ const initRepository = () => {
 		ProductIngredientRepository,
 		ComboRepository,
 		ComboProductRepository,
+		PaymentRepository
 	]);
 };
 
