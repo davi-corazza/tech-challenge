@@ -17,4 +17,12 @@ export default class CostumerService {
 			Costumer.newCostumer({ ...req.body })
 		);
 	}
+
+	searchCostumer(req, res) {
+		return defaultReturnStatement(
+			res,
+			"Costumer Found",
+			Costumer.searchCostumer(req.params.cpf)
+		);
+	}
 }

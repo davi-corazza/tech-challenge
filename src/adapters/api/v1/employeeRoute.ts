@@ -7,15 +7,14 @@ const employeeService = new EmployeeService();
 
 employeeRoute.get("/all", (req, res) => {
 	// #swagger.tags = ['Employee']
-	/* #swagger.responses[200] = {
-            description: 'Return all employees',
-            schema: { $ref: '#/definitions/Employee' }
-    } */
+	// #swagger.description = 'Get all employees'
 	employeeService.getAll(req, res);
 });
 
 employeeRoute.post("/create", (req, res) => {
 	// #swagger.tags = ['Employee']
+	// #swagger.description = 'Create a new employee'
+	// #swagger.description = 'Create a new employee'
 	/* #swagger.requestBody = {
             required: true,
             description: 'Create Employee',
@@ -29,15 +28,15 @@ employeeRoute.post("/create", (req, res) => {
 	employeeService.createEmployee(req, res);
 });
 
-employeeRoute.get("/find/:cpf", (req, res) => {
+employeeRoute.get("/search/:cpf", (req, res) => {
 	// #swagger.tags = ['Employee']
-	// #swagger.parameters['cpf'] = { description: 'Return employee by cpf' }
+	// #swagger.description = 'Search employee by CPF'
 	employeeService.findEmployee(req, res);
 });
 
 employeeRoute.delete("/delete/:id", (req, res) => {
 	// #swagger.tags = ['Employee']
-	// #swagger.parameters['id'] = { description: 'Delete employee by id' }
+	// #swagger.description = 'Delete employee by ID'
 	employeeService.deleteEmployee(req, res);
 });
 

@@ -7,15 +7,13 @@ const costumerService = new CostumerService();
 
 costumerRoute.get("/all", (req, res) => {
 	// #swagger.tags = ['Costumer']
-	/* #swagger.responses[200] = {
-            description: 'Return all costumers',
-            schema: { $ref: '#/definitions/Costumer' }
-    } */
+	// #swagger.description = 'Get all costumers'
 	costumerService.getAll(req, res);
 });
 
 costumerRoute.post("/create", (req, res) => {
 	// #swagger.tags = ['Costumer']
+	// #swagger.description = 'Create a new costumer'
 	/* #swagger.requestBody = {
             required: true,
             content: {
@@ -27,5 +25,12 @@ costumerRoute.post("/create", (req, res) => {
     */
 	costumerService.createCostumer(req, res);
 });
+
+costumerRoute.get("/search/:cpf", (req, res) => {
+	// #swagger.tags = ['Costumer']
+	// #swagger.description = 'Search costumer by CPF'
+	costumerService.searchCostumer(req, res);
+});
+
 
 export default { routes: costumerRoute };

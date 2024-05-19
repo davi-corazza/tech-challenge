@@ -8,4 +8,8 @@ export default class Costumer {
 	public static newCostumer(values: any): Promise<CostumerRepository> {
 		return CostumerRepository.create(values);
 	}
+
+	public static searchCostumer(cpf: string): Promise<CostumerRepository> {
+		return CostumerRepository.findOne({ where: { cpf } });
+	}
 }
