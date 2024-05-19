@@ -13,6 +13,10 @@ export default class Employee {
 		return EmployeeRepository.findOne({ where: { cpf } });
 	}
 
+	public static updateEmployee(id: number, values: any): Promise<[number, EmployeeRepository[]]> {
+		return EmployeeRepository.update(values, { where: { id } });
+	}
+
 	public static deleteEmployee(id: number): Promise<number> {
 		return EmployeeRepository.destroy({ where: { id } });
 	}

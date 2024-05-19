@@ -34,6 +34,22 @@ employeeRoute.get("/search/:cpf", (req, res) => {
 	employeeService.findEmployee(req, res);
 });
 
+employeeRoute.put("/update/:id", (req, res) => {
+	// #swagger.tags = ['Employee']
+	// #swagger.description = 'Update employee by ID'
+	/* #swagger.requestBody = {
+			required: true,
+			description: 'Update Employee',
+			content: {
+				"application/json": {
+					schema: { $ref: '#/definitions/Employee' }
+				}
+			}
+		}
+	*/
+	employeeService.updateEmployee(req, res);
+});
+
 employeeRoute.delete("/delete/:id", (req, res) => {
 	// #swagger.tags = ['Employee']
 	// #swagger.description = 'Delete employee by ID'

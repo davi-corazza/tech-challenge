@@ -12,4 +12,12 @@ export default class Costumer {
 	public static searchCostumer(cpf: string): Promise<CostumerRepository> {
 		return CostumerRepository.findOne({ where: { cpf } });
 	}
+
+	public static updateCostumer(id: number, values: any): Promise<CostumerRepository> {
+		return CostumerRepository.update(values, { where: { id } });
+	}
+
+	public static deleteCostumer(id: number): Promise<number> {
+		return CostumerRepository.destroy({ where: { id } });
+	}
 }

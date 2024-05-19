@@ -25,4 +25,20 @@ export default class CostumerService {
 			Costumer.searchCostumer(req.params.cpf)
 		);
 	}
+
+	updateCostumer(req, res) {
+		return defaultReturnStatement(
+			res,
+			"Costumer Updated",
+			Costumer.updateCostumer(req.params.id, { ...req.body })
+		);
+	}
+
+	deleteCostumer(req, res) {
+		return defaultReturnStatement(
+			res,
+			"Costumer Deleted",
+			Costumer.deleteCostumer(req.params.id)
+		);
+	}
 }

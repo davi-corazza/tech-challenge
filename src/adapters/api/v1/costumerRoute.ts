@@ -32,5 +32,25 @@ costumerRoute.get("/search/:cpf", (req, res) => {
 	costumerService.searchCostumer(req, res);
 });
 
+costumerRoute.put("/update/:id", (req, res) => {
+	// #swagger.tags = ['Costumer']
+	// #swagger.description = 'Update costumer by ID'
+	/* #swagger.requestBody = {
+			required: true,
+			content: {
+				"application/json": {
+					schema: { $ref: '#/definitions/Costumer' }
+				}
+			}
+		}
+	*/
+	costumerService.updateCostumer(req, res);
+});
+
+costumerRoute.delete("/delete/:id", (req, res) => {
+	// #swagger.tags = ['Costumer']
+	// #swagger.description = 'Delete costumer by ID'
+	costumerService.deleteCostumer(req, res);
+});
 
 export default { routes: costumerRoute };

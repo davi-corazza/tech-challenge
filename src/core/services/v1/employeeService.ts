@@ -27,6 +27,15 @@ export default class EmployeeService {
 		);
 	}
 
+	updateEmployee(req, res) {
+		const { id } = req.params;
+		return defaultReturnStatement(
+			res,
+			"Employee Updated",
+			Employee.updateEmployee(id, { ...req.body })
+		);
+	}
+
 	deleteEmployee(req, res) {
 		const { id } = req.params;
 		return defaultReturnStatement(
