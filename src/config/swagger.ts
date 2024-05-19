@@ -66,6 +66,22 @@ const doc = {
 			fk_idProduct: 1,
 			fk_idIngredient: 1,
 		},
+		Campaign: {
+			name: "Campaign Name",
+			rule: "Campaign Rule",
+			discount: "10",
+			endDate: "2021-10-20",
+		},
+		AddCampaignCostumer: {
+			fk_idCampaign: 1,
+			fk_idCostumer: 1,
+		},
+		Employee: {
+			cpf: "555.555.555-55",
+			name: "Name of employee",
+			username: "employee@employee",
+			password: "E$%0of323!@#",
+		}
 	},
 };
 

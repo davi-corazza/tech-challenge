@@ -6,6 +6,9 @@ import { CostumerRepository } from "../../../adapters/database/v1/costumerReposi
 import { OrderRepository } from "../../../adapters/database/v1/orderRepository";
 import { IngredientRepository } from "../../../adapters/database/v1/ingredientRepository";
 import { CategoryRepository } from "../../../adapters/database/v1/categoryRepository";
+import { CampaignRepository } from "../../../adapters/database/v1/campaignRepository";
+import { CampaignCostumerRepositroy } from "../../../adapters/database/v1/campaignCostumerRepositroy";
+import { EmployeeRepository } from "../../../adapters/database/v1/employeeRepository";
 import { ProductIngredientRepository } from "../../../adapters/database/v1/productIngredientRepository";
 
 const initRepository = () => {
@@ -18,6 +21,9 @@ const initRepository = () => {
 		ProductIngredientRepository,
 		ComboRepository,
 		ComboProductRepository,
+		CampaignRepository,
+		CampaignCostumerRepositroy,
+		EmployeeRepository,
 	]);
 };
 
