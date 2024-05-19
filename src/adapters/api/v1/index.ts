@@ -7,6 +7,7 @@ import { categoryRoute } from "./categoryRoute";
 import { productRoute } from "./productRoute";
 import { campaignRoute } from "./campaignRoute";
 import { employeeRoute } from "./employeeRoute";
+import { paymentRoute } from "./paymentRoute";
 import initRepository from "../../../core/services/v1/connectionService";
 
 export const v1Routes = express.Router();
@@ -21,3 +22,4 @@ v1Routes.use("/category", categoryRoute);
 v1Routes.use("/product", productRoute);
 v1Routes.use("/campaign", campaignRoute);
 v1Routes.use("/employee", employeeRoute);
+v1Routes.use("/payment", paymentRoute);
