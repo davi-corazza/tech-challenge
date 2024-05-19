@@ -1,4 +1,7 @@
-import { defaultReturnStatement } from "../../../core/utils/serviceUtils";
+import {
+	defaultReturnStatement,
+	formatObjectResponse,
+} from "../../../core/utils/serviceUtils";
 import Order from "../../../core/models/v1/orderModel";
 
 export default class OrderService {
@@ -87,5 +90,30 @@ export default class OrderService {
 				err: err,
 			});
 		}
+	}
+
+	createOrderProductAssociation(req, res) {
+		return defaultReturnStatement(
+			res,
+			"Product Association Created",
+			Order.newProductAssociation({ ...req.body })
+		);
+	}
+
+	getOrderProducts(req, res) {
+		const orderID = req.params.id;
+		return Order.productsOfOrder(orderID)
+			.then((result) => {
+				res.json({
+					status: 200,
+					Products: result,
+				});
+			})
+			.catch((err) => {
+				res.json({
+					status: 500,
+					err: err,
+				});
+			});
 	}
 }

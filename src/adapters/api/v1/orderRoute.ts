@@ -38,4 +38,23 @@ orderRoute.put("/update/:id", (req, res) => {
 	orderService.updateOrder(req, res);
 });
 
+orderRoute.post("/product/association/create", (req, res) => {
+	// #swagger.tags = ['Order']
+	/* #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    schema: { $ref: '#/definitions/AddOrderProduct' }
+                }
+            }
+        }
+    */
+	orderService.createOrderProductAssociation(req, res);
+});
+
+orderRoute.get("/:id/products", (req, res) => {
+	// #swagger.tags = ['Order']
+	orderService.getOrderProducts(req, res);
+});
+
 export default { routes: orderRoute };

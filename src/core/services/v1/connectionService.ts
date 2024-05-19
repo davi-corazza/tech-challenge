@@ -11,6 +11,7 @@ import { CampaignCostumerRepositroy } from "../../../adapters/database/v1/campai
 import { EmployeeRepository } from "../../../adapters/database/v1/employeeRepository";
 import { ProductIngredientRepository } from "../../../adapters/database/v1/productIngredientRepository";
 import { PaymentRepository } from "../../../adapters/database/v1/paymentRepository";
+import { OrderProductRepository } from "../../../adapters/database/v1/orderProductRepository";
 
 const initRepository = () => {
 	connection.database.addModels([
@@ -26,6 +27,7 @@ const initRepository = () => {
 		CampaignCostumerRepositroy,
 		EmployeeRepository,
 		PaymentRepository,
+		OrderProductRepository,
 	]);
 };
 

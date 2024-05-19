@@ -62,6 +62,11 @@ const doc = {
 			fk_idCombo: 1,
 			fk_idProduct: 1,
 		},
+		AddOrderProduct: {
+			fk_idOrder: 1,
+			fk_idProduct: 1,
+			observation: "Some Observations",
+		},
 		AddProductIngredient: {
 			fk_idProduct: 1,
 			fk_idIngredient: 1,
@@ -81,7 +86,7 @@ const doc = {
 			name: "Name of employee",
 			username: "employee@employee",
 			password: "E$%0of323!@#",
-		}
+		},
 	},
 };
 
