@@ -25,4 +25,12 @@ export default class CampaignService {
 			Campaign.newCampaignAssociation({ ...req.body })
 		);
 	}
+
+	updateCampaign(req, res) {
+		return defaultReturnStatement(
+			res,
+			"Campaign Updated",
+			Campaign.updateCampaign(req.params.id, { ...req.body })
+		);
+	}
 }

@@ -7,6 +7,7 @@ const campaignService = new CampaignService();
 
 campaignRoute.get("/all", (req, res) => {
 	// #swagger.tags = ['Campaign']
+	// #swagger.description = 'Get all campaigns'
 	/* #swagger.responses[200] = {
             description: 'Return all campaigns',
             schema: { $ref: '#/definitions/Campaign' }
@@ -16,6 +17,7 @@ campaignRoute.get("/all", (req, res) => {
 
 campaignRoute.post("/create", (req, res) => {
 	// #swagger.tags = ['Campaign']
+	// #swagger.description = 'Create a new campaign'
 	/* #swagger.requestBody = {
             required: true,
             content: {
@@ -30,6 +32,7 @@ campaignRoute.post("/create", (req, res) => {
 
 campaignRoute.post("/campaign/association/create", (req, res) => {
 	// #swagger.tags = ['Campaign']
+	// #swagger.description = 'Create a new campaign costumer association'
 	/* #swagger.requestBody = {
 			required: true,
 			content: {
@@ -40,6 +43,21 @@ campaignRoute.post("/campaign/association/create", (req, res) => {
 		}
 	*/
 	campaignService.createCampaignCostumerAssociation(req, res);
+});
+
+campaignRoute.put("/update/:id", (req, res) => {
+	// #swagger.tags = ['Campaign']
+	// #swagger.description = 'Update campaign by ID'
+	/* #swagger.requestBody = {
+			required: true,
+			content: {
+				"application/json": {
+					schema: { $ref: '#/definitions/Campaign' }
+				}
+			}
+		}
+	*/
+	campaignService.updateCampaign(req, res);
 });
 
 export default { routes: campaignRoute };
