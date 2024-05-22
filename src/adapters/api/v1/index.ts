@@ -1,18 +1,18 @@
 import express from "express";
-import { orderRoute } from "./orderRoute";
-import { ingredientRoute } from "./ingredientRoute";
-import { comboRoute } from "./comboRoute";
-import { costumerRoute } from "./costumerRoute";
-import { categoryRoute } from "./categoryRoute";
-import { productRoute } from "./productRoute";
-import { campaignRoute } from "./campaignRoute";
-import { employeeRoute } from "./employeeRoute";
-import { paymentRoute } from "./paymentRoute";
-import initRepository from "../../../core/services/v1/connectionService";
+import initDatabase from "@database/v1";
+import { campaignRoute } from "@api/v1/campaign/campaignRoute";
+import { categoryRoute } from "@api/v1/category/categoryRoute";
+import { comboRoute } from "@api/v1/combo/comboRoute";
+import { costumerRoute } from "@api/v1/costumer/costumerRoute";
+import { employeeRoute } from "@api/v1/employee/employeeRoute";
+import { ingredientRoute } from "@api/v1/ingredient/ingredientRoute";
+import { orderRoute } from "@api/v1/order/orderRoute";
+import { paymentRoute } from "@api/v1/payment/paymentRoute";
+import { productRoute } from "@api/v1/product/productRoute";
 
 export const v1Routes = express.Router();
 
-initRepository();
+initDatabase();
 
 v1Routes.use("/order", orderRoute);
 v1Routes.use("/costumer", costumerRoute);

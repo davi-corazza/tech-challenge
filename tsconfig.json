@@ -1,4 +1,7 @@
 {
+	"ts-node": {
+		"require": ["tsconfig-paths/register"]
+	},
 	"compilerOptions": {
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
@@ -8,8 +11,13 @@
 		"allowJs": true,
 		"target": "es6",
 		"paths": {
-			"@types/*": ["src/@types/*"],
-			"@routes/*": ["src/api/routes/*"]
+			"@api/*": ["src/adapters/api/*"],
+			"@database/*": ["src/adapters/database/*"],
+			"@config/*": ["src/config/*"],
+			"@models/*": ["src/domain/models/*"],
+			"@ports/*": ["src/domain/ports/*"],
+			"@services/*": ["src/domain/services/*"],
+			"@utils/*": ["src/domain/utils/*"]
 		},
 		"baseUrl": "./"
 	}

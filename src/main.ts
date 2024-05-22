@@ -1,6 +1,6 @@
 import http from "http";
-import express from "./config/express";
-import connection from "./config/connectionFactory";
+import express from "@config/express";
+import connection from "@config/connectionFactory";
 
 const server = new http.Server(express());
 
