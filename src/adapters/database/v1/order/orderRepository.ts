@@ -38,7 +38,7 @@ export class OrderRepository implements IOrderRepository {
 					},
 				},
 			],
-			where: { fk_idOrder: id },
+			where: { OrderId: id },
 		});
 	}
 }

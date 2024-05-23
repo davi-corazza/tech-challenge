@@ -30,7 +30,7 @@ export class ComboRepository implements IComboRepository {
 					},
 				},
 			],
-			where: { fk_idCombo: id },
+			where: { ComboId: id },
 		});
 	}
 }

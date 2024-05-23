@@ -43,6 +43,7 @@ export class ComboService implements IComboService {
 				});
 			})
 			.catch((err) => {
+				console.error(err);
 				res.json({
 					status: 500,
 					err: err,

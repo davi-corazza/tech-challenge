@@ -25,4 +25,18 @@ export default () => {
 		ComboProductEntitie,
 		OrderProductEntitie,
 	]);
+
+	ComboEntitie.belongsToMany(ProductEntitie, {
+		through: "ComboProduct",
+	});
+	ProductEntitie.belongsToMany(ComboEntitie, {
+		through: "ComboProduct",
+	});
+
+	OrderEntitie.belongsToMany(ProductEntitie, {
+		through: "OrderProduct",
+	});
+	ProductEntitie.belongsToMany(OrderEntitie, {
+		through: "OrderProduct",
+	});
 };

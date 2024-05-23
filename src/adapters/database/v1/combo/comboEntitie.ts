@@ -1,4 +1,5 @@
 import { Table, Column, DataType, Model } from "sequelize-typescript";
+import { ProductEntitie } from "../product/productEntitie";
 
 @Table({
 	timestamps: true,

@@ -115,6 +115,7 @@ export class OrderService implements IOrderService {
 				});
 			})
 			.catch((err) => {
+				console.error(err);
 				res.json({
 					status: 500,
 					err: err,
