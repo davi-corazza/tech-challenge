@@ -11,8 +11,4 @@ export interface IProductRepository {
 	): Promise<[affectedCount: number]>;
 
 	deleteProduct(params: any): Promise<number>;
-
-	newIngredientAssociation(values: any): Promise<any>;
-
-	ingredientsOfProduct(id: string): Promise<any[]>;
 }

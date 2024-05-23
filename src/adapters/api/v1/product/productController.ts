@@ -22,12 +22,4 @@ export class ProductController {
 	deleteProduct(req, res) {
 		this.productService.deleteProduct(req, res);
 	}
-
-	createProductIngredientAssociation(req, res) {
-		this.productService.createProductIngredientAssociation(req, res);
-	}
-
-	getProductIngredients(req, res) {
-		this.productService.getProductIngredients(req, res);
-	}
 }

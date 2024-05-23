@@ -1,7 +1,4 @@
-import { Op } from "sequelize";
 import { ProductEntitie } from "@database/v1/product/productEntitie";
-import { IngredientEntitie } from "@database/v1/ingredient/ingredientEntitie";
-import { ProductIngredientEntitie } from "@database/v1/product/productIngredientEntitie";
 import { IProductRepository } from "@ports/out/v1/IProductRepository";
 
 export class ProductRepository implements IProductRepository {
@@ -19,26 +16,5 @@ export class ProductRepository implements IProductRepository {
 
 	deleteProduct(params: any): Promise<number> {
 		return ProductEntitie.destroy(params);
-	}
-
-	newIngredientAssociation(values: any): Promise<ProductIngredientEntitie> {
-		return ProductIngredientEntitie.create(values);
-	}
-
-	ingredientsOfProduct(id: string): Promise<ProductIngredientEntitie[]> {
-		return ProductIngredientEntitie.findAll({
-			attributes: [],
-			include: [
-				{
-					model: IngredientEntitie,
-					on: {
-						"$ingredient.id$": {
-							[Op.col]: "ProductIngredient.fk_idIngredient",
-						},
-					},
-				},
-			],
-			where: { fk_idProduct: id },
-		});
 	}
 }

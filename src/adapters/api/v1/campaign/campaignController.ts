@@ -11,8 +11,8 @@ export class CampaignController {
 		this.campaignService.createCampaign(req, res);
 	}
 
-	createCampaignCostumerAssociation(req, res) {
-		this.campaignService.createCampaignCostumerAssociation(req, res);
+	createCampaignCustomerAssociation(req, res) {
+		this.campaignService.createCampaignCustomerAssociation(req, res);
 	}
 
 	updateCampaign(req, res) {

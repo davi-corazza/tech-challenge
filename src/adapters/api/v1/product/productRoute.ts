@@ -46,23 +46,3 @@ productRoute.get("/bycategory/:categoryId", (req, res) => {
 	// #swagger.tags = ['Product']
 	productController.getProductByCategory(req, res);
 });
-
-productRoute.post("/ingredient/association/create", (req, res) => {
-	// #swagger.tags = ['Product']
-	// #swagger.tags = ['Product']
-	/* #swagger.requestBody = {
-            required: true,
-            content: {
-                "application/json": {
-                    schema: { $ref: '#/definitions/AddProductIngredient' }
-                }
-            }
-        }
-    */
-	productController.createProductIngredientAssociation(req, res);
-});
-
-productRoute.get("/:id/ingredients", (req, res) => {
-	// #swagger.tags = ['Product']
-	productController.getProductIngredients(req, res);
-});

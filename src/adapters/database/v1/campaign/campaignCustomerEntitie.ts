@@ -1,14 +1,14 @@
 import { ForeignKey, NonAttribute } from "sequelize";
 import { Table, Column, DataType, Model, HasMany } from "sequelize-typescript";
 import { CampaignEntitie } from "@database/v1/campaign/campaignEntitie";
-import { CostumerEntitie } from "@database/v1/costumer/costumerEntitie";
+import { CustomerEntitie } from "@database/v1/customer/customerEntitie";
 
 @Table({
 	timestamps: true,
-	tableName: "campaign_costumer",
-	modelName: "CampaignCostumer",
+	tableName: "campaign_customer",
+	modelName: "CampaignCustomer",
 })
-export class CampaignCostumerEntitie extends Model {
+export class CampaignCustomerEntitie extends Model {
 	@Column({
 		type: DataType.INTEGER,
 	})
@@ -17,11 +17,11 @@ export class CampaignCostumerEntitie extends Model {
 	@Column({
 		type: DataType.INTEGER,
 	})
-	declare fk_idCostumer: ForeignKey<CostumerEntitie["id"]>;
+	declare fk_idCustomer: ForeignKey<CustomerEntitie["id"]>;
 
 	@HasMany(() => CampaignEntitie, "id")
 	declare campaign?: NonAttribute<CampaignEntitie[]>;
 
-	@HasMany(() => CostumerEntitie, "id")
-	declare costumer?: NonAttribute<CostumerEntitie[]>;
+	@HasMany(() => CustomerEntitie, "id")
+	declare Customer?: NonAttribute<CustomerEntitie[]>;
 }

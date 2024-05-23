@@ -2,10 +2,10 @@ import { Table, Column, DataType, Model } from "sequelize-typescript";
 
 @Table({
 	timestamps: true,
-	tableName: "costumer",
-	modelName: "Costumer",
+	tableName: "customer",
+	modelName: "Customer",
 })
-export class CostumerEntitie extends Model {
+export class CustomerEntitie extends Model {
 	@Column({
 		type: DataType.INTEGER,
 		autoIncrement: true,

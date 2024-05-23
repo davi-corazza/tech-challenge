@@ -22,7 +22,7 @@ export class OrderService implements IOrderService {
 	}
 
 	async updateOrder(req, res) {
-		const { id, fk_idCostumer, status, price } = req.body;
+		const { id, fk_idCustomer, status, price } = req.body;
 		if (!id) {
 			return res.status(400).json({
 				status: 400,
@@ -33,7 +33,7 @@ export class OrderService implements IOrderService {
 		try {
 			const [updatedCount] = await this.orderRepository.updateOrder(
 				{
-					fk_idCostumer,
+					fk_idCustomer,
 					status,
 					price,
 				},

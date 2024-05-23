@@ -110,30 +110,4 @@ export class ProductService implements IProductService {
 			});
 		}
 	}
-
-	createProductIngredientAssociation(req, res) {
-		return defaultReturnStatement(
-			res,
-			"Ingredient Association Created",
-			this.productRepository.newIngredientAssociation({ ...req.body })
-		);
-	}
-
-	getProductIngredients(req, res) {
-		const productID = req.params.id;
-		return this.productRepository
-			.ingredientsOfProduct(productID)
-			.then((result) => {
-				res.json({
-					status: 200,
-					Ingredients: formatObjectResponse(result, "ingredient"),
-				});
-			})
-			.catch((err) => {
-				res.json({
-					status: 500,
-					err: err,
-				});
-			});
-	}
 }

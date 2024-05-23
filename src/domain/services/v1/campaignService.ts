@@ -21,10 +21,10 @@ export class CampaignService implements ICampaignService {
 		);
 	}
 
-	createCampaignCostumerAssociation(req, res) {
+	createCampaignCustomerAssociation(req, res) {
 		return defaultReturnStatement(
 			res,
-			"Costumer Association Created",
+			"Customer Association Created",
 			this.campaignRepository.newCampaignAssociation({ ...req.body })
 		);
 	}

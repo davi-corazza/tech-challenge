@@ -1,5 +1,5 @@
 import { CampaignEntitie } from "@database/v1/campaign/campaignEntitie";
-import { CampaignCostumerEntitie } from "@database/v1/campaign/campaignCostumerEntitie";
+import { CampaignCustomerEntitie } from "@database/v1/campaign/campaignCustomerEntitie";
 import { ICampaignRepository } from "@ports/out/v1/ICampaignRepository";
 
 export class CampaignRepository implements ICampaignRepository {
@@ -11,8 +11,8 @@ export class CampaignRepository implements ICampaignRepository {
 		return CampaignEntitie.create(values);
 	}
 
-	newCampaignAssociation(values: any): Promise<CampaignCostumerEntitie> {
-		return CampaignCostumerEntitie.create(values);
+	newCampaignAssociation(values: any): Promise<CampaignCustomerEntitie> {
+		return CampaignCustomerEntitie.create(values);
 	}
 
 	updateCampaign(id: number, values: any): Promise<[affectedCount: number]> {

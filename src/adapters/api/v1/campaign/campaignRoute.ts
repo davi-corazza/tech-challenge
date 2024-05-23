@@ -36,17 +36,17 @@ campaignRoute.post("/create", (req, res) => {
 
 campaignRoute.post("/campaign/association/create", (req, res) => {
 	// #swagger.tags = ['Campaign']
-	// #swagger.description = 'Create a new campaign costumer association'
+	// #swagger.description = 'Create a new campaign Customer association'
 	/* #swagger.requestBody = {
 			required: true,
 			content: {
 				"application/json": {
-					schema: { $ref: '#/definitions/AddCampaignCostumer' }
+					schema: { $ref: '#/definitions/AddCampaignCustomer' }
 				}
 			}
 		}
 	*/
-	campaignController.createCampaignCostumerAssociation(req, res);
+	campaignController.createCampaignCustomerAssociation(req, res);
 });
 
 campaignRoute.put("/update/:id", (req, res) => {

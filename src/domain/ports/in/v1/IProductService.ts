@@ -8,8 +8,4 @@ export interface IProductService {
 	updateProduct(req, res): Promise<void>;
 
 	deleteProduct(req, res): Promise<void>;
-
-	createProductIngredientAssociation(req, res): Promise<void>;
-
-	getProductIngredients(req, res): Promise<void>;
 }
