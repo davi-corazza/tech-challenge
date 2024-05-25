@@ -55,6 +55,11 @@ const doc = {
 			username: "employee@employee",
 			password: "E$%0of323!@#",
 		},
+		getEmployee: {
+			cpf: "555.555.555-55",
+			name: "Name of employee",
+			username: "employee@employee"
+		},
 		AddProduct: {
 			name: "Product Name",
 			price: "8.90",

@@ -11,7 +11,10 @@ const customerController = new CustomerController(customerService);
 
 customerRoute.get("/all", (req, res) => {
 	// #swagger.tags = ['Customer']
-	// #swagger.description = 'Get all customers'
+	/* #swagger.responses[200] = {
+            description: 'Return all customer',
+            schema: { $ref: '#/definitions/Customer' }
+    } */
 	customerController.getAll(req, res);
 });
 
@@ -22,7 +25,7 @@ customerRoute.post("/create", (req, res) => {
             required: true,
             content: {
                 "application/json": {
-                    schema: { $ref: '#/definitions/customer' }
+                    schema: { $ref: '#/definitions/Customer' }
                 }
             }
         }
@@ -32,7 +35,10 @@ customerRoute.post("/create", (req, res) => {
 
 customerRoute.get("/search/:cpf", (req, res) => {
 	// #swagger.tags = ['Customer']
-	// #swagger.description = 'Search customer by CPF'
+	/* #swagger.responses[200] = {
+            description: 'Search customer by CPF',
+            schema: { $ref: '#/definitions/Customer' }
+    } */
 	customerController.searchCustomer(req, res);
 });
 
@@ -43,7 +49,7 @@ customerRoute.put("/update/:id", (req, res) => {
 			required: true,
 			content: {
 				"application/json": {
-					schema: { $ref: '#/definitions/customer' }
+					schema: { $ref: '#/definitions/Customer' }
 				}
 			}
 		}

@@ -11,4 +11,6 @@ export interface ICampaignRepository {
 		id: number,
 		campaign: Campaign
 	): Promise<[affectedCount: number]>;
+
+	customersOfCampaign(id: string): Promise<any[]>;
 }

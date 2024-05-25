@@ -18,4 +18,8 @@ export class CampaignController {
 	updateCampaign(req, res) {
 		this.campaignService.updateCampaign(req, res);
 	}
+
+	getCampaignCustomers(req, res) {
+		this.campaignService.getCampaignCustomers(req, res);
+	}
 }
