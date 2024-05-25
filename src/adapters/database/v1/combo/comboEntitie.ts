@@ -1,5 +1,4 @@
-import { Table, Column, DataType, Model } from "sequelize-typescript";
-import { ProductEntitie } from "../product/productEntitie";
+import { Table, Column, DataType, Model, HasMany } from "sequelize-typescript";
 
 @Table({
 	timestamps: true,
@@ -24,4 +23,7 @@ export class ComboEntitie extends Model {
 		type: DataType.FLOAT,
 	})
 	declare discount: number;
+	
 }
+
+

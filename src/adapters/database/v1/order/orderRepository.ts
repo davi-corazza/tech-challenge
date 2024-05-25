@@ -35,10 +35,18 @@ export class OrderRepository implements IOrderRepository {
 						"$product.id$": {
 							[Op.col]: "OrderProduct.fk_idProduct",
 						},
-					},
+					},					
 				},
+				{
+					model: OrderEntitie,
+					on: {
+						"$order.id$": {
+							[Op.col]: "OrderProduct.fk_idOrder",
+						},
+					},
+				}
 			],
-			where: { OrderId: id },
+			where: { fk_idOrder: id },
 		});
 	}
 }

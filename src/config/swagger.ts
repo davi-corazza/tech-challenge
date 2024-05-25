@@ -67,12 +67,12 @@ const doc = {
 			price: "19.90",
 		},
 		AddComboProduct: {
-			ComboId: 1,
-			ProductId: 1,
+			fk_idCombo: 1,
+			fk_idProduct: 1,
 		},
 		AddOrderProduct: {
-			OrderId: 1,
-			ProductId: 1,
+			fk_idOrder: 1,
+			fk_idProduct: 1,
 			observation: "Some Observations",
 		},
 		AddCampaignCustomer: {
