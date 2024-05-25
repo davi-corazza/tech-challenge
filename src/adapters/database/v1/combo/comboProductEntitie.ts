@@ -1,7 +1,7 @@
 import { Table, Model, Column, DataType, HasMany, BelongsTo, BelongsToMany} from "sequelize-typescript";
 import { ComboEntitie } from "./comboEntitie";
-import { ForeignKey, NonAttribute, HasManyRemoveAssociationMixin } from "sequelize";
-import { ProductEntitie } from "../product/productEntitie";
+import { ForeignKey, NonAttribute } from "sequelize";
+import { ProductEntitie } from "@database/v1/product/productEntitie";
 
 @Table({
 	timestamps: true,

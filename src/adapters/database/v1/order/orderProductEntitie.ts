@@ -1,8 +1,8 @@
 import { ForeignKey, NonAttribute } from "sequelize";
 import { Table, Column, DataType, Model, HasMany } from "sequelize-typescript";
-import { OrderEntitie } from "./orderEntitie";
-import { ProductEntitie } from "../product/productEntitie";
-import { ComboEntitie } from "../combo/comboEntitie";
+import { OrderEntitie } from "@database/v1/order/orderEntitie";
+import { ProductEntitie } from "@database/v1/product/productEntitie";
+import { ComboEntitie } from "@database/v1/combo/comboEntitie";
 @Table({
 	timestamps: true,
 	tableName: "order_product",
