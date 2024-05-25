@@ -8,4 +8,6 @@ export interface ICustomerService {
 	updateCustomer(req, res): Promise<void>;
 
 	deleteCustomer(req, res): Promise<void>;
+
+	getCustomerCampaigns(req, res): Promise<void>;
 }

@@ -1,5 +1,8 @@
 import { ICustomerRepository } from "@ports/out/v1/ICustomerRepository";
 import { CustomerEntitie } from "@database/v1/customer/customerEntitie";
+import { CampaignCustomerEntitie } from "@database/v1/campaign/campaignCustomerEntitie";
+import { CampaignEntitie } from "@database/v1/campaign/campaignEntitie";
+import { Op } from "sequelize";
 
 export class CustomerRepository implements ICustomerRepository {
 	allCustomers(): Promise<CustomerEntitie[]> {
@@ -20,5 +23,30 @@ export class CustomerRepository implements ICustomerRepository {
 
 	deleteCustomer(id: number): Promise<number> {
 		return CustomerEntitie.destroy({ where: { id } });
+	}
+
+	campaignOfCustomers(id: string): Promise<CampaignCustomerEntitie[]> {
+		return CampaignCustomerEntitie.findAll({
+			where: { fk_idCustomer: id },
+			include:[
+				{
+					model:CampaignEntitie,
+					on: {
+						"$campaign.id$": {
+							[Op.col]: "CampaignCustomer.fk_idCampaign",
+						},
+					},
+				},
+				{
+					model:CustomerEntitie,
+					on: {
+						"$customer.id$": {
+							[Op.col]: "CampaignCustomer.fk_idCustomer",
+						},
+					},
+					
+				}
+			]
+		});
 	}
 }

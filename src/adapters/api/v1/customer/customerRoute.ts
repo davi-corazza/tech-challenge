@@ -62,3 +62,8 @@ customerRoute.delete("/delete/:id", (req, res) => {
 	// #swagger.description = 'Delete customer by ID'
 	customerController.deleteCustomer(req, res);
 });
+
+customerRoute.get("/:id/campaigns", (req, res) => {
+	// #swagger.tags = ['Customer']
+	customerController.getCustomerCampaigns(req, res);
+});

@@ -22,4 +22,8 @@ export class CustomerController {
 	deleteCustomer(req, res) {
 		this.customerService.deleteCustomer(req, res);
 	}
+
+	getCustomerCampaigns(req, res) {
+		this.customerService.getCustomerCampaigns(req, res);
+	}
 }
