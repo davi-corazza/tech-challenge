@@ -42,7 +42,9 @@ export class CampaignRepository implements ICampaignRepository {
 					},
 					
 				}
-			]
+			],
+			order: [['id', 'DESC']],			
+			limit : 1,
 		});
 	}
 }
