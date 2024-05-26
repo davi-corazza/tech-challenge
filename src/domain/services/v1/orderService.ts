@@ -7,10 +7,13 @@ import { IComboService } from "@ports/in/v1/IComboService";
 import { IComboRepository } from "@ports/out/v1/IComboRepository";
 
 export class OrderService implements IOrderService {
-	constructor(private readonly orderRepository: IOrderRepository, private readonly customerRepository: ICustomerRepository, private readonly comboRepository: IComboRepository) {}
-	
+	constructor(
+		private readonly orderRepository: IOrderRepository,
+		private readonly customerRepository: ICustomerRepository,
+		private readonly comboRepository: IComboRepository
+	) {}
 
-	getAll(req, res) {			
+	getAll(req, res) {
 		return defaultReturnStatement(
 			res,
 			"Orders",
@@ -18,9 +21,9 @@ export class OrderService implements IOrderService {
 		);
 	}
 
-	getOrderById(req, res) {		
-		const orderId = req.params.Id;	
-		console.log(orderId)
+	getOrderById(req, res) {
+		const orderId = req.params.Id;
+		console.log(orderId);
 		return defaultReturnStatement(
 			res,
 			"Orders",
@@ -31,17 +34,20 @@ export class OrderService implements IOrderService {
 	}
 
 	async createOrder(req, res) {
-		let fk_idCampaign = "";
+		let fk_idCampaign = null;
 		const { fk_idCustomer } = req.body;
 
-
 		if (fk_idCustomer != null) {
-			await this.customerRepository.campaignOfCustomers(fk_idCustomer).then((campaign:any) => {		
-				const resultCampaign = campaign[0];				
-				fk_idCampaign = resultCampaign['fk_idCampaign'];
-			})			
+			await this.customerRepository
+				.campaignOfCustomers(fk_idCustomer)
+				.then((campaign: any) => {
+					const resultCampaign = campaign[0];
+					if (resultCampaign) {
+						fk_idCampaign = resultCampaign["fk_idCampaign"];
+					}
+				});
 		}
-				
+
 		return defaultReturnStatement(
 			res,
 			"Order Created",
@@ -125,8 +131,8 @@ export class OrderService implements IOrderService {
 	}
 
 	async createOrderProductAssociation(req, res) {
-		const { fk_idOrder, combos, products, observation } = req.body;		
-		
+		const { fk_idOrder, combos, products, observation } = req.body;
+
 		if (!fk_idOrder) {
 			return res.status(400).json({
 				status: 400,
@@ -140,48 +146,63 @@ export class OrderService implements IOrderService {
 				message: "No products registered in the order",
 			});
 		}
-		
-		this.orderRepository.getOrderById({where: { id: fk_idOrder }}).then((resultOrder:any) => {
-			if (!resultOrder || resultOrder.length == 0) {
-				return res.json({
-					status: 400,
-					message: 'Order not found',
-				}); 						
-			}
-			if (combos != null) {
-				let fk_idCombo = "";
-				combos.forEach(combo => {
-					Object.entries(combo).forEach(([key, value]) => {
-						fk_idCombo = combo[key];
-						this.comboRepository.productsOfCombo(combo[key]).then((resultProducts:any) => {						
-							resultProducts.forEach(result => {
-								Object.entries(result).forEach(([key, value]) => {
-									let fk_idProduct = result[key]['fk_idProduct']								
-									if (fk_idProduct != null) {									
-										this.orderRepository.newProductAssociation({ fk_idOrder, fk_idCombo, fk_idProduct, observation })									
-									}
-								});
-							});
 
-						})					
+		this.orderRepository
+			.getOrderById({ where: { id: fk_idOrder } })
+			.then((resultOrder: any) => {
+				if (!resultOrder || resultOrder.length == 0) {
+					return res.json({
+						status: 400,
+						message: "Order not found",
 					});
-					
-				});	
-			}
-			if (products != null) {	
-				products.forEach(product => {
-					Object.entries(product).forEach(([key, value]) => {
-						let fk_idProduct = product['fk_idProduct']
-						this.orderRepository.newProductAssociation({ fk_idOrder, fk_idProduct, observation })
-					});				
+				}
+				if (combos != null) {
+					let fk_idCombo = "";
+					combos.forEach((combo) => {
+						Object.entries(combo).forEach(([key, value]) => {
+							fk_idCombo = combo[key];
+							this.comboRepository
+								.productsOfCombo(combo[key])
+								.then((resultProducts: any) => {
+									resultProducts.forEach((result) => {
+										Object.entries(result).forEach(
+											([key, value]) => {
+												let fk_idProduct =
+													result[key]["fk_idProduct"];
+												if (fk_idProduct != null) {
+													this.orderRepository.newProductAssociation(
+														{
+															fk_idOrder,
+															fk_idCombo,
+															fk_idProduct,
+															observation,
+														}
+													);
+												}
+											}
+										);
+									});
+								});
+						});
+					});
+				}
+				if (products != null) {
+					products.forEach((product) => {
+						Object.entries(product).forEach(([key, value]) => {
+							let fk_idProduct = product["fk_idProduct"];
+							this.orderRepository.newProductAssociation({
+								fk_idOrder,
+								fk_idProduct,
+								observation,
+							});
+						});
+					});
+				}
+				return res.json({
+					status: 200,
+					message: "Product Association Created",
 				});
-								
-			}
-			return res.json({
-				status: 200,
-				message: "Product Association Created",
 			});
-		});		
 	}
 
 	getOrderProducts(req, res) {
@@ -199,6 +220,41 @@ export class OrderService implements IOrderService {
 				res.json({
 					status: 500,
 					err: err,
+				});
+			});
+	}
+
+	getOrderByStatus(req, res) {
+		const orderStatus = req.params.status;
+
+		return this.orderRepository
+			.allOrders({
+				where: { status: orderStatus },
+				order: [["updatedAt", "ASC"]],
+			})
+			.then((result) => {
+				let newResult = [];
+				result.map((order) => {
+					let timeValue =
+						new Date().getMinutes() -
+						new Date(order["updatedAt"]).getMinutes();
+
+					newResult.push({
+						id: order.id,
+						status: order.status,
+						timeQueue: `${timeValue} Minutes`,
+					});
+				});
+
+				res.json({
+					status: 200,
+					result: newResult,
+				});
+			})
+			.catch((err) => {
+				res.json({
+					status: 500,
+					error: err,
 				});
 			});
 	}

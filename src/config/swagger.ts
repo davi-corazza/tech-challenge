@@ -27,7 +27,7 @@ const doc = {
 		},
 		Order: {
 			fk_idCustomer: 1,
-			status: "Initial Status",
+			status: "Created",
 			price: "19.90",
 		},
 		Product: {
@@ -58,7 +58,7 @@ const doc = {
 		getEmployee: {
 			cpf: "555.555.555-55",
 			name: "Name of employee",
-			username: "employee@employee"
+			username: "employee@employee",
 		},
 		AddProduct: {
 			name: "Product Name",
@@ -75,10 +75,10 @@ const doc = {
 			fk_idCombo: 1,
 			fk_idProduct: 1,
 		},
-		AddOrderProduct: {	
-			fk_idOrder: 1,		
-			combos:[{"fk_idCombo":1}],
-  			products:[{"fk_idProduct":2},{"fk_idProduct":2}],
+		AddOrderProduct: {
+			fk_idOrder: 1,
+			combos: [{ fk_idCombo: 1 }],
+			products: [{ fk_idProduct: 2 }, { fk_idProduct: 2 }],
 			observation: "Some Observations",
 		},
 		AddCampaignCustomer: {

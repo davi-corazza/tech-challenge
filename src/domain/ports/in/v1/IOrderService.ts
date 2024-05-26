@@ -1,6 +1,6 @@
 export interface IOrderService {
 	getAll(req, res): Promise<void>;
-	
+
 	getOrderById(req, res): Promise<void>;
 
 	createOrder(req, res): Promise<void>;
@@ -12,4 +12,6 @@ export interface IOrderService {
 	createOrderProductAssociation(req, res): Promise<void>;
 
 	getOrderProducts(req, res): Promise<void>;
+
+	getOrderByStatus(req, res): Promise<void>;
 }

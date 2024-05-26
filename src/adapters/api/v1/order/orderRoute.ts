@@ -10,7 +10,11 @@ export const orderRoute = Router();
 const orderRepository = new OrderRepository();
 const customerRepository = new CustomerRepository();
 const comboRepository = new ComboRepository();
-const orderService = new OrderService(orderRepository, customerRepository, comboRepository);
+const orderService = new OrderService(
+	orderRepository,
+	customerRepository,
+	comboRepository
+);
 const orderController = new OrderController(orderService);
 
 orderRoute.get("/all", (req, res) => {
@@ -48,6 +52,15 @@ orderRoute.delete("/delete/:id", (req, res) => {
 
 orderRoute.put("/update/:id", (req, res) => {
 	// #swagger.tags = ['Order']
+	/* #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    schema: { $ref: '#/definitions/Order' }
+                }
+            }
+        }
+    */
 	orderController.updateOrder(req, res);
 });
 
@@ -68,4 +81,16 @@ orderRoute.post("/product/association/create", (req, res) => {
 orderRoute.get("/:id/products", (req, res) => {
 	// #swagger.tags = ['Order']
 	orderController.getOrderProducts(req, res);
+});
+
+orderRoute.get("/orderByStatus/:status", (req, res) => {
+	// #swagger.tags = ['Queue']
+	/* #swagger.parameters['status'] = {
+        in: 'path',
+        description: 'Status of the order',
+        required: true,
+        type: 'string',
+        schema: 'Recebido'
+	} */
+	orderController.getOrderByStatus(req, res);
 });
