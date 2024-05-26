@@ -40,12 +40,12 @@ paymentRoute.delete("/delete/:id", (req, res) => {
 });
 
 paymentRoute.put("/update/:id", (req, res) => {
-	// #swagger.tags = ['Payment']
+	// #swagger.tags = ['FakeCheckout']
 	/* #swagger.requestBody = {
             required: true,
             content: {
                 "application/json": {
-                    schema: { $ref: '#/definitions/Payment' }
+                    schema: { $ref: '#/definitions/FakeCheckout' }
                 }
             }
         }

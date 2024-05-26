@@ -35,5 +35,5 @@ export class PaymentEntitie extends Model {
 		type: DataType.INTEGER,
 		allowNull: false,
 	})
-	fk_orderID: number;
+	fk_idOrder: number;
 }

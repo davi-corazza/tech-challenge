@@ -3,5 +3,5 @@ export class Payment {
 	paymentMethod: string;
 	paymentCode: string;
 	status:string;
-	fk_orderID: number
+	fk_idOrder: number
 }

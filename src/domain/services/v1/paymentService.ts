@@ -28,7 +28,7 @@ export class PaymentService implements IPaymentService {
 
 	async updatePayment(req, res) {
 		const { id } = req.params;
-		const orderId = req.body.fk_orderID;
+		const idOrder = req.body.fk_idOrder;
 		if (!id) {
 			return res.status(400).json({
 				status: 400,
@@ -52,14 +52,14 @@ export class PaymentService implements IPaymentService {
 				}
 
 				this.orderRepository
-					.getOrderById({ where: { id: orderId } })
+					.getOrderById({ where: { id: idOrder } })
 					.then((orderData) => {
 						let orderUpdated = new Order(orderData);
 						orderUpdated.status = "Recebido";
 
 						this.orderRepository
 							.updateOrder(orderUpdated, {
-								where: { id: orderId },
+								where: { id: idOrder },
 							})
 							.then((finalResult) => {
 								console.log(finalResult);
@@ -70,9 +70,21 @@ export class PaymentService implements IPaymentService {
 								});
 							});
 					})
-					.catch((err) => {});
+					.catch((err) => {
+						res.status(500).json({
+							status: 500,
+							message: "Error updating order",
+							err: err
+						})
+					});
 			})
-			.catch((err) => {});
+			.catch((err) => {
+				res.status(500).json({
+					status: 500,
+					message: "Error updating order",
+					err: err
+				})
+			});
 	}
 
 	async deletePayment(req, res) {

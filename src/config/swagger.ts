@@ -56,10 +56,16 @@ const doc = {
 			password: "E$%0of323!@#",
 		},
 		Payment: {
-			paymentMethod: "Card",
+			paymentMethod: "MercadoPago",
 			paymentCode: "sdofjsiodj",
 			status: "toPay",
-			fk_orderID: 1,
+			fk_idOrder: 1,
+		},
+		FakeCheckout: {
+			paymentMethod: "MercadoPago",
+			paymentCode: "sdofjsiodj",
+			status: "PAID",
+			fk_idOrder: 1,
 		},
 		getEmployee: {
 			cpf: "555.555.555-55",
