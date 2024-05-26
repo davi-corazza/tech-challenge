@@ -6,4 +6,6 @@ export interface ICampaignService {
 	createCampaignCustomerAssociation(req, res): Promise<void>;
 
 	updateCampaign(req, res): Promise<void>;
+
+	getCampaignCustomers(req, res): Promise<void>;
 }

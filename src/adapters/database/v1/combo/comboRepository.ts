@@ -5,6 +5,7 @@ import { ComboProductEntitie } from "@database/v1/combo/comboProductEntitie";
 import { IComboRepository } from "@ports/out/v1/IComboRepository";
 
 export class ComboRepository implements IComboRepository {
+	
 	allCombos(): Promise<ComboEntitie[]> {
 		return ComboEntitie.findAll();
 	}
@@ -19,18 +20,26 @@ export class ComboRepository implements IComboRepository {
 
 	productsOfCombo(id: string): Promise<ComboProductEntitie[]> {
 		return ComboProductEntitie.findAll({
-			attributes: [],
-			include: [
+			where: { fk_idCombo: id },
+			include:[
 				{
-					model: ProductEntitie,
+					model:ComboEntitie,
+					on: {
+						"$combo.id$": {
+							[Op.col]: "ComboProduct.fk_idCombo",
+						},
+					},
+				},
+				{
+					model:ProductEntitie,
 					on: {
 						"$product.id$": {
 							[Op.col]: "ComboProduct.fk_idProduct",
 						},
 					},
-				},
-			],
-			where: { ComboId: id },
+					
+				}
+			]
 		});
 	}
 }

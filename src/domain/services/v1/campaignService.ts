@@ -1,5 +1,5 @@
 import { ICampaignService } from "@ports/in/v1/ICampaignService";
-import { defaultReturnStatement } from "@utils/serviceUtils";
+import { defaultReturnStatement, formatObjectResponse } from "@utils/serviceUtils";
 import { ICampaignRepository } from "@ports/out/v1/ICampaignRepository";
 
 export class CampaignService implements ICampaignService {
@@ -37,5 +37,24 @@ export class CampaignService implements ICampaignService {
 				...req.body,
 			})
 		);
+	}
+
+	getCampaignCustomers(req, res) {
+		const campaignID = req.params.id;
+		return this.campaignRepository
+			.customersOfCampaign(campaignID)
+			.then((result) => {
+				res.json({
+					status: 200,
+					Products: formatObjectResponse(result, "customer"),
+				});
+			})
+			.catch((err) => {
+				console.error(err);
+				res.json({
+					status: 500,
+					err: err,
+				});
+			});
 	}
 }

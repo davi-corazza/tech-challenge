@@ -5,8 +5,12 @@ import { OrderEntitie } from "@database/v1/order/orderEntitie";
 import { IOrderRepository } from "@ports/out/v1/IOrderRepository";
 
 export class OrderRepository implements IOrderRepository {
-	allOrders(): Promise<OrderEntitie[]> {
-		return OrderEntitie.findAll();
+	allOrders(params?: any): Promise<OrderEntitie[]> {
+		return OrderEntitie.findAll(params);
+	}
+
+	getOrderById(params?: any): Promise<OrderEntitie[]> {
+		return OrderEntitie.findAll(params);
 	}
 
 	newOrder(values: any): Promise<OrderEntitie> {
@@ -37,8 +41,16 @@ export class OrderRepository implements IOrderRepository {
 						},
 					},
 				},
+				{
+					model: OrderEntitie,
+					on: {
+						"$order.id$": {
+							[Op.col]: "OrderProduct.fk_idOrder",
+						},
+					},
+				},
 			],
-			where: { OrderId: id },
+			where: { fk_idOrder: id },
 		});
 	}
 

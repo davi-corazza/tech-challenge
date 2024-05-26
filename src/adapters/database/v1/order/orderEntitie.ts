@@ -1,6 +1,7 @@
 import { ForeignKey } from "sequelize";
 import { Table, Column, DataType, Model } from "sequelize-typescript";
 import { CustomerEntitie } from "@database/v1/customer/customerEntitie";
+import { CampaignEntitie } from "@database/v1/campaign/campaignEntitie";
 
 @Table({
 	timestamps: true,
@@ -19,6 +20,11 @@ export class OrderEntitie extends Model {
 		type: DataType.INTEGER,
 	})
 	declare fk_idCustomer: ForeignKey<CustomerEntitie["id"]>;
+
+	@Column({
+		type: DataType.INTEGER,
+	})
+	declare fk_idCampaign: ForeignKey<CampaignEntitie["id"]>;
 
 	@Column({
 		type: DataType.STRING,

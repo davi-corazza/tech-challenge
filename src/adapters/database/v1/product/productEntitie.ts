@@ -1,4 +1,4 @@
-import { Table, Column, DataType, Model } from "sequelize-typescript";
+import { Table, Column, DataType, Model, HasMany } from "sequelize-typescript";
 import { ForeignKey } from "sequelize";
 import { CategoryEntitie } from "@database/v1/category/categoryEntitie";
 
@@ -37,4 +37,6 @@ export class ProductEntitie extends Model {
 		allowNull: false,
 	})
 	price: number;
+
+	
 }

@@ -1,7 +1,9 @@
 import { Order } from "@models/v1/Order";
 
 export interface IOrderRepository {
-	allOrders(): Promise<Order[]>;
+	allOrders(params?): Promise<Order[]>;
+
+	getOrderById(condition?: any): Promise<Order[]>;
 
 	newOrder(Order: Order): Promise<Order>;
 

@@ -63,3 +63,8 @@ campaignRoute.put("/update/:id", (req, res) => {
 	*/
 	campaignController.updateCampaign(req, res);
 });
+
+campaignRoute.get("/:id/customers", (req, res) => {
+	// #swagger.tags = ['Campaign']
+	campaignController.getCampaignCustomers(req, res);
+});

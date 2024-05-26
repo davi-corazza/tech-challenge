@@ -19,9 +19,14 @@ export class CampaignCustomerEntitie extends Model {
 	})
 	declare fk_idCustomer: ForeignKey<CustomerEntitie["id"]>;
 
-	@HasMany(() => CampaignEntitie, "id")
+	@HasMany(() => CampaignEntitie, {
+		foreignKey: 'fk_idCampaign',			
+	})	
 	declare campaign?: NonAttribute<CampaignEntitie[]>;
-
-	@HasMany(() => CustomerEntitie, "id")
-	declare Customer?: NonAttribute<CustomerEntitie[]>;
+	
+	@HasMany(() => CustomerEntitie, {
+		foreignKey: 'fk_idCustomer',			
+	})	
+	declare customer?: NonAttribute<CustomerEntitie[]>;
+	
 }

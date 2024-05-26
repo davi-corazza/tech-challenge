@@ -7,6 +7,10 @@ export class OrderController {
 		this.orderService.getAll(req, res);
 	}
 
+	getOrderById(req, res) {
+		this.orderService.getOrderById(req, res);
+	}
+
 	createOrder(req, res) {
 		this.orderService.createOrder(req, res);
 	}
@@ -25,5 +29,9 @@ export class OrderController {
 
 	getOrderProducts(req, res) {
 		this.orderService.getOrderProducts(req, res);
+	}
+
+	getOrderByStatus(req, res) {
+		this.orderService.getOrderByStatus(req, res);
 	}
 }

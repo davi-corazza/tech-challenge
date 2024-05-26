@@ -11,7 +11,10 @@ const employeeController = new EmployeeController(employeeService);
 
 employeeRoute.get("/all", (req, res) => {
 	// #swagger.tags = ['Employee']
-	// #swagger.description = 'Get all employees'
+	/* #swagger.responses[200] = {
+            description: 'Return all employee',
+            schema: { $ref: '#/definitions/getEmployee' }
+    } */
 	employeeController.getAll(req, res);
 });
 
@@ -33,7 +36,10 @@ employeeRoute.post("/create", (req, res) => {
 
 employeeRoute.get("/search/:cpf", (req, res) => {
 	// #swagger.tags = ['Employee']
-	// #swagger.description = 'Search employee by CPF'
+	/* #swagger.responses[200] = {
+            description: 'Search employee by CPF',
+            schema: { $ref: '#/definitions/getEmployee' }
+    } */	
 	employeeController.findEmployee(req, res);
 });
 

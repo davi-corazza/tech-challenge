@@ -27,7 +27,7 @@ const doc = {
 		},
 		Order: {
 			fk_idCustomer: 1,
-			status: "Initial Status",
+			status: "Created",
 			price: "19.90",
 		},
 		Product: {
@@ -55,15 +55,20 @@ const doc = {
 			username: "employee@employee",
 			password: "E$%0of323!@#",
 		},
-		Payment:{
-			"id": 1,
-			"paymentMethod": "Card",
-			"paymentCode": "sdofjsiodj",
-			"status": "toPay",
-			"fk_orderID": 1,
-			"updatedAt": "2024-05-26T20:23:57.535Z",
-			"createdAt": "2024-05-26T20:23:57.535Z"
-		  },
+		Payment: {
+			id: 1,
+			paymentMethod: "Card",
+			paymentCode: "sdofjsiodj",
+			status: "toPay",
+			fk_orderID: 1,
+			updatedAt: "2024-05-26T20:23:57.535Z",
+			createdAt: "2024-05-26T20:23:57.535Z",
+		},
+		getEmployee: {
+			cpf: "555.555.555-55",
+			name: "Name of employee",
+			username: "employee@employee",
+		},
 		AddProduct: {
 			name: "Product Name",
 			price: "8.90",
@@ -76,12 +81,13 @@ const doc = {
 			price: "19.90",
 		},
 		AddComboProduct: {
-			ComboId: 1,
-			ProductId: 1,
+			fk_idCombo: 1,
+			fk_idProduct: 1,
 		},
 		AddOrderProduct: {
-			OrderId: 1,
-			ProductId: 1,
+			fk_idOrder: 1,
+			combos: [{ fk_idCombo: 1 }],
+			products: [{ fk_idProduct: 2 }, { fk_idProduct: 2 }],
 			observation: "Some Observations",
 		},
 		AddCampaignCustomer: {

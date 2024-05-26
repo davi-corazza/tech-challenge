@@ -13,4 +13,6 @@ export interface ICustomerRepository {
 	): Promise<[affectedCount: number]>;
 
 	deleteCustomer(id: number): Promise<number>;
+
+	campaignOfCustomers(id: string): Promise<any[]>;
 }
