@@ -24,7 +24,7 @@ export class OrderEntitie extends Model {
 	@Column({
 		type: DataType.INTEGER,
 	})
-	declare fk_idCampaing: ForeignKey<CampaignEntitie["id"]>;
+	declare fk_idCampaign: ForeignKey<CampaignEntitie["id"]>;
 
 	@Column({
 		type: DataType.STRING,

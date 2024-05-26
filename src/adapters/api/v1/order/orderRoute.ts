@@ -2,11 +2,15 @@ import { Router } from "express";
 import { OrderRepository } from "@database/v1/order/orderRepository";
 import { OrderService } from "@services/v1/orderService";
 import { OrderController } from "@api/v1/order/orderController";
+import { CustomerRepository } from "@database/v1/customer/customerRepository";
+import { ComboRepository } from "@database/v1/combo/comboRepository";
 
 export const orderRoute = Router();
 
 const orderRepository = new OrderRepository();
-const orderService = new OrderService(orderRepository);
+const customerRepository = new CustomerRepository();
+const comboRepository = new ComboRepository();
+const orderService = new OrderService(orderRepository, customerRepository, comboRepository);
 const orderController = new OrderController(orderService);
 
 orderRoute.get("/all", (req, res) => {
