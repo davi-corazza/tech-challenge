@@ -10,6 +10,18 @@ Este projeto é uma aplicação Node.js estruturada com TypeScript e seguindo a 
 |--------|------------|----------|--------|
 | *      | *          | v16.15.0 | v8.5.5 |
 
+### Membros do Projeto
+
+| Nome             | RM        |
+|------------------|-----------|
+| Davi Corazza     | RM353340  |
+| Francisco Wesley | RM353738  |
+| Pedro Freitas    | RM353284  |
+| Robson Anjos     | RM353341  |
+
+#### `Link do Miro` - Documentação do sistema (DDD) com Event Storming, incluindo todos os passos/tipos de diagrama 
+[Miro - Tech Challenge](https://miro.com/app/board/uXjVKWk2FRY=/?share_link_id=272701004394)
+
 ## Estrutura do Projeto
 
 	src
