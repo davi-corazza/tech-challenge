@@ -2,11 +2,13 @@ import { defaultReturnStatement } from "@utils/serviceUtils";
 import { IPaymentService } from "@ports/in/v1/IPaymentService";
 import { IPaymentRepository } from "@ports/out/v1/IPaymentRepository";
 import { IOrderRepository } from "@ports/out/v1/IOrderRepository";
-
+import { Order } from "@models/v1/Order";
 
 export class PaymentService implements IPaymentService {
-	constructor(private readonly paymentRepository: IPaymentRepository, private readonly orderRepository: IOrderRepository) {}
-
+	constructor(
+		private readonly paymentRepository: IPaymentRepository,
+		private readonly orderRepository: IOrderRepository
+	) {}
 
 	getAll(req, res) {
 		return defaultReturnStatement(
@@ -25,8 +27,8 @@ export class PaymentService implements IPaymentService {
 	}
 
 	async updatePayment(req, res) {
-		const { id, paymentMethod, paymentCode, status, fk_orderID } = req.body;
-		console.log({ id, paymentMethod, paymentCode, status, fk_orderID })
+		const { id } = req.params;
+		const orderId = req.body.fk_orderID;
 		if (!id) {
 			return res.status(400).json({
 				status: 400,
@@ -34,37 +36,43 @@ export class PaymentService implements IPaymentService {
 			});
 		}
 
-		try {
-			const [updatedCount] = await this.paymentRepository.updatePayment(
-				{
-					paymentMethod,
-					paymentCode,
-					status,
-					fk_orderID,
-				},
+		return this.paymentRepository
+			.updatePayment(
+				{ ...req.body },
 				{
 					where: { id },
 				}
-			);
+			)
+			.then((result) => {
+				if (result[0] === 0) {
+					return res.status(400).json({
+						status: 404,
+						message: "Payment not executed",
+					});
+				}
 
-			if (updatedCount === 0) {
-				return res.status(404).json({
-					status: 404,
-					message: "Payment not found",
-				});
-			}
+				this.orderRepository
+					.getOrderById({ where: { id: orderId } })
+					.then((orderData) => {
+						let orderUpdated = new Order(orderData);
+						orderUpdated.status = "Recebido";
 
-			return res.json({
-				status: 200,
-				message: "Payment updated successfully",
-			});
-		} catch (err) {
-			console.error(err);
-			return res.status(500).json({
-				status: 500,
-				err: err,
-			});
-		}
+						this.orderRepository
+							.updateOrder(orderUpdated, {
+								where: { id: orderId },
+							})
+							.then((finalResult) => {
+								console.log(finalResult);
+								res.json({
+									status: 200,
+									message:
+										"Payment and Order updated successfully",
+								});
+							});
+					})
+					.catch((err) => {});
+			})
+			.catch((err) => {});
 	}
 
 	async deletePayment(req, res) {

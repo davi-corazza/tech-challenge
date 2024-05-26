@@ -56,13 +56,10 @@ const doc = {
 			password: "E$%0of323!@#",
 		},
 		Payment: {
-			id: 1,
 			paymentMethod: "Card",
 			paymentCode: "sdofjsiodj",
 			status: "toPay",
 			fk_orderID: 1,
-			updatedAt: "2024-05-26T20:23:57.535Z",
-			createdAt: "2024-05-26T20:23:57.535Z",
 		},
 		getEmployee: {
 			cpf: "555.555.555-55",

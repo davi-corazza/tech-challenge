@@ -8,7 +8,7 @@ export const paymentRoute = Router();
 
 const paymentRepository = new PaymentRepository();
 const orderRepository = new OrderRepository();
-const paymentService = new PaymentService(paymentRepository,orderRepository);
+const paymentService = new PaymentService(paymentRepository, orderRepository);
 const paymentController = new PaymentController(paymentService);
 
 paymentRoute.get("/all", (req, res) => {
@@ -35,12 +35,12 @@ paymentRoute.post("/create", (req, res) => {
 });
 
 paymentRoute.delete("/delete/:id", (req, res) => {
-
+	// #swagger.tags = ['Payment']
 	paymentController.deletePayment(req, res);
 });
 
 paymentRoute.put("/update/:id", (req, res) => {
-		// #swagger.tags = ['Payment']
+	// #swagger.tags = ['Payment']
 	/* #swagger.requestBody = {
             required: true,
             content: {
