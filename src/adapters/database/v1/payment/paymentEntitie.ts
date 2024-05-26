@@ -18,4 +18,22 @@ export class PaymentEntitie extends Model {
 		allowNull: false,
 	})
 	paymentMethod: string;
+
+	@Column({
+		type: DataType.STRING,
+		allowNull: false,
+	})
+	paymentCode: string;
+
+	@Column({
+		type: DataType.STRING,
+		allowNull: false,
+	})
+	status: string;
+	
+	@Column({
+		type: DataType.INTEGER,
+		allowNull: false,
+	})
+	fk_orderID: number;
 }

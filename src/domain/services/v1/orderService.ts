@@ -122,4 +122,45 @@ export class OrderService implements IOrderService {
 				});
 			});
 	}
+
+	async updateOrderStatus(req, res) {
+		const { id, fk_idCustomer, status, price } = req.body;
+		if (!id) {
+			return res.status(400).json({
+				status: 400,
+				message: "Missing required field: id",
+			});
+		}
+
+		try {
+			const [updatedCount] = await this.orderRepository.updateOrderStatus(
+				{
+					fk_idCustomer,
+					status:"Received",
+					price,
+				},
+				{
+					where: { id },
+				}
+			);
+
+			if (updatedCount === 0) {
+				return res.status(404).json({
+					status: 404,
+					message: "Order not found",
+				});
+			}
+
+			return res.json({
+				status: 200,
+				message: "Order updated successfully",
+			});
+		} catch (err) {
+			console.error(err);
+			return res.status(500).json({
+				status: 500,
+				err: err,
+			});
+		}
+	}
 }

@@ -41,4 +41,8 @@ export class OrderRepository implements IOrderRepository {
 			where: { OrderId: id },
 		});
 	}
+
+	updateOrderStatus(values: any, params: any): Promise<any> {
+		return OrderEntitie.update(values, params);
+	}
 }

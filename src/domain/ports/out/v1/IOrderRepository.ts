@@ -12,4 +12,6 @@ export interface IOrderRepository {
 	newProductAssociation(values: any): Promise<any>;
 
 	productsOfOrder(id: string): Promise<any[]>;
+
+	updateOrderStatus(Order: Order, params: any)
 }

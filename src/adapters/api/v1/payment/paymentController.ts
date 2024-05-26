@@ -10,4 +10,12 @@ export class PaymentController {
 	createPayment(req, res) {
 		this.paymentService.createPayment(req, res);
 	}
+
+	updatePayment(req, res) {
+		this.paymentService.updatePayment(req, res);
+	}
+
+	deletePayment(req, res) {
+		this.paymentService.deletePayment(req, res);
+	}
 }
