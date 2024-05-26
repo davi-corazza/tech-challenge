@@ -8,6 +8,10 @@ export class OrderRepository implements IOrderRepository {
 	allOrders(): Promise<OrderEntitie[]> {
 		return OrderEntitie.findAll();
 	}
+	
+	getOrderById(params?: any): Promise<OrderEntitie[]> {
+		return OrderEntitie.findAll(params);
+	}
 
 	newOrder(values: any): Promise<OrderEntitie> {
 		return OrderEntitie.create(values);

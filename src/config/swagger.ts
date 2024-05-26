@@ -75,9 +75,10 @@ const doc = {
 			fk_idCombo: 1,
 			fk_idProduct: 1,
 		},
-		AddOrderProduct: {
-			fk_idOrder: 1,
-			fk_idProduct: 1,
+		AddOrderProduct: {	
+			fk_idOrder: 1,		
+			combos:[{"fk_idCombo":1}],
+  			products:[{"fk_idProduct":2},{"fk_idProduct":2}],
 			observation: "Some Observations",
 		},
 		AddCampaignCustomer: {

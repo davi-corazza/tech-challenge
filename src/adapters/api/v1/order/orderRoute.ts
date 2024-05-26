@@ -22,6 +22,11 @@ orderRoute.get("/all", (req, res) => {
 	orderController.getAll(req, res);
 });
 
+orderRoute.get("/:Id", (req, res) => {
+	// #swagger.tags = ['Order']
+	orderController.getOrderById(req, res);
+});
+
 orderRoute.post("/create", (req, res) => {
 	// #swagger.tags = ['Order']
 	/* #swagger.requestBody = {

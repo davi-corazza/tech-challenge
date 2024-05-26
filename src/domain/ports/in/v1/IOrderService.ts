@@ -1,5 +1,7 @@
 export interface IOrderService {
 	getAll(req, res): Promise<void>;
+	
+	getOrderById(req, res): Promise<void>;
 
 	createOrder(req, res): Promise<void>;
 
