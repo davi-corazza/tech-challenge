@@ -14,10 +14,10 @@
 			"@api/*": ["src/adapters/api/*"],
 			"@database/*": ["src/adapters/database/*"],
 			"@config/*": ["src/config/*"],
-			"@models/*": ["src/domain/models/*"],
-			"@ports/*": ["src/domain/ports/*"],
-			"@services/*": ["src/domain/services/*"],
-			"@utils/*": ["src/domain/utils/*"]
+			"@models/*": ["src/core/models/*"],
+			"@ports/*": ["src/core/ports/*"],
+			"@services/*": ["src/core/services/*"],
+			"@utils/*": ["src/core/utils/*"]
 		},
 		"baseUrl": "./"
 	}
