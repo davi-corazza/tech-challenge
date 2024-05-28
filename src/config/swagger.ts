@@ -36,12 +36,7 @@ const doc = {
 			description: "Product Name",
 			category: {
 				$ref: "#/definitions/Category",
-			},
-			ingredients: [
-				{
-					$ref: "#/definitions/Ingredient",
-				},
-			],
+			}
 		},
 		Campaign: {
 			name: "Campaign Name",
