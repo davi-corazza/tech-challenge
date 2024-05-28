@@ -18,10 +18,7 @@ services:
             - postgres-db
 
     sidecar:
-        build:
-            context: .
-            dockerfile: docker/Dockerfile_sidecar
-        image: fwcpereira/sidecar:v1.0.0
+        image: fwcpereira/sidecar:v1.0.1
         container_name: sidecar
         hostname: sidecar
         tty: true
