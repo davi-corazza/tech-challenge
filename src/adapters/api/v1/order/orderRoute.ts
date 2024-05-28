@@ -78,6 +78,20 @@ orderRoute.post("/product/association/create", (req, res) => {
 	orderController.createOrderProductAssociation(req, res);
 });
 
+orderRoute.post("/product/association/remove", (req, res) => {
+    // #swagger.tags = ['Order']
+    /* #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    schema: { $ref: '#/definitions/AddOrderProduct' }
+                }
+            }
+        }
+    */
+    orderController.deleteOrderProductAssociation(req, res);
+});
+
 orderRoute.get("/:id/products", (req, res) => {
 	// #swagger.tags = ['Order']
 	orderController.getOrderProducts(req, res);
