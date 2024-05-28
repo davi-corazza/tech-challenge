@@ -15,5 +15,8 @@ export interface IOrderRepository {
 
 	productsOfOrder(id: string): Promise<any[]>;
 
-	updateOrderStatus(Order: Order, params: any)
+	updateOrderStatus(Order: Order, params: any);
+
+	deleteProductOfOrder(params: any): Promise<number>;
+
 }

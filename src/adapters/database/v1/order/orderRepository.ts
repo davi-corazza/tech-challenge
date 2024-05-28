@@ -57,4 +57,8 @@ export class OrderRepository implements IOrderRepository {
 	updateOrderStatus(values: any, params: any): Promise<any> {
 		return OrderEntitie.update(values, params);
 	}
+
+	deleteProductOfOrder(params: any): Promise<number> {
+		return OrderProductEntitie.destroy(params);
+	}
 }
