@@ -7,6 +7,8 @@ WORKDIR /app
 # Copia os arquivos de dependência primeiro para utilizar caching
 COPY . .
 
+COPY package.json .
+
 # Instala as dependências
 RUN npm install && npm run swagger
 
@@ -22,12 +24,6 @@ WORKDIR /app
 
 # Copia apenas os artefatos necessários do estágio de build
 COPY --from=build /app /app
-
-ENV POSTGRES_USER=myuser \
-    POSTGRES_PASSWORD=mypassword \
-    POSTGRES_DB=mydb \
-    POSTGRES_HOST=postgres-db \
-    POSTGRES_PORT=5432
 
 # Expõe a porta em que sua aplicação rodará
 EXPOSE 3000

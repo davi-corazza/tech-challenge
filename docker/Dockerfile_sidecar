@@ -1,0 +1,63 @@
+FROM ubuntu
+
+RUN apt update && \
+    apt install -y \
+    postgresql-client
+
+COPY .././shared/dump.sql /shared/dump.sql
+
+RUN cat <<EOF > /usr/bin/restore_dump.sh
+#!/bin/bash
+
+echo "Creating role and database..."
+
+if [ -z "\$POSTGRES_USER" ]; then
+    echo "POSTGRES_USER is not set"
+    exit 1
+fi
+
+if [ -z "\$POSTGRES_PASSWORD" ]; then
+    echo "POSTGRES_PASSWORD is not set"
+    exit 1
+fi
+
+if [ -z "\$POSTGRES_DB" ]; then
+    echo "POSTGRES_DB is not set"
+    exit 1
+fi
+
+if [ -z "\$POSTGRES_HOST" ]; then
+    echo "POSTGRES_HOST is not set"
+    exit 1
+fi
+
+CREATE_ROLE_COMMAND="CREATE ROLE root WITH LOGIN PASSWORD '\$POSTGRES_PASSWORD_ROOT';"
+CREATE_DB_COMMAND="CREATE DATABASE root OWNER root;"
+
+if PGPASSWORD=\$POSTGRES_PASSWORD psql -U "\$POSTGRES_USER" -d "postgres" -h "\$POSTGRES_HOST" -c "\$CREATE_ROLE_COMMAND"; then
+    echo "Role 'root' created."
+else
+    echo "Error creating role 'root'."
+    exit 1
+fi
+
+if PGPASSWORD=\$POSTGRES_PASSWORD psql -U "\$POSTGRES_USER" -d "postgres" -h "\$POSTGRES_HOST" -c "\$CREATE_DB_COMMAND"; then
+    echo "Database 'root' created."
+else
+    echo "Error creating database 'root'."
+    exit 1
+fi
+
+echo "Restoring dump..."
+
+if PGPASSWORD=\$POSTGRES_PASSWORD psql -U "\$POSTGRES_USER" -d "\$POSTGRES_DB" -h "\$POSTGRES_HOST" < /shared/dump.sql; then
+    echo "Dump restored"
+else
+    echo "Error restoring dump"
+fi
+EOF
+
+RUN chmod +x /usr/bin/restore_dump.sh
+
+ENTRYPOINT ["/usr/bin/restore_dump.sh"]
+CMD ["exit", "0"]

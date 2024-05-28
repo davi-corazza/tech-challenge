@@ -1,40 +1,57 @@
 services:
+    node-app:
+        build:
+            context: .
+            dockerfile: ./docker/Dockerfile_node
+        container_name: node-app
+        hostname: node-app
+        restart: always
+        networks:
+            - tech-network
+        env_file:
+            - .env
+        tty: true
+        ports:
+            - '3000:3000'
+        depends_on:
+            - sidecar
+            - postgres-db
 
-  node-app:
-    build:
-      context: .
-      dockerfile: ./docker/Dockerfile_node
-    container_name: node-app
-    hostname: node-app
-    restart: always
-    networks:
-      - tech-network
-    tty: true
-    ports:
-      - '3000:3000'
-    depends_on:
-      postgres-db:
-          condition: service_healthy
+    sidecar:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile_sidecar
+        image: fwcpereira/sidecar:v1.0.0
+        container_name: sidecar
+        hostname: sidecar
+        tty: true
+        env_file:
+            - .env
+        networks:
+            - tech-network
+        depends_on:
+            postgres-db:
+                condition: service_healthy
 
-  postgres-db:
-    build:
-      context: .
-      dockerfile: ./docker/Dockerfile_postgres
-    container_name: postgres-db
-    hostname: postgres-db
-    restart: always
-    networks:
-      - tech-network
-    tty: true
-    ports:
-      - '5432:5432'
-    volumes:
-        - ./postgresql_data:/var/lib/postgresql/data
-    healthcheck:
-        test: [ "CMD-SHELL", "pg_isready" ]
-        interval: 10s
-        timeout: 5s
-        retries: 5
+    postgres-db:
+        image: postgres:alpine
+        container_name: postgres-db
+        hostname: postgres-db
+        restart: always
+        networks:
+            - tech-network
+        env_file:
+            - .env
+        tty: true
+        ports:
+            - '5432:5432'
+        volumes:
+            - ./postgresql_data:/var/lib/postgresql/data
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready" ]
+            interval: 10s
+            timeout: 5s
+            retries: 5
 
 networks:
     tech-network:
@@ -42,4 +59,3 @@ networks:
 
 volumes:
     postgresql_data:
-

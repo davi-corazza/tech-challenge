@@ -62,4 +62,6 @@ package-lock.json
 .vscode*
 *.vscode
 .idea
+.DS_Store
+docker/.DS_Store
 © 2024 GitHub, Inc.
