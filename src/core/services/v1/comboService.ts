@@ -16,6 +16,18 @@ export class ComboService implements IComboService {
 		);
 	}
 
+	getComboById(req, res) {
+		const comboId = req.params.Id;
+		console.log(comboId);
+		return defaultReturnStatement(
+			res,
+			"Orders",
+			this.comboRepository.getComboById({
+				where: { id: comboId },
+			})
+		);
+	}
+
 	createCombo(req, res) {
 		return defaultReturnStatement(
 			res,

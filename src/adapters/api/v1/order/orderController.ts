@@ -34,4 +34,8 @@ export class OrderController {
 	getOrderByStatus(req, res) {
 		this.orderService.getOrderByStatus(req, res);
 	}
+
+	deleteOrderProductAssociation(req, res) {
+		this.orderService.deleteOrderProductAssociation(req, res);
+	}
 }

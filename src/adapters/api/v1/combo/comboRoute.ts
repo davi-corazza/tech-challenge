@@ -18,6 +18,11 @@ comboRoute.get("/all", (req, res) => {
 	comboController.getAll(req, res);
 });
 
+comboRoute.get("/:Id", (req, res) => {
+	// #swagger.tags = ['Combo']
+	comboController.getComboById(req, res);
+});
+
 comboRoute.post("/create", (req, res) => {
 	// #swagger.tags = ['Combo']
 	/* #swagger.requestBody = {

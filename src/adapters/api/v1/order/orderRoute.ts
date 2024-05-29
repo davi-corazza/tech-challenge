@@ -4,16 +4,19 @@ import { OrderService } from "@services/v1/orderService";
 import { OrderController } from "@api/v1/order/orderController";
 import { CustomerRepository } from "@database/v1/customer/customerRepository";
 import { ComboRepository } from "@database/v1/combo/comboRepository";
+import { CampaignRepository } from "@database/v1/campaign/campaignRepository";
 
 export const orderRoute = Router();
 
 const orderRepository = new OrderRepository();
 const customerRepository = new CustomerRepository();
 const comboRepository = new ComboRepository();
+const campaignRepository = new CampaignRepository();
 const orderService = new OrderService(
 	orderRepository,
 	customerRepository,
-	comboRepository
+	comboRepository,
+    campaignRepository
 );
 const orderController = new OrderController(orderService);
 
@@ -76,6 +79,20 @@ orderRoute.post("/product/association/create", (req, res) => {
         }
     */
 	orderController.createOrderProductAssociation(req, res);
+});
+
+orderRoute.post("/product/association/remove", (req, res) => {
+    // #swagger.tags = ['Order']
+    /* #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    schema: { $ref: '#/definitions/AddOrderProduct' }
+                }
+            }
+        }
+    */
+    orderController.deleteOrderProductAssociation(req, res);
 });
 
 orderRoute.get("/:id/products", (req, res) => {

@@ -9,6 +9,10 @@ export class CampaignRepository implements ICampaignRepository {
 		return CampaignEntitie.findAll();
 	}
 
+	getCampaignById(params?: any): Promise<CampaignEntitie[]> {
+		return CampaignEntitie.findAll(params);
+	}
+
 	newCampaign(values: any): Promise<CampaignEntitie> {
 		return CampaignEntitie.create(values);
 	}

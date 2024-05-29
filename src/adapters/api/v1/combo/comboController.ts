@@ -6,6 +6,10 @@ export class ComboController {
 	getAll(req, res) {
 		this.comboService.getAll(req, res);
 	}
+	
+	getComboById(req, res) {
+		this.comboService.getComboById(req, res);
+	}
 
 	createCombo(req, res) {
 		this.comboService.createCombo(req, res);
