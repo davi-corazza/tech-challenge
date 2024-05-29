@@ -11,9 +11,9 @@ export interface IOrderService {
 
 	createOrderProductAssociation(req, res): Promise<void>;
 
-	getOrderProducts(req, res): Promise<void>;
+	deleteOrderProductAssociation(req, res): Promise<void>;
 
-	updateOrderStatus(req, res): Promise<void>;
+	getOrderProducts(req, res): Promise<void>;
 
 	getOrderByStatus(req, res): Promise<void>;
 }

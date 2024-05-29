@@ -7,6 +7,10 @@ export class CampaignController {
 		this.campaignService.getAll(req, res);
 	}
 
+	getCampaignById(req, res) {
+		this.campaignService.getCampaignById(req, res);
+	}
+
 	createCampaign(req, res) {
 		this.campaignService.createCampaign(req, res);
 	}

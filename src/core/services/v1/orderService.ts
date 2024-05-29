@@ -5,12 +5,16 @@ import { ICustomerService } from "@ports/in/v1/ICustomerService";
 import { ICustomerRepository } from "@ports/out/v1/ICustomerRepository";
 import { IComboService } from "@ports/in/v1/IComboService";
 import { IComboRepository } from "@ports/out/v1/IComboRepository";
+import { ICampaignRepository } from "@ports/out/v1/ICampaignRepository";
+import { Op } from "sequelize";
+import { Order } from "@models/v1/Order";
 
 export class OrderService implements IOrderService {
 	constructor(
 		private readonly orderRepository: IOrderRepository,
 		private readonly customerRepository: ICustomerRepository,
-		private readonly comboRepository: IComboRepository
+		private readonly comboRepository: IComboRepository,
+		private readonly campaignRepository: ICampaignRepository
 	) {}
 
 	getAll(req, res) {
@@ -133,6 +137,87 @@ export class OrderService implements IOrderService {
 	async createOrderProductAssociation(req, res) {
 		const { fk_idOrder, combos, products, observation } = req.body;
 
+		let priceOrder = 0;
+
+		if (!fk_idOrder) {
+			return res.status(400).json({
+				status: 400,
+				message: "Missing required field: fk_idOrder",
+			});
+		}
+
+		if (!combos && !products) {
+			return res.json({
+				status: 400,
+				message: "No products registered in the order",
+			});
+		}
+
+				
+
+		this.orderRepository
+			.getOrderById({ where: { id: fk_idOrder } })
+			.then((resultOrder: any) => {
+				if (!resultOrder || resultOrder.length == 0) {
+					return res.json({
+						status: 400,
+						message: "Order not found",
+					});
+				}				
+				if (resultOrder[0].dataValues.status != 'Created') {
+					return res.json({
+						status: 400,
+						message: "Order cannot be changed",
+					});
+				}
+				if (combos != null) {
+					let fk_idCombo = "";
+					combos.forEach((combo) => {						
+						fk_idCombo = combo.fk_idCombo;
+						this.comboRepository
+							.productsOfCombo(fk_idCombo)
+							.then((resultProducts: any) => {									
+								resultProducts.forEach((result) => {
+									let fk_idProduct = result.dataValues.fk_idProduct									
+									if (fk_idProduct != null) {										
+										this.orderRepository.newProductAssociation(
+											{
+												fk_idOrder,
+												fk_idCombo,
+												fk_idProduct,
+												observation,
+											}
+										);
+									}
+								});
+							});
+						
+					});
+				}
+				if (products != null) {
+					products.forEach((product) => {						
+						let fk_idProduct = product.fk_idProduct;
+						if (fk_idProduct != null) {
+							this.orderRepository.newProductAssociation({
+								fk_idOrder,
+								fk_idProduct,
+								observation,
+							});	
+						}					
+					});
+				}
+
+				this.updateOrderPrice(fk_idOrder);
+
+				return res.json({
+					status: 200,
+					message: "Product Association Created",
+				});
+			});
+	}
+	async deleteOrderProductAssociation(req, res) {
+		const { fk_idOrder, combos, products } = req.body;
+
 		if (!fk_idOrder) {
 			return res.status(400).json({
 				status: 400,
@@ -156,51 +241,54 @@ export class OrderService implements IOrderService {
 						message: "Order not found",
 					});
 				}
+				if (resultOrder[0].dataValues.status != 'Created') {
+					return res.json({
+						status: 400,
+						message: "Order cannot be changed",
+					});
+				}
 				if (combos != null) {
 					let fk_idCombo = "";
-					combos.forEach((combo) => {
-						Object.entries(combo).forEach(([key, value]) => {
-							fk_idCombo = combo[key];
-							this.comboRepository
-								.productsOfCombo(combo[key])
-								.then((resultProducts: any) => {
-									resultProducts.forEach((result) => {
-										Object.entries(result).forEach(
-											([key, value]) => {
-												let fk_idProduct =
-													result[key]["fk_idProduct"];
-												if (fk_idProduct != null) {
-													this.orderRepository.newProductAssociation(
-														{
-															fk_idOrder,
-															fk_idCombo,
-															fk_idProduct,
-															observation,
-														}
-													);
-												}
-											}
-										);
-									});
+					combos.forEach((combo) => {						
+						fk_idCombo = combo.fk_idCombo;
+						this.comboRepository
+							.productsOfCombo(fk_idCombo)
+							.then((resultProducts: any) => {									
+								resultProducts.forEach((result) => {
+									let fk_idProduct = result.dataValues.fk_idProduct
+									if (fk_idProduct != null) {
+										this.orderRepository.deleteProductOfOrder({
+											where: { fk_idOrder: fk_idOrder,															
+												fk_idCombo: fk_idCombo,
+												fk_idProduct: fk_idProduct },
+										});		
+									}
 								});
-						});
+							});
+						
 					});
 				}
 				if (products != null) {
-					products.forEach((product) => {
-						Object.entries(product).forEach(([key, value]) => {
-							let fk_idProduct = product["fk_idProduct"];
-							this.orderRepository.newProductAssociation({
-								fk_idOrder,
-								fk_idProduct,
-								observation,
+					products.forEach((product) => {						
+						let fk_idProduct = product.fk_idProduct;
+						if (fk_idProduct != null) {
+							this.orderRepository.deleteProductOfOrder({
+								where: { fk_idOrder,															
+									fk_idProduct,
+									fk_idCombo: {
+										[Op.is]: null
+									} 
+								},
 							});
-						});
+						}					
 					});
 				}
+
+				this.updateOrderPrice(fk_idOrder);
+				
 				return res.json({
 					status: 200,
-					message: "Product Association Created",
+					message: "Product Association deleted successfully",
 				});
 			});
 	}
@@ -221,6 +309,63 @@ export class OrderService implements IOrderService {
 					status: 500,
 					err: err,
 				});
+			});
+	}
+
+
+	async updateOrderPrice(id) {
+		let orderPrice = 0;		
+		if (!id) {
+			return null ;
+		}
+
+		await this.orderRepository
+			.getOrderById({ where: { id } })
+			.then(async (resultOrder: any) => {
+				if (!resultOrder || resultOrder.length == 0) {
+					return null ;
+				}
+				if (resultOrder[0].dataValues.status != 'Created') {
+					return null ;
+				}
+
+				await this.orderRepository.productsOfOrder(id).then(async (products) => {
+					
+					await products.forEach(async (product) => {				
+						let productsOrder = product.dataValues.product;
+						let discount = 0;
+						if (product.dataValues.fk_idCombo) {					
+							this.comboRepository.getComboById({where: {id: product.dataValues.fk_idCombo}}).then((resultCombo)=>{
+								if(resultCombo[0].discount){
+									discount = resultCombo[0].discount
+								}								
+							});
+						}						
+						await productsOrder.forEach(productDetail => {	
+							orderPrice = orderPrice + (productDetail.dataValues.price - (productDetail.dataValues.price * (discount / 100)))
+						});
+						
+					});
+					
+					
+				});
+				await this.campaignRepository.getCampaignById(resultOrder[0].dataValues.fk_idCampaign).then((result) => {
+					orderPrice = orderPrice - (orderPrice * (result[0].discount / 100))
+				});
+
+
+				let orderUpdated = new Order(resultOrder);
+				orderUpdated.price = orderPrice.toString();
+
+				this.orderRepository
+					.updateOrder(orderUpdated, {
+						where: { id },
+					})
+					.then((finalResult) => {
+						console.log(finalResult);						
+					});
+
+				
 			});
 	}
 

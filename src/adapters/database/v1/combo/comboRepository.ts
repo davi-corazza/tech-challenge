@@ -10,6 +10,10 @@ export class ComboRepository implements IComboRepository {
 		return ComboEntitie.findAll();
 	}
 
+	getComboById(params?: any): Promise<ComboEntitie[]> {
+		return ComboEntitie.findAll(params);
+	}
+	
 	newCombo(values: any): Promise<ComboEntitie> {
 		return ComboEntitie.create(values);
 	}

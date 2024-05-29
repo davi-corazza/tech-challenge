@@ -31,7 +31,7 @@ export class OrderRepository implements IOrderRepository {
 
 	productsOfOrder(id: string): Promise<OrderProductEntitie[]> {
 		return OrderProductEntitie.findAll({
-			attributes: ["observation"],
+			attributes: ["observation", "fk_idCombo"],
 			include: [
 				{
 					model: ProductEntitie,
@@ -52,9 +52,13 @@ export class OrderRepository implements IOrderRepository {
 			],
 			where: { fk_idOrder: id },
 		});
-	}
+	}	
 
 	updateOrderStatus(values: any, params: any): Promise<any> {
 		return OrderEntitie.update(values, params);
+	}
+
+	deleteProductOfOrder(params: any): Promise<number> {
+		return OrderProductEntitie.destroy(params);
 	}
 }
