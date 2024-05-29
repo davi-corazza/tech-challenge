@@ -13,6 +13,17 @@ export class CampaignService implements ICampaignService {
 		);
 	}
 
+	getCampaignById(req, res) {
+		const campaignId = req.params.Id;		
+		return defaultReturnStatement(
+			res,
+			"Campaign",
+			this.campaignRepository.getCampaignById({
+				where: { id: campaignId },
+			})
+		);
+	}
+
 	createCampaign(req, res) {
 		return defaultReturnStatement(
 			res,

@@ -5,13 +5,16 @@ import { ICustomerService } from "@ports/in/v1/ICustomerService";
 import { ICustomerRepository } from "@ports/out/v1/ICustomerRepository";
 import { IComboService } from "@ports/in/v1/IComboService";
 import { IComboRepository } from "@ports/out/v1/IComboRepository";
+import { ICampaignRepository } from "@ports/out/v1/ICampaignRepository";
 import { Op } from "sequelize";
+import { Order } from "@models/v1/Order";
 
 export class OrderService implements IOrderService {
 	constructor(
 		private readonly orderRepository: IOrderRepository,
 		private readonly customerRepository: ICustomerRepository,
-		private readonly comboRepository: IComboRepository
+		private readonly comboRepository: IComboRepository,
+		private readonly campaignRepository: ICampaignRepository
 	) {}
 
 	getAll(req, res) {
@@ -134,6 +137,8 @@ export class OrderService implements IOrderService {
 	async createOrderProductAssociation(req, res) {
 		const { fk_idOrder, combos, products, observation } = req.body;
 
+		let priceOrder = 0;
+
 		if (!fk_idOrder) {
 			return res.status(400).json({
 				status: 400,
@@ -148,6 +153,8 @@ export class OrderService implements IOrderService {
 			});
 		}
 
+				
+
 		this.orderRepository
 			.getOrderById({ where: { id: fk_idOrder } })
 			.then((resultOrder: any) => {
@@ -155,6 +162,12 @@ export class OrderService implements IOrderService {
 					return res.json({
 						status: 400,
 						message: "Order not found",
+					});
+				}				
+				if (resultOrder[0].dataValues.status != 'Created') {
+					return res.json({
+						status: 400,
+						message: "Order cannot be changed",
 					});
 				}
 				if (combos != null) {
@@ -165,8 +178,8 @@ export class OrderService implements IOrderService {
 							.productsOfCombo(fk_idCombo)
 							.then((resultProducts: any) => {									
 								resultProducts.forEach((result) => {
-									let fk_idProduct = result.dataValues.fk_idProduct
-									if (fk_idProduct != null) {
+									let fk_idProduct = result.dataValues.fk_idProduct									
+									if (fk_idProduct != null) {										
 										this.orderRepository.newProductAssociation(
 											{
 												fk_idOrder,
@@ -193,6 +206,9 @@ export class OrderService implements IOrderService {
 						}					
 					});
 				}
+
+				this.updateOrderPrice(fk_idOrder);
+
 				return res.json({
 					status: 200,
 					message: "Product Association Created",
@@ -223,6 +239,12 @@ export class OrderService implements IOrderService {
 					return res.json({
 						status: 400,
 						message: "Order not found",
+					});
+				}
+				if (resultOrder[0].dataValues.status != 'Created') {
+					return res.json({
+						status: 400,
+						message: "Order cannot be changed",
 					});
 				}
 				if (combos != null) {
@@ -261,6 +283,9 @@ export class OrderService implements IOrderService {
 						}					
 					});
 				}
+
+				this.updateOrderPrice(fk_idOrder);
+				
 				return res.json({
 					status: 200,
 					message: "Product Association deleted successfully",
@@ -284,6 +309,63 @@ export class OrderService implements IOrderService {
 					status: 500,
 					err: err,
 				});
+			});
+	}
+
+
+	async updateOrderPrice(id) {
+		let orderPrice = 0;		
+		if (!id) {
+			return null ;
+		}
+
+		await this.orderRepository
+			.getOrderById({ where: { id } })
+			.then(async (resultOrder: any) => {
+				if (!resultOrder || resultOrder.length == 0) {
+					return null ;
+				}
+				if (resultOrder[0].dataValues.status != 'Created') {
+					return null ;
+				}
+
+				await this.orderRepository.productsOfOrder(id).then(async (products) => {
+					
+					await products.forEach(async (product) => {				
+						let productsOrder = product.dataValues.product;
+						let discount = 0;
+						if (product.dataValues.fk_idCombo) {					
+							this.comboRepository.getComboById({where: {id: product.dataValues.fk_idCombo}}).then((resultCombo)=>{
+								if(resultCombo[0].discount){
+									discount = resultCombo[0].discount
+								}								
+							});
+						}						
+						await productsOrder.forEach(productDetail => {	
+							orderPrice = orderPrice + (productDetail.dataValues.price - (productDetail.dataValues.price * (discount / 100)))
+						});
+						
+					});
+					
+					
+				});
+				await this.campaignRepository.getCampaignById(resultOrder[0].dataValues.fk_idCampaign).then((result) => {
+					orderPrice = orderPrice - (orderPrice * (result[0].discount / 100))
+				});
+
+
+				let orderUpdated = new Order(resultOrder);
+				orderUpdated.price = orderPrice.toString();
+
+				this.orderRepository
+					.updateOrder(orderUpdated, {
+						where: { id },
+					})
+					.then((finalResult) => {
+						console.log(finalResult);						
+					});
+
+				
 			});
 	}
 
