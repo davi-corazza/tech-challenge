@@ -15,7 +15,5 @@ export interface IOrderService {
 
 	getOrderProducts(req, res): Promise<void>;
 
-	updateOrderStatus(req, res): Promise<void>;
-
 	getOrderByStatus(req, res): Promise<void>;
 }

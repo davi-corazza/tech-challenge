@@ -19,6 +19,11 @@ campaignRoute.get("/all", (req, res) => {
 	campaignController.getAll(req, res);
 });
 
+campaignRoute.get("/:Id", (req, res) => {
+	// #swagger.tags = ['Campaign']
+	campaignController.getCampaignById(req, res);
+});
+
 campaignRoute.post("/create", (req, res) => {
 	// #swagger.tags = ['Campaign']
 	// #swagger.description = 'Create a new campaign'
