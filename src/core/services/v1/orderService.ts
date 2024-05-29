@@ -342,7 +342,7 @@ export class OrderService implements IOrderService {
 							});
 						}						
 						await productsOrder.forEach(productDetail => {	
-							orderPrice = orderPrice + (productDetail.dataValues.price - (productDetail.dataValues.price * (discount / 100)))
+							orderPrice = orderPrice + (productDetail.dataValues.price - (productDetail.dataValues.price * discount))
 						});
 						
 					});
@@ -350,7 +350,7 @@ export class OrderService implements IOrderService {
 					
 				});
 				await this.campaignRepository.getCampaignById(resultOrder[0].dataValues.fk_idCampaign).then((result) => {
-					orderPrice = orderPrice - (orderPrice * (result[0].discount / 100))
+					orderPrice = orderPrice - (orderPrice * result[0].discount)
 				});
 
 
