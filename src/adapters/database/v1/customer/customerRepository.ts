@@ -17,6 +17,10 @@ export class CustomerRepository implements ICustomerRepository {
 		return CustomerEntitie.findOne({ where: { cpf } });
 	}
 
+	getCustomerById(params?: any): Promise<CustomerEntitie[]> {
+		return CustomerEntitie.findAll(params);
+	}
+
 	updateCustomer(id: number, values: any): Promise<[affectedCount: number]> {
 		return CustomerEntitie.update(values, { where: { id } });
 	}

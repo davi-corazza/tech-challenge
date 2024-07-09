@@ -23,7 +23,9 @@
 		"uuid": "^9.0.1"
 	},
 	"dependencies": {
+		"@mercadopago/sdk-js": "^0.0.3",
 		"express": "^4.19.2",
+		"mercadopago": "^2.0.10",
 		"morgan": "^1.10.0",
 		"sequelize": "^6.37.3",
 		"sequelize-typescript": "^2.1.6",

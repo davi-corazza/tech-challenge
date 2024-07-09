@@ -7,6 +7,8 @@ export interface ICustomerRepository {
 
 	searchCustomer(cpf: string): Promise<Customer>;
 
+	getCustomerById(condition?: any): Promise<Customer[]>;
+
 	updateCustomer(
 		id: number,
 		customer: Customer

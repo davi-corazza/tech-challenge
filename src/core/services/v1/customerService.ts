@@ -29,6 +29,17 @@ export class CustomerService implements ICustomerService {
 		);
 	}
 
+	getCustomerById(req, res) {
+		const customerId = req.params.Id;		
+		return defaultReturnStatement(
+			res,
+			"Customer",
+			this.customerRepository.getCustomerById({
+				where: { id: customerId },
+			})
+		);
+	}
+
 	updateCustomer(req, res) {
 		return defaultReturnStatement(
 			res,

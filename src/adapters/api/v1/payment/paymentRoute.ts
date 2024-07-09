@@ -3,12 +3,14 @@ import { PaymentRepository } from "@database/v1/payment/paymentRepository";
 import { PaymentService } from "@services/v1/paymentService";
 import { PaymentController } from "@api/v1/payment/paymentController";
 import { OrderRepository } from "@database/v1/order/orderRepository";
+import { CustomerRepository } from "@database/v1/customer/customerRepository";
 
 export const paymentRoute = Router();
 
 const paymentRepository = new PaymentRepository();
 const orderRepository = new OrderRepository();
-const paymentService = new PaymentService(paymentRepository, orderRepository);
+const customerRepository = new CustomerRepository();
+const paymentService = new PaymentService(paymentRepository, orderRepository, customerRepository);
 const paymentController = new PaymentController(paymentService);
 
 paymentRoute.get("/all", (req, res) => {

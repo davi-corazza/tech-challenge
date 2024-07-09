@@ -42,6 +42,11 @@ customerRoute.get("/search/:cpf", (req, res) => {
 	customerController.searchCustomer(req, res);
 });
 
+customerRoute.get("/:Id", (req, res) => {
+	// #swagger.tags = ['Customer']
+	customerController.getCustomerById(req, res);
+});
+
 customerRoute.put("/update/:id", (req, res) => {
 	// #swagger.tags = ['Customer']
 	// #swagger.description = 'Update customer by ID'

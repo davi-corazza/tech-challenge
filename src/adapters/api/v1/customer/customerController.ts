@@ -15,6 +15,10 @@ export class CustomerController {
 		this.customerService.searchCustomer(req, res);
 	}
 
+	getCustomerById(req, res) {
+		this.customerService.getCustomerById(req, res);
+	}
+
 	updateCustomer(req, res) {
 		this.customerService.updateCustomer(req, res);
 	}

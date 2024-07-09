@@ -5,6 +5,8 @@ export interface ICustomerService {
 
 	searchCustomer(req, res): Promise<void>;
 
+	getCustomerById(req, res): Promise<void>;
+
 	updateCustomer(req, res): Promise<void>;
 
 	deleteCustomer(req, res): Promise<void>;
