@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+    name: sidecar-init-job
+    namespace: postgresql
+spec:
+    template:
+        spec:
+            containers:
+                - name: sidecar-init
+                  image: fwcpereira/sidecar:v2.0.0
+                  env:
+                      - name: POSTGRES_DB
+                        valueFrom:
+                            configMapKeyRef:
+                                name: postgresql-configmap
+                                key: POSTGRES_DB
+                      - name: POSTGRES_USER
+                        valueFrom:
+                            secretKeyRef:
+                                name: postgresql-secret
+                                key: POSTGRES_USER
+                      - name: POSTGRES_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: postgresql-secret
+                                key: POSTGRES_PASSWORD
+                  volumeMounts:
+                      - mountPath: /docker-entrypoint-initdb.d
+                        name: postgresql-dump
+                  command:
+                      - sh
+                      - -c
+                      - |
+                          echo "Waiting for PostgreSQL to be ready...";
+                          while ! pg_isready -h postgresql -p 5432 -U $POSTGRES_USER -d $POSTGRES_DB; do
+                            sleep 2;
+                          done;
+                          echo "PostgreSQL is ready, proceeding with initialization...";
+                          PGPASSWORD=$POSTGRES_PASSWORD psql -h postgresql -U $POSTGRES_USER -d $POSTGRES_DB -f /docker-entrypoint-initdb.d/dump.sql;
+                          PGPASSWORD=$POSTGRES_PASSWORD psql -h postgresql -U $POSTGRES_USER -d $POSTGRES_DB -c "CREATE TABLE test (id SERIAL PRIMARY KEY, name VARCHAR(100));"
+            restartPolicy: OnFailure
+            volumes:
+                - name: postgresql-dump
+                  configMap:
+                      name: postgresql-dump

@@ -4,8 +4,10 @@ import connection from "@config/connectionFactory";
 
 const server = new http.Server(express());
 
+const port = Number(process.env.PORT);
+
 connection.database.sync().then(() => {
-	server.listen(process.env.PORT, "0.0.0.0", () => {
-		console.log(`Server running on ${process.env.PORT}`);
+	server.listen(port, "0.0.0.0", () => {
+		console.log(`Server running on ${port}`);
 	});
 });

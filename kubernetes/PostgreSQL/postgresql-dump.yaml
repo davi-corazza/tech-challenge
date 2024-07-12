@@ -1,0 +1,358 @@
+apiVersion: v1
+data:
+  dump.sql: "--\r\n-- PostgreSQL database dump\r\n--\r\n\r\n-- Dumped from database
+    version 16.3\r\n-- Dumped by pg_dump version 16.3\r\n\r\nSET statement_timeout
+    = 0;\r\nSET lock_timeout = 0;\r\nSET idle_in_transaction_session_timeout = 0;\r\nSET
+    client_encoding = 'UTF8';\r\nSET standard_conforming_strings = on;\r\nSELECT pg_catalog.set_config('search_path',
+    '', false);\r\nSET check_function_bodies = false;\r\nSET xmloption = content;\r\nSET
+    client_min_messages = warning;\r\nSET row_security = off;\r\n\r\nSET default_tablespace
+    = '';\r\n\r\nSET default_table_access_method = heap;\r\n\r\n--\r\n-- Name: campaign;
+    Type: TABLE; Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE TABLE public.campaign
+    (\r\n    id integer NOT NULL,\r\n    name character varying(255) NOT NULL,\r\n
+    \   \"endDate\" date,\r\n    \"campaignRule\" character varying(150),\r\n    discount
+    numeric(18,2),\r\n    \"createdAt\" timestamp with time zone NOT NULL,\r\n    \"updatedAt\"
+    timestamp with time zone NOT NULL,\r\n    \"fk_idCampaign\" integer\r\n);\r\n\r\n\r\nALTER
+    TABLE public.campaign OWNER TO myuser;\r\n\r\n--\r\n-- Name: campaign_customer;
+    Type: TABLE; Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE TABLE public.campaign_customer
+    (\r\n    id integer NOT NULL,\r\n    \"fk_idCampaign\" integer,\r\n    \"fk_idCustomer\"
+    integer,\r\n    \"createdAt\" timestamp with time zone NOT NULL,\r\n    \"updatedAt\"
+    timestamp with time zone NOT NULL\r\n);\r\n\r\n\r\nALTER TABLE public.campaign_customer
+    OWNER TO myuser;\r\n\r\n--\r\n-- Name: campaign_customer_id_seq; Type: SEQUENCE;
+    Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE SEQUENCE public.campaign_customer_id_seq\r\n
+    \   AS integer\r\n    START WITH 1\r\n    INCREMENT BY 1\r\n    NO MINVALUE\r\n
+    \   NO MAXVALUE\r\n    CACHE 1;\r\n\r\n\r\nALTER SEQUENCE public.campaign_customer_id_seq
+    OWNER TO myuser;\r\n\r\n--\r\n-- Name: campaign_customer_id_seq; Type: SEQUENCE
+    OWNED BY; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER SEQUENCE public.campaign_customer_id_seq
+    OWNED BY public.campaign_customer.id;\r\n\r\n\r\n--\r\n-- Name: campaign_id_seq;
+    Type: SEQUENCE; Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE SEQUENCE public.campaign_id_seq\r\n
+    \   AS integer\r\n    START WITH 1\r\n    INCREMENT BY 1\r\n    NO MINVALUE\r\n
+    \   NO MAXVALUE\r\n    CACHE 1;\r\n\r\n\r\nALTER SEQUENCE public.campaign_id_seq
+    OWNER TO myuser;\r\n\r\n--\r\n-- Name: campaign_id_seq; Type: SEQUENCE OWNED BY;
+    Schema: public; Owner: myuser\r\n--\r\n\r\nALTER SEQUENCE public.campaign_id_seq
+    OWNED BY public.campaign.id;\r\n\r\n\r\n--\r\n-- Name: category; Type: TABLE;
+    Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE TABLE public.category (\r\n
+    \   id integer NOT NULL,\r\n    name character varying(255) NOT NULL,\r\n    \"createdAt\"
+    timestamp with time zone NOT NULL,\r\n    \"updatedAt\" timestamp with time zone
+    NOT NULL\r\n);\r\n\r\n\r\nALTER TABLE public.category OWNER TO myuser;\r\n\r\n--\r\n--
+    Name: category_id_seq; Type: SEQUENCE; Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE
+    SEQUENCE public.category_id_seq\r\n    AS integer\r\n    START WITH 1\r\n    INCREMENT
+    BY 1\r\n    NO MINVALUE\r\n    NO MAXVALUE\r\n    CACHE 1;\r\n\r\n\r\nALTER SEQUENCE
+    public.category_id_seq OWNER TO myuser;\r\n\r\n--\r\n-- Name: category_id_seq;
+    Type: SEQUENCE OWNED BY; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER SEQUENCE
+    public.category_id_seq OWNED BY public.category.id;\r\n\r\n\r\n--\r\n-- Name:
+    combo; Type: TABLE; Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE TABLE public.combo
+    (\r\n    id integer NOT NULL,\r\n    name character varying(255) NOT NULL,\r\n
+    \   discount double precision,\r\n    \"createdAt\" timestamp with time zone NOT
+    NULL,\r\n    \"updatedAt\" timestamp with time zone NOT NULL,\r\n    \"fk_idCombo\"
+    integer\r\n);\r\n\r\n\r\nALTER TABLE public.combo OWNER TO myuser;\r\n\r\n--\r\n--
+    Name: combo_id_seq; Type: SEQUENCE; Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE
+    SEQUENCE public.combo_id_seq\r\n    AS integer\r\n    START WITH 1\r\n    INCREMENT
+    BY 1\r\n    NO MINVALUE\r\n    NO MAXVALUE\r\n    CACHE 1;\r\n\r\n\r\nALTER SEQUENCE
+    public.combo_id_seq OWNER TO myuser;\r\n\r\n--\r\n-- Name: combo_id_seq; Type:
+    SEQUENCE OWNED BY; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER SEQUENCE public.combo_id_seq
+    OWNED BY public.combo.id;\r\n\r\n\r\n--\r\n-- Name: combo_product; Type: TABLE;
+    Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE TABLE public.combo_product (\r\n
+    \   id integer NOT NULL,\r\n    \"fk_idCombo\" integer,\r\n    \"fk_idProduct\"
+    integer,\r\n    \"createdAt\" timestamp with time zone NOT NULL,\r\n    \"updatedAt\"
+    timestamp with time zone NOT NULL\r\n);\r\n\r\n\r\nALTER TABLE public.combo_product
+    OWNER TO myuser;\r\n\r\n--\r\n-- Name: combo_product_id_seq; Type: SEQUENCE; Schema:
+    public; Owner: myuser\r\n--\r\n\r\nCREATE SEQUENCE public.combo_product_id_seq\r\n
+    \   AS integer\r\n    START WITH 1\r\n    INCREMENT BY 1\r\n    NO MINVALUE\r\n
+    \   NO MAXVALUE\r\n    CACHE 1;\r\n\r\n\r\nALTER SEQUENCE public.combo_product_id_seq
+    OWNER TO myuser;\r\n\r\n--\r\n-- Name: combo_product_id_seq; Type: SEQUENCE OWNED
+    BY; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER SEQUENCE public.combo_product_id_seq
+    OWNED BY public.combo_product.id;\r\n\r\n\r\n--\r\n-- Name: customer; Type: TABLE;
+    Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE TABLE public.customer (\r\n
+    \   id integer NOT NULL,\r\n    cpf character varying(255) NOT NULL,\r\n    name
+    character varying(255) NOT NULL,\r\n    \"phoneNumer\" character varying(255),\r\n
+    \   email character varying(255),\r\n    \"createdAt\" timestamp with time zone
+    NOT NULL,\r\n    \"updatedAt\" timestamp with time zone NOT NULL,\r\n    \"fk_idCustomer\"
+    integer\r\n);\r\n\r\n\r\nALTER TABLE public.customer OWNER TO myuser;\r\n\r\n--\r\n--
+    Name: customer_id_seq; Type: SEQUENCE; Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE
+    SEQUENCE public.customer_id_seq\r\n    AS integer\r\n    START WITH 1\r\n    INCREMENT
+    BY 1\r\n    NO MINVALUE\r\n    NO MAXVALUE\r\n    CACHE 1;\r\n\r\n\r\nALTER SEQUENCE
+    public.customer_id_seq OWNER TO myuser;\r\n\r\n--\r\n-- Name: customer_id_seq;
+    Type: SEQUENCE OWNED BY; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER SEQUENCE
+    public.customer_id_seq OWNED BY public.customer.id;\r\n\r\n\r\n--\r\n-- Name:
+    employee; Type: TABLE; Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE TABLE
+    public.employee (\r\n    id integer NOT NULL,\r\n    cpf character varying(255)
+    NOT NULL,\r\n    name character varying(255) NOT NULL,\r\n    username character
+    varying(255) NOT NULL,\r\n    password character varying(255) NOT NULL,\r\n    \"createdAt\"
+    timestamp with time zone NOT NULL,\r\n    \"updatedAt\" timestamp with time zone
+    NOT NULL\r\n);\r\n\r\n\r\nALTER TABLE public.employee OWNER TO myuser;\r\n\r\n--\r\n--
+    Name: employee_id_seq; Type: SEQUENCE; Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE
+    SEQUENCE public.employee_id_seq\r\n    AS integer\r\n    START WITH 1\r\n    INCREMENT
+    BY 1\r\n    NO MINVALUE\r\n    NO MAXVALUE\r\n    CACHE 1;\r\n\r\n\r\nALTER SEQUENCE
+    public.employee_id_seq OWNER TO myuser;\r\n\r\n--\r\n-- Name: employee_id_seq;
+    Type: SEQUENCE OWNED BY; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER SEQUENCE
+    public.employee_id_seq OWNED BY public.employee.id;\r\n\r\n\r\n--\r\n-- Name:
+    order; Type: TABLE; Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE TABLE public.\"order\"
+    (\r\n    id integer NOT NULL,\r\n    \"fk_idCustomer\" integer,\r\n    \"fk_idCampaign\"
+    integer,\r\n    status character varying(255) NOT NULL,\r\n    price double precision
+    NOT NULL,\r\n    \"createdAt\" timestamp with time zone NOT NULL,\r\n    \"updatedAt\"
+    timestamp with time zone NOT NULL,\r\n    \"fk_idOrder\" integer\r\n);\r\n\r\n\r\nALTER
+    TABLE public.\"order\" OWNER TO myuser;\r\n\r\n--\r\n-- Name: order_id_seq; Type:
+    SEQUENCE; Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE SEQUENCE public.order_id_seq\r\n
+    \   AS integer\r\n    START WITH 1\r\n    INCREMENT BY 1\r\n    NO MINVALUE\r\n
+    \   NO MAXVALUE\r\n    CACHE 1;\r\n\r\n\r\nALTER SEQUENCE public.order_id_seq
+    OWNER TO myuser;\r\n\r\n--\r\n-- Name: order_id_seq; Type: SEQUENCE OWNED BY;
+    Schema: public; Owner: myuser\r\n--\r\n\r\nALTER SEQUENCE public.order_id_seq
+    OWNED BY public.\"order\".id;\r\n\r\n\r\n--\r\n-- Name: order_product; Type: TABLE;
+    Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE TABLE public.order_product (\r\n
+    \   id integer NOT NULL,\r\n    observation character varying(255) NOT NULL,\r\n
+    \   \"fk_idOrder\" integer,\r\n    \"fk_idCombo\" integer,\r\n    \"fk_idProduct\"
+    integer,\r\n    \"createdAt\" timestamp with time zone NOT NULL,\r\n    \"updatedAt\"
+    timestamp with time zone NOT NULL\r\n);\r\n\r\n\r\nALTER TABLE public.order_product
+    OWNER TO myuser;\r\n\r\n--\r\n-- Name: order_product_id_seq; Type: SEQUENCE; Schema:
+    public; Owner: myuser\r\n--\r\n\r\nCREATE SEQUENCE public.order_product_id_seq\r\n
+    \   AS integer\r\n    START WITH 1\r\n    INCREMENT BY 1\r\n    NO MINVALUE\r\n
+    \   NO MAXVALUE\r\n    CACHE 1;\r\n\r\n\r\nALTER SEQUENCE public.order_product_id_seq
+    OWNER TO myuser;\r\n\r\n--\r\n-- Name: order_product_id_seq; Type: SEQUENCE OWNED
+    BY; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER SEQUENCE public.order_product_id_seq
+    OWNED BY public.order_product.id;\r\n\r\n\r\n--\r\n-- Name: payment; Type: TABLE;
+    Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE TABLE public.payment (\r\n    id
+    integer NOT NULL,\r\n    \"paymentMethod\" character varying(255) NOT NULL,\r\n
+    \   \"paymentCode\" character varying(255) NOT NULL,\r\n    status character varying(255)
+    NOT NULL,\r\n    \"fk_idOrder\" integer NOT NULL,\r\n    \"createdAt\" timestamp
+    with time zone NOT NULL,\r\n    \"updatedAt\" timestamp with time zone NOT NULL\r\n);\r\n\r\n\r\nALTER
+    TABLE public.payment OWNER TO myuser;\r\n\r\n--\r\n-- Name: payment_id_seq; Type:
+    SEQUENCE; Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE SEQUENCE public.payment_id_seq\r\n
+    \   AS integer\r\n    START WITH 1\r\n    INCREMENT BY 1\r\n    NO MINVALUE\r\n
+    \   NO MAXVALUE\r\n    CACHE 1;\r\n\r\n\r\nALTER SEQUENCE public.payment_id_seq
+    OWNER TO myuser;\r\n\r\n--\r\n-- Name: payment_id_seq; Type: SEQUENCE OWNED BY;
+    Schema: public; Owner: myuser\r\n--\r\n\r\nALTER SEQUENCE public.payment_id_seq
+    OWNED BY public.payment.id;\r\n\r\n\r\n--\r\n-- Name: product; Type: TABLE; Schema:
+    public; Owner: myuser\r\n--\r\n\r\nCREATE TABLE public.product (\r\n    id integer
+    NOT NULL,\r\n    \"fk_idCategory\" integer,\r\n    name character varying(255)
+    NOT NULL,\r\n    description character varying(900) NOT NULL,\r\n    price double
+    precision NOT NULL,\r\n    \"createdAt\" timestamp with time zone NOT NULL,\r\n
+    \   \"updatedAt\" timestamp with time zone NOT NULL,\r\n    \"fk_idProduct\" integer\r\n);\r\n\r\n\r\nALTER
+    TABLE public.product OWNER TO myuser;\r\n\r\n--\r\n-- Name: product_id_seq; Type:
+    SEQUENCE; Schema: public; Owner: myuser\r\n--\r\n\r\nCREATE SEQUENCE public.product_id_seq\r\n
+    \   AS integer\r\n    START WITH 1\r\n    INCREMENT BY 1\r\n    NO MINVALUE\r\n
+    \   NO MAXVALUE\r\n    CACHE 1;\r\n\r\n\r\nALTER SEQUENCE public.product_id_seq
+    OWNER TO myuser;\r\n\r\n--\r\n-- Name: product_id_seq; Type: SEQUENCE OWNED BY;
+    Schema: public; Owner: myuser\r\n--\r\n\r\nALTER SEQUENCE public.product_id_seq
+    OWNED BY public.product.id;\r\n\r\n\r\n--\r\n-- Name: campaign id; Type: DEFAULT;
+    Schema: public; Owner: myuser\r\n--\r\n\r\nALTER TABLE ONLY public.campaign ALTER
+    COLUMN id SET DEFAULT nextval('public.campaign_id_seq'::regclass);\r\n\r\n\r\n--\r\n--
+    Name: campaign_customer id; Type: DEFAULT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.campaign_customer ALTER COLUMN id SET DEFAULT nextval('public.campaign_customer_id_seq'::regclass);\r\n\r\n\r\n--\r\n--
+    Name: category id; Type: DEFAULT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.category ALTER COLUMN id SET DEFAULT nextval('public.category_id_seq'::regclass);\r\n\r\n\r\n--\r\n--
+    Name: combo id; Type: DEFAULT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.combo ALTER COLUMN id SET DEFAULT nextval('public.combo_id_seq'::regclass);\r\n\r\n\r\n--\r\n--
+    Name: combo_product id; Type: DEFAULT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.combo_product ALTER COLUMN id SET DEFAULT nextval('public.combo_product_id_seq'::regclass);\r\n\r\n\r\n--\r\n--
+    Name: customer id; Type: DEFAULT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.customer ALTER COLUMN id SET DEFAULT nextval('public.customer_id_seq'::regclass);\r\n\r\n\r\n--\r\n--
+    Name: employee id; Type: DEFAULT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.employee ALTER COLUMN id SET DEFAULT nextval('public.employee_id_seq'::regclass);\r\n\r\n\r\n--\r\n--
+    Name: order id; Type: DEFAULT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.\"order\" ALTER COLUMN id SET DEFAULT nextval('public.order_id_seq'::regclass);\r\n\r\n\r\n--\r\n--
+    Name: order_product id; Type: DEFAULT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.order_product ALTER COLUMN id SET DEFAULT nextval('public.order_product_id_seq'::regclass);\r\n\r\n\r\n--\r\n--
+    Name: payment id; Type: DEFAULT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.payment ALTER COLUMN id SET DEFAULT nextval('public.payment_id_seq'::regclass);\r\n\r\n\r\n--\r\n--
+    Name: product id; Type: DEFAULT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.product ALTER COLUMN id SET DEFAULT nextval('public.product_id_seq'::regclass);\r\n\r\n\r\n--\r\n--
+    Data for Name: campaign; Type: TABLE DATA; Schema: public; Owner: myuser\r\n--\r\n\r\nCOPY
+    public.campaign (id, name, \"endDate\", \"campaignRule\", discount, \"createdAt\",
+    \"updatedAt\", \"fk_idCampaign\") FROM stdin;\r\n1\tPrimeiro pedido\t\\N\tClientes
+    cadastrados que não possuam nenhum cliente\t0.10\t2024-05-28 00:36:55.343624+00\t2024-05-28
+    00:36:55.343624+00\t\\N\r\n\\.\r\n\r\n\r\n--\r\n-- Data for Name: campaign_customer;
+    Type: TABLE DATA; Schema: public; Owner: myuser\r\n--\r\n\r\nCOPY public.campaign_customer
+    (id, \"fk_idCampaign\", \"fk_idCustomer\", \"createdAt\", \"updatedAt\") FROM
+    stdin;\r\n1\t1\t1\t2024-05-28 00:44:09.111405+00\t2024-05-28 00:44:09.111405+00\r\n2\t1\t2\t2024-05-28
+    00:44:09.111405+00\t2024-05-28 00:44:09.111405+00\r\n\\.\r\n\r\n\r\n--\r\n-- Data
+    for Name: category; Type: TABLE DATA; Schema: public; Owner: myuser\r\n--\r\n\r\nCOPY
+    public.category (id, name, \"createdAt\", \"updatedAt\") FROM stdin;\r\n1\tLanche\t2024-05-22
+    23:43:39.328+00\t2024-05-22 23:43:39.328+00\r\n2\tBebida\t2024-05-22 23:43:39.328+00\t2024-05-22
+    23:43:39.328+00\r\n3\tAcompanhamento\t2024-05-22 23:43:39.328+00\t2024-05-22 23:43:39.328+00\r\n4\tSobremesa\t2024-05-22
+    23:43:39.328+00\t2024-05-22 23:43:39.328+00\r\n\\.\r\n\r\n\r\n--\r\n-- Data for
+    Name: combo; Type: TABLE DATA; Schema: public; Owner: myuser\r\n--\r\n\r\nCOPY
+    public.combo (id, name, discount, \"createdAt\", \"updatedAt\", \"fk_idCombo\")
+    FROM stdin;\r\n1\tCombo Bovino\t0.1\t2024-05-22 23:43:39.328+00\t2024-05-22 23:43:39.328+00\t\\N\r\n2\tCombo
+    Frango do chef\t0.15\t2024-05-22 23:43:39.328+00\t2024-05-22 23:43:39.328+00\t\\N\r\n3\tCombo
+    Sobremesa\t0.2\t2024-05-22 23:43:39.328+00\t2024-05-22 23:43:39.328+00\t\\N\r\n4\tCombo
+    Vegetariano\t0.15\t2024-05-22 23:43:39.328+00\t2024-05-22 23:43:39.328+00\t\\N\r\n\\.\r\n\r\n\r\n--\r\n--
+    Data for Name: combo_product; Type: TABLE DATA; Schema: public; Owner: myuser\r\n--\r\n\r\nCOPY
+    public.combo_product (id, \"fk_idCombo\", \"fk_idProduct\", \"createdAt\", \"updatedAt\")
+    FROM stdin;\r\n1\t1\t1\t2024-05-28 00:39:46.442967+00\t2024-05-28 00:39:46.442967+00\r\n2\t1\t5\t2024-05-28
+    00:39:46.442967+00\t2024-05-28 00:39:46.442967+00\r\n3\t1\t12\t2024-05-28 00:39:46.442967+00\t2024-05-28
+    00:39:46.442967+00\r\n4\t2\t3\t2024-05-28 00:39:46.442967+00\t2024-05-28 00:39:46.442967+00\r\n5\t2\t8\t2024-05-28
+    00:39:46.442967+00\t2024-05-28 00:39:46.442967+00\r\n6\t2\t13\t2024-05-28 00:39:46.442967+00\t2024-05-28
+    00:39:46.442967+00\r\n7\t3\t15\t2024-05-28 00:39:46.442967+00\t2024-05-28 00:39:46.442967+00\r\n8\t3\t17\t2024-05-28
+    00:39:46.442967+00\t2024-05-28 00:39:46.442967+00\r\n9\t4\t11\t2024-05-28 00:39:46.442967+00\t2024-05-28
+    00:39:46.442967+00\r\n10\t4\t6\t2024-05-28 00:39:46.442967+00\t2024-05-28 00:39:46.442967+00\r\n11\t4\t15\t2024-05-28
+    00:39:46.442967+00\t2024-05-28 00:39:46.442967+00\r\n\\.\r\n\r\n\r\n--\r\n-- Data
+    for Name: customer; Type: TABLE DATA; Schema: public; Owner: myuser\r\n--\r\n\r\nCOPY
+    public.customer (id, cpf, name, \"phoneNumer\", email, \"createdAt\", \"updatedAt\",
+    \"fk_idCustomer\") FROM stdin;\r\n1\t10397737025\tCláudia Melissa Raimunda\t31999999999\tclaudia-cliente1@gmail.com\t2024-05-22
+    23:43:39.328+00\t2024-05-22 23:43:39.328+00\t\\N\r\n2\t51910940003\tPedro Henrique
+    Anderson Marcos Vinicius Nascimento\t11999999999\tpedro-cliente2@gmail.com\t2024-05-22
+    23:43:39.328+00\t2024-05-22 23:43:39.328+00\t\\N\r\n3\t24442757054\tManuel Gael
+    Cavalcanti\t19999999999\tmanuel-cliente3@gmail.com\t2024-05-22 23:43:39.328+00\t2024-05-22
+    23:43:39.328+00\t\\N\r\n\\.\r\n\r\n\r\n--\r\n-- Data for Name: employee; Type:
+    TABLE DATA; Schema: public; Owner: myuser\r\n--\r\n\r\nCOPY public.employee (id,
+    cpf, name, username, password, \"createdAt\", \"updatedAt\") FROM stdin;\r\n1\t26735163010\tNair
+    Alana Eduarda Cavalcanti\tteste\tMTIzNDU=\t2024-05-28 00:34:30.592322+00\t2024-05-28
+    00:34:30.592322+00\r\n\\.\r\n\r\n\r\n--\r\n-- Data for Name: order; Type: TABLE
+    DATA; Schema: public; Owner: myuser\r\n--\r\n\r\nCOPY public.\"order\" (id, \"fk_idCustomer\",
+    \"fk_idCampaign\", status, price, \"createdAt\", \"updatedAt\", \"fk_idOrder\")
+    FROM stdin;\r\n1\t3\t1\tRecebido\t51.75\t2024-05-22 23:43:39.328+00\t2024-05-22
+    23:43:39.328+00\t\\N\r\n2\t\\N\t\\N\tEm Preparacao\t30\t2024-05-22 23:43:39.328+00\t2024-05-22
+    23:43:39.328+00\t\\N\r\n\\.\r\n\r\n\r\n--\r\n-- Data for Name: order_product;
+    Type: TABLE DATA; Schema: public; Owner: myuser\r\n--\r\n\r\nCOPY public.order_product
+    (id, observation, \"fk_idOrder\", \"fk_idCombo\", \"fk_idProduct\", \"createdAt\",
+    \"updatedAt\") FROM stdin;\r\n3\t\t1\t1\t1\t2024-05-28 00:45:55.983245+00\t2024-05-28
+    00:45:55.983245+00\r\n4\t\t1\t1\t5\t2024-05-28 00:45:55.983245+00\t2024-05-28
+    00:45:55.983245+00\r\n5\t\t1\t1\t12\t2024-05-28 00:45:55.983245+00\t2024-05-28
+    00:45:55.983245+00\r\n6\t\t2\t\\N\t15\t2024-05-28 00:45:55.983245+00\t2024-05-28
+    00:45:55.983245+00\r\n\\.\r\n\r\n\r\n--\r\n-- Data for Name: payment; Type: TABLE
+    DATA; Schema: public; Owner: myuser\r\n--\r\n\r\nCOPY public.payment (id, \"paymentMethod\",
+    \"paymentCode\", status, \"fk_idOrder\", \"createdAt\", \"updatedAt\") FROM stdin;\r\n1\tMercadoPago\tQRCODE8329742967349\tPaid\t1\t2024-05-28
+    02:28:45.641084+00\t2024-05-28 02:28:45.641084+00\r\n2\tMercadoPago\tQRCODE8329742987345\tPaid\t2\t2024-05-28
+    02:28:45.641084+00\t2024-05-28 02:28:45.641084+00\r\n\\.\r\n\r\n\r\n--\r\n-- Data
+    for Name: product; Type: TABLE DATA; Schema: public; Owner: myuser\r\n--\r\n\r\nCOPY
+    public.product (id, \"fk_idCategory\", name, description, price, \"createdAt\",
+    \"updatedAt\", \"fk_idProduct\") FROM stdin;\r\n1\t1\tsanduíche com carne bovina,
+    alface, bacon, avocado e molho picante\tSaboreie a perfeição em cada mordida com
+    nosso irresistível sanduíche gourmet. Comece com uma suculenta carne bovina grelhada,
+    queijo suiço, combinada com a frescura crocante da alface e a intensidade defumada
+    do bacon. Adicione uma camada cremosa e saudável de avocado para uma textura suave
+    e um sabor indulgente. E para coroar essa experiência gastronômica, nosso exclusivo
+    molho picante oferece um toque de calor e sabor, elevando cada elemento deste
+    sanduíche a um novo patamar de delícia. Prepare-se para uma explosão de sabores
+    que vai deixar você desejando mais a cada mordida!\t32.5\t2024-05-28 23:39:00.375427+00\t2024-05-28
+    23:39:00.375427+00\t\\N\r\n2\t1\tsanduíche de frango com queijo suíço, rúcula,
+    tomate e molho de maionese temperada\tDelicie-se com o nosso sanduíche de frango
+    gourmet, uma combinação perfeita de sabores frescos e deliciosos. Comece com uma
+    suculenta e macia carne de frango grelhada, coberta com uma fatia generosa de
+    queijo suíço derretido. Em seguida, adicione a crocância e o sabor picante da
+    rúcula fresca, complementada pela suculência refrescante do tomate maduro. E para
+    finalizar, o nosso molho de maionese temperada, com seus aromas e sabores cuidadosamente
+    selecionados, acrescenta um toque de sofisticação e irresistibilidade a cada mordida.
+    Prepare-se para uma experiência gastronômica inesquecível que vai deixar seu paladar
+    pedindo mais!\t25.5\t2024-05-28 23:39:00.375427+00\t2024-05-28 23:39:00.375427+00\t\\N\r\n3\t1\tSanduíche
+    de frango do chef\tComeçamos com um suculento hambúrguer de frango, grelhado até
+    a perfeição para garantir a máxima suculência e sabor. Em seguida, adicionamos
+    uma generosa camada de queijo cheddar derretido, cobrindo cada mordida com cremosidade
+    irresistível. Para adicionar um toque doce e caramelizado, acrescentamos cebola
+    caramelizada, elevando o sabor a um novo patamar. Mas não paramos por aí! Uma
+    camada crocante de batalha palha adiciona uma textura extra e uma explosão de
+    sabor a cada mordida. E para coroar esta obra-prima, nosso molho picante exclusivo
+    oferece um toque de calor e sabor que vai deixar seu paladar pedindo mais. Prepare-se
+    para uma experiência gastronômica inesquecível que vai satisfazer todos os seus
+    desejos!\t33.5\t2024-05-28 23:39:00.375427+00\t2024-05-28 23:39:00.375427+00\t\\N\r\n4\t1\tSanduíche
+    de linguiça\tEste sanduíche combina o sabor rico da linguiça caseira com o robusto
+    queijo cheddar, a doçura da cebola caramelizada e o toque picante do molho de
+    mostarda, tudo envolto no nutritivo Pão da casa. Uma combinação de sabores e texturas
+    que vai deixar seu paladar emocionado!\t26.5\t2024-05-28 23:39:00.375427+00\t2024-05-28
+    23:39:00.375427+00\t\\N\r\n5\t2\tCoca-cola\tRefrigerante de cola\t10\t2024-05-28
+    23:39:00.375427+00\t2024-05-28 23:39:00.375427+00\t\\N\r\n6\t2\tSuco de laranja\tSuco
+    100% natural\t10\t2024-05-28 23:39:00.375427+00\t2024-05-28 23:39:00.375427+00\t\\N\r\n7\t2\tCoca-cola
+    zero açucar\tRefrigerante de cola sem açúcar\t10\t2024-05-28 23:39:00.375427+00\t2024-05-28
+    23:39:00.375427+00\t\\N\r\n8\t2\tGuarana\tRefrigerante de guaraná\t10\t2024-05-28
+    23:39:00.375427+00\t2024-05-28 23:39:00.375427+00\t\\N\r\n9\t2\tSoda\tRefrigerante
+    de limão\t10\t2024-05-28 23:39:00.375427+00\t2024-05-28 23:39:00.375427+00\t\\N\r\n10\t2\tSuco
+    de uva\tSuco 100% integral\t10\t2024-05-28 23:39:00.375427+00\t2024-05-28 23:39:00.375427+00\t\\N\r\n11\t1\tSanduíche
+    vegetariano\tEste sanduíche vegetariano oferece uma combinação deliciosa de sabores
+    e texturas, com a carne de soja marinada como destaque principal, tudo envolto
+    no saboroso Pão de Centeio. Uma opção saudável e satisfatória para qualquer refeição\t30.5\t2024-05-28
+    23:39:00.375427+00\t2024-05-28 23:39:00.375427+00\t\\N\r\n12\t3\tBatatas Fritas
+    Caseiras\tBatatas cortadas em palitos e fritas até ficarem douradas e crocantes,
+    temperadas com sal e ervas para um toque extra de sabor.\t15\t2024-05-28 23:39:00.375427+00\t2024-05-28
+    23:39:00.375427+00\t\\N\r\n13\t3\tAneis de cebola\tFatias generosas de cebola
+    são mergulhadas em uma massa leve e crocante, antes de serem fritas até a perfeição\t15\t2024-05-28
+    23:39:00.375427+00\t2024-05-28 23:39:00.375427+00\t\\N\r\n14\t4\tCheesecake de
+    Frutas Vermelhas\tUma base de biscoito amanteigado coberta com um recheio cremoso
+    de queijo, decorado com uma variedade de frutas vermelhas frescas como morangos,
+    framboesas e amoras. Uma sobremesa elegante e refrescante para qualquer ocasião.\t30\t2024-05-28
+    23:39:00.375427+00\t2024-05-28 23:39:00.375427+00\t\\N\r\n15\t4\tTorta de Maçã
+    com Sorvete de Baunilha\tUma torta de maçã caseira, recheada com maçãs fatiadas,
+    canela e açúcar mascavo, servida quente com uma generosa bola de sorvete de baunilha.
+    A combinação de sabores e texturas é irresistível.\t30\t2024-05-28 23:39:00.375427+00\t2024-05-28
+    23:39:00.375427+00\t\\N\r\n16\t4\tCreme Brûlée\tUma sobremesa clássica de restaurante
+    que você pode fazer em casa. Um creme de gemas de ovo, baunilha e açúcar é assado
+    até ficar firme e depois caramelizado na hora de servir, criando uma casca crocante
+    e um interior cremoso.\t30\t2024-05-28 23:39:00.375427+00\t2024-05-28 23:39:00.375427+00\t\\N\r\n17\t4\tTiramisu\tCamadas
+    de biscoitos de champanhe embebidos em café, intercaladas com um creme de queijo
+    mascarpone, tudo polvilhado com cacau em pó. Uma sobremesa italiana clássica,
+    rica em sabor e profundidade.\t30\t2024-05-28 23:39:00.375427+00\t2024-05-28 23:39:00.375427+00\t\\N\r\n\\.\r\n\r\n\r\n--\r\n--
+    Name: campaign_customer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myuser\r\n--\r\n\r\nSELECT
+    pg_catalog.setval('public.campaign_customer_id_seq', 2, true);\r\n\r\n\r\n--\r\n--
+    Name: campaign_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myuser\r\n--\r\n\r\nSELECT
+    pg_catalog.setval('public.campaign_id_seq', 1, false);\r\n\r\n\r\n--\r\n-- Name:
+    category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myuser\r\n--\r\n\r\nSELECT
+    pg_catalog.setval('public.category_id_seq', 1, false);\r\n\r\n\r\n--\r\n-- Name:
+    combo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myuser\r\n--\r\n\r\nSELECT
+    pg_catalog.setval('public.combo_id_seq', 1, false);\r\n\r\n\r\n--\r\n-- Name:
+    combo_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myuser\r\n--\r\n\r\nSELECT
+    pg_catalog.setval('public.combo_product_id_seq', 11, true);\r\n\r\n\r\n--\r\n--
+    Name: customer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myuser\r\n--\r\n\r\nSELECT
+    pg_catalog.setval('public.customer_id_seq', 1, false);\r\n\r\n\r\n--\r\n-- Name:
+    employee_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myuser\r\n--\r\n\r\nSELECT
+    pg_catalog.setval('public.employee_id_seq', 1, false);\r\n\r\n\r\n--\r\n-- Name:
+    order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myuser\r\n--\r\n\r\nSELECT
+    pg_catalog.setval('public.order_id_seq', 1, false);\r\n\r\n\r\n--\r\n-- Name:
+    order_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myuser\r\n--\r\n\r\nSELECT
+    pg_catalog.setval('public.order_product_id_seq', 6, true);\r\n\r\n\r\n--\r\n--
+    Name: payment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myuser\r\n--\r\n\r\nSELECT
+    pg_catalog.setval('public.payment_id_seq', 2, true);\r\n\r\n\r\n--\r\n-- Name:
+    product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myuser\r\n--\r\n\r\nSELECT
+    pg_catalog.setval('public.product_id_seq', 1, false);\r\n\r\n\r\n--\r\n-- Name:
+    campaign_customer campaign_customer_pkey; Type: CONSTRAINT; Schema: public; Owner:
+    myuser\r\n--\r\n\r\nALTER TABLE ONLY public.campaign_customer\r\n    ADD CONSTRAINT
+    campaign_customer_pkey PRIMARY KEY (id);\r\n\r\n\r\n--\r\n-- Name: campaign campaign_name_key;
+    Type: CONSTRAINT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER TABLE ONLY
+    public.campaign\r\n    ADD CONSTRAINT campaign_name_key UNIQUE (name);\r\n\r\n\r\n--\r\n--
+    Name: campaign campaign_pkey; Type: CONSTRAINT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.campaign\r\n    ADD CONSTRAINT campaign_pkey PRIMARY KEY (id);\r\n\r\n\r\n--\r\n--
+    Name: category category_pkey; Type: CONSTRAINT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.category\r\n    ADD CONSTRAINT category_pkey PRIMARY KEY (id);\r\n\r\n\r\n--\r\n--
+    Name: combo combo_pkey; Type: CONSTRAINT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.combo\r\n    ADD CONSTRAINT combo_pkey PRIMARY KEY (id);\r\n\r\n\r\n--\r\n--
+    Name: combo_product combo_product_pkey; Type: CONSTRAINT; Schema: public; Owner:
+    myuser\r\n--\r\n\r\nALTER TABLE ONLY public.combo_product\r\n    ADD CONSTRAINT
+    combo_product_pkey PRIMARY KEY (id);\r\n\r\n\r\n--\r\n-- Name: customer customer_cpf_key;
+    Type: CONSTRAINT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER TABLE ONLY
+    public.customer\r\n    ADD CONSTRAINT customer_cpf_key UNIQUE (cpf);\r\n\r\n\r\n--\r\n--
+    Name: customer customer_pkey; Type: CONSTRAINT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.customer\r\n    ADD CONSTRAINT customer_pkey PRIMARY KEY (id);\r\n\r\n\r\n--\r\n--
+    Name: employee employee_cpf_key; Type: CONSTRAINT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.employee\r\n    ADD CONSTRAINT employee_cpf_key UNIQUE (cpf);\r\n\r\n\r\n--\r\n--
+    Name: employee employee_pkey; Type: CONSTRAINT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.employee\r\n    ADD CONSTRAINT employee_pkey PRIMARY KEY (id);\r\n\r\n\r\n--\r\n--
+    Name: order order_pkey; Type: CONSTRAINT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.\"order\"\r\n    ADD CONSTRAINT order_pkey PRIMARY KEY (id);\r\n\r\n\r\n--\r\n--
+    Name: order_product order_product_pkey; Type: CONSTRAINT; Schema: public; Owner:
+    myuser\r\n--\r\n\r\nALTER TABLE ONLY public.order_product\r\n    ADD CONSTRAINT
+    order_product_pkey PRIMARY KEY (id);\r\n\r\n\r\n--\r\n-- Name: payment payment_pkey;
+    Type: CONSTRAINT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER TABLE ONLY
+    public.payment\r\n    ADD CONSTRAINT payment_pkey PRIMARY KEY (id);\r\n\r\n\r\n--\r\n--
+    Name: product product_pkey; Type: CONSTRAINT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER
+    TABLE ONLY public.product\r\n    ADD CONSTRAINT product_pkey PRIMARY KEY (id);\r\n\r\n\r\n--\r\n--
+    Name: campaign campaign_fk_idCampaign_fkey; Type: FK CONSTRAINT; Schema: public;
+    Owner: myuser\r\n--\r\n\r\nALTER TABLE ONLY public.campaign\r\n    ADD CONSTRAINT
+    \"campaign_fk_idCampaign_fkey\" FOREIGN KEY (\"fk_idCampaign\") REFERENCES public.campaign_customer(id)
+    ON UPDATE CASCADE ON DELETE SET NULL;\r\n\r\n\r\n--\r\n-- Name: combo combo_fk_idCombo_fkey;
+    Type: FK CONSTRAINT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER TABLE ONLY
+    public.combo\r\n    ADD CONSTRAINT \"combo_fk_idCombo_fkey\" FOREIGN KEY (\"fk_idCombo\")
+    REFERENCES public.combo_product(id) ON UPDATE CASCADE ON DELETE SET NULL;\r\n\r\n\r\n--\r\n--
+    Name: customer customer_fk_idCustomer_fkey; Type: FK CONSTRAINT; Schema: public;
+    Owner: myuser\r\n--\r\n\r\nALTER TABLE ONLY public.customer\r\n    ADD CONSTRAINT
+    \"customer_fk_idCustomer_fkey\" FOREIGN KEY (\"fk_idCustomer\") REFERENCES public.campaign_customer(id)
+    ON UPDATE CASCADE ON DELETE SET NULL;\r\n\r\n\r\n--\r\n-- Name: order order_fk_idOrder_fkey;
+    Type: FK CONSTRAINT; Schema: public; Owner: myuser\r\n--\r\n\r\nALTER TABLE ONLY
+    public.\"order\"\r\n    ADD CONSTRAINT \"order_fk_idOrder_fkey\" FOREIGN KEY (\"fk_idOrder\")
+    REFERENCES public.order_product(id) ON UPDATE CASCADE ON DELETE SET NULL;\r\n\r\n\r\n--\r\n--
+    Name: product product_fk_idProduct_fkey; Type: FK CONSTRAINT; Schema: public;
+    Owner: myuser\r\n--\r\n\r\nALTER TABLE ONLY public.product\r\n    ADD CONSTRAINT
+    \"product_fk_idProduct_fkey\" FOREIGN KEY (\"fk_idProduct\") REFERENCES public.combo_product(id)
+    ON UPDATE CASCADE ON DELETE SET NULL;\r\n\r\n\r\n--\r\n-- PostgreSQL database
+    dump complete\r\n--\r\n\r\n"
+kind: ConfigMap
+metadata:
+  name: postgresql-dump
+  namespace: postgresql
