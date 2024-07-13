@@ -11,13 +11,17 @@
 		"allowJs": true,
 		"target": "es6",
 		"paths": {
-			"@api/*": ["src/adapters/api/*"],
-			"@database/*": ["src/adapters/database/*"],
-			"@config/*": ["src/config/*"],
-			"@models/*": ["src/core/models/*"],
-			"@ports/*": ["src/core/ports/*"],
-			"@services/*": ["src/core/services/*"],
-			"@utils/*": ["src/core/utils/*"]
+			"@adapters/*": ["src/application/adapters/*"],
+			"@controllers/*": ["src/application/controllers/*"],
+			"@usecases/*": ["src/application/usecases/*"],
+			"@utils": ["src/application/utils/service"],
+			"@entities/*": ["src/domain/entities/*"],
+			"@config/*": ["src/infrastructure/config/*"],
+			"@database": ["src/infrastructure/external/database/index"],
+			"@database/*": ["src/infrastructure/external/database/models/*"],
+			"@routes/*": ["src/infrastructure/routes/*"],
+			"@routes": ["src/infrastructure/routes/index"],
+			"@gateways/*": ["src/interfaces/gateways/*"]
 		},
 		"baseUrl": "./"
 	}
