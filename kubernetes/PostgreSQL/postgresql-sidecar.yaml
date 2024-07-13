@@ -1,3 +1,4 @@
+# Description: This file contains the definition of a Job that will run a sidecar container to initialize a PostgreSQL database.
 apiVersion: batch/v1
 kind: Job
 metadata:

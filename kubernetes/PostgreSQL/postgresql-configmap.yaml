@@ -1,3 +1,4 @@
+# Description: ConfigMap for PostgreSQL
 apiVersion: v1
 kind: ConfigMap
 metadata:

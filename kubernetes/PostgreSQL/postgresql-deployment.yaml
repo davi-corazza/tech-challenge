@@ -1,3 +1,4 @@
+# Description: This file contains the deployment configuration for the PostgreSQL database.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,7 +7,7 @@ metadata:
     labels:
         app: postgresql
 spec:
-    replicas: 2
+    replicas: 1
     selector:
         matchLabels:
             app: postgresql
@@ -39,6 +40,10 @@ spec:
                   volumeMounts:
                       - mountPath: /var/lib/postgresql/data
                         name: postgresql-storage
+                      - name: postgresql-config-volume
+                        mountPath: /etc/postgresql
+                        subPath: pg_hba.conf
+                        readOnly: true
                   resources:
                       requests:
                           memory: "128Mi"
@@ -60,13 +65,19 @@ spec:
                       periodSeconds: 10
                       timeoutSeconds: 5
                   startupProbe:
-                    tcpSocket:
-                        port: 5432
-                    initialDelaySeconds: 5
-                    periodSeconds: 10
-                    timeoutSeconds: 1
-                    failureThreshold: 30
+                      tcpSocket:
+                          port: 5432
+                      initialDelaySeconds: 5
+                      periodSeconds: 10
+                      timeoutSeconds: 1
+                      failureThreshold: 30
             volumes:
                 - name: postgresql-storage
                   persistentVolumeClaim:
                       claimName: postgresql-persistent-volume-claim
+                - name: postgresql-config-volume
+                  configMap:
+                      name: postgresql-config
+                      items:
+                          - key: pg_hba.conf
+                            path: pg_hba.conf

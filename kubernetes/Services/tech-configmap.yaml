@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tech-challenge-configmap
+  namespace: tech-challenge
+data:
+    POSTGRES_DB: "tech_challenge"
+    PORT: "3000"
+    API_VERSION: "/v1"
+    POSTGRES_HOST: "postgresql.postgresql.svc.cluster.local"
+
