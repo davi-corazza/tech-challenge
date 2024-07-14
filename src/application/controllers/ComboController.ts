@@ -1,13 +1,13 @@
 import { ComboUseCase } from "@usecases/ComboUseCase";
-import { defaultReturnStatement, formatObjectResponse } from "@utils";
+import { defaultReturnStatement, formatObjectResponse } from "@utils/http";
 
 export class ComboController {
-	constructor(private comboUseCase: ComboUseCase) {}
+	constructor(private comboUseCase: ComboUseCase) { }
 
 	async getAll(req, res) {
 		try {
 			const combos = await this.comboUseCase.getAll();
-			defaultReturnStatement(res, "Combos", Promise.resolve(combos));
+			defaultReturnStatement(res, "Combos", combos);
 		} catch (err) {
 			console.error(err);
 			res.status(500).json({ status: 500, error: err });
@@ -18,7 +18,7 @@ export class ComboController {
 		try {
 			const comboId = req.params.Id;
 			const combo = await this.comboUseCase.getComboById(comboId);
-			defaultReturnStatement(res, "Orders", Promise.resolve(combo));
+			defaultReturnStatement(res, "Orders", combo);
 		} catch (err) {
 			console.error(err);
 			res.status(500).json({ status: 500, error: err });
@@ -28,7 +28,7 @@ export class ComboController {
 	async createCombo(req, res) {
 		try {
 			const combo = await this.comboUseCase.createCombo(req.body);
-			defaultReturnStatement(res, "Combo Created", Promise.resolve(combo));
+			defaultReturnStatement(res, "Combo Created", combo);
 		} catch (err) {
 			console.error(err);
 			res.status(500).json({ status: 500, error: err });
@@ -41,7 +41,7 @@ export class ComboController {
 			defaultReturnStatement(
 				res,
 				"Product Association Created",
-				Promise.resolve()
+				"Operation executed successfully."
 			);
 		} catch (err) {
 			console.error(err);

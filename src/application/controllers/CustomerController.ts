@@ -1,13 +1,13 @@
 import { CustomerUseCase } from "@usecases/CustomerUseCase";
-import { defaultReturnStatement, formatObjectResponse } from "@utils";
+import { defaultReturnStatement, formatObjectResponse } from "@utils/http";
 
 export class CustomerController {
-	constructor(private customerUseCase: CustomerUseCase) {}
+	constructor(private customerUseCase: CustomerUseCase) { }
 
 	async getAll(req, res) {
 		try {
 			const customers = await this.customerUseCase.getAll();
-			defaultReturnStatement(res, "Customers", Promise.resolve(customers));
+			defaultReturnStatement(res, "Customers", customers);
 		} catch (err) {
 			console.error(err);
 			res.status(500).json({ status: 500, error: err });
@@ -17,7 +17,7 @@ export class CustomerController {
 	async createCustomer(req, res) {
 		try {
 			const customer = await this.customerUseCase.createCustomer(req.body);
-			defaultReturnStatement(res, "Customer Created", Promise.resolve(customer));
+			defaultReturnStatement(res, "Customer Created", customer);
 		} catch (err) {
 			console.error(err);
 			res.status(500).json({ status: 500, error: err });
@@ -27,7 +27,7 @@ export class CustomerController {
 	async searchCustomer(req, res) {
 		try {
 			const customer = await this.customerUseCase.searchCustomer(req.params.cpf);
-			defaultReturnStatement(res, "Customer Found", Promise.resolve(customer));
+			defaultReturnStatement(res, "Customer Found", customer);
 		} catch (err) {
 			console.error(err);
 			res.status(500).json({ status: 500, error: err });
@@ -37,7 +37,7 @@ export class CustomerController {
 	async updateCustomer(req, res) {
 		try {
 			const customer = await this.customerUseCase.updateCustomer(req.params.id, req.body);
-			defaultReturnStatement(res, "Customer Updated", Promise.resolve(customer));
+			defaultReturnStatement(res, "Customer Updated", customer);
 		} catch (err) {
 			console.error(err);
 			res.status(500).json({ status: 500, error: err });
@@ -47,7 +47,7 @@ export class CustomerController {
 	async deleteCustomer(req, res) {
 		try {
 			await this.customerUseCase.deleteCustomer(req.params.id);
-			defaultReturnStatement(res, "Customer Deleted", Promise.resolve());
+			defaultReturnStatement(res, "Customer Deleted", "Operation executed successfully.");
 		} catch (err) {
 			console.error(err);
 			res.status(500).json({ status: 500, error: err });

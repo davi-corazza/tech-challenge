@@ -14,7 +14,7 @@
 			"@adapters/*": ["src/application/adapters/*"],
 			"@controllers/*": ["src/application/controllers/*"],
 			"@usecases/*": ["src/application/usecases/*"],
-			"@utils": ["src/application/utils/service"],
+			"@utils/*": ["src/application/utils/*"],
 			"@entities/*": ["src/domain/entities/*"],
 			"@config/*": ["src/infrastructure/config/*"],
 			"@database": ["src/infrastructure/external/database/index"],

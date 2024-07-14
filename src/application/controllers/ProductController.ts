@@ -1,13 +1,13 @@
 import { ProductUseCase } from "@usecases/ProductUseCase";
-import { defaultReturnStatement } from "@utils";
+import { defaultReturnStatement } from "@utils/http";
 
 export class ProductController {
-	constructor(private productUseCase: ProductUseCase) {}
+	constructor(private productUseCase: ProductUseCase) { }
 
 	async getAll(req, res) {
 		try {
 			const products = await this.productUseCase.getAll();
-			defaultReturnStatement(res, "Products", Promise.resolve(products));
+			defaultReturnStatement(res, "Products", products);
 		} catch (err) {
 			console.error(err);
 			res.status(500).json({ status: 500, error: err });
@@ -18,7 +18,7 @@ export class ProductController {
 		try {
 			const categoryId = req.params.categoryId;
 			const products = await this.productUseCase.getProductByCategory(categoryId);
-			defaultReturnStatement(res, "Products", Promise.resolve(products));
+			defaultReturnStatement(res, "Products", products);
 		} catch (err) {
 			console.error(err);
 			res.status(500).json({ status: 500, error: err });
@@ -28,7 +28,7 @@ export class ProductController {
 	async createProduct(req, res) {
 		try {
 			const product = await this.productUseCase.createProduct(req.body);
-			defaultReturnStatement(res, "Product Created", Promise.resolve(product));
+			defaultReturnStatement(res, "Product Created", product);
 		} catch (err) {
 			console.error(err);
 			res.status(500).json({ status: 500, error: err });
@@ -38,7 +38,7 @@ export class ProductController {
 	async updateProduct(req, res) {
 		try {
 			const result = await this.productUseCase.updateProduct(req.body);
-			defaultReturnStatement(res, "Product updated successfully", Promise.resolve(result));
+			defaultReturnStatement(res, "Product updated successfully", result);
 		} catch (err) {
 			console.error(err);
 			res.status(err.message === "Product not found" ? 404 : 500).json({ status: err.message === "Product not found" ? 404 : 500, error: err });
@@ -49,7 +49,7 @@ export class ProductController {
 		try {
 			const deletedCount = await this.productUseCase.deleteProduct(req.params.id);
 			const responseMessage = deletedCount === 1 ? "Product deleted successfully" : "Product not found";
-			defaultReturnStatement(res, responseMessage, Promise.resolve(deletedCount));
+			defaultReturnStatement(res, responseMessage, deletedCount);
 		} catch (err) {
 			console.error(err);
 			res.status(err.message === "Product not found" ? 404 : 500).json({ status: err.message === "Product not found" ? 404 : 500, error: err });
