@@ -8,7 +8,7 @@ export let GetProductSuccessRate = new Rate('GetProductSuccessRate');
 export let GetProductReqs = new Counter('GetProductReqs');
 
 export default function () {
-	let res = http.get('http://localhost:3000/v1/product/all');
+	let res = http.get('http://localhost:3000/product/all');
 
 	GetProductDuration.add(res.timings.duration);
 	GetProductReqs.add(1);

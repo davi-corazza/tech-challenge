@@ -8,4 +8,8 @@ data:
     PORT: "3000"
     API_VERSION: "/v1"
     POSTGRES_HOST: "postgresql.postgresql.svc.cluster.local"
+    NODE_ENV: "development"
+    APP_NAME: "application"
+    APP_KEY: "# ------ #"
+    APP_URL: "http://${HOST}:${PORT}"
 

@@ -73,3 +73,12 @@ Este projeto é uma aplicação Node.js estruturada com TypeScript e seguindo a 
 
 ## Documentação da API
 A documentação da API, gerada com Swagger, estará disponível em http://localhost:3000/swagger/.
+
+## Cluster Kubernetes
+- O cluster Kubernetes foi configurado utilizando o Docker Desktop, por isso está com um node.
+- Os recursos foram separados em namespaces para melhor organização. A comunicação entre os namespaces é feita através de serviços.
+- O banco de dados PostgreSQL foi configurado em um namespace separado, com um serviço para comunicação com a aplicação.
+- Para realizar o restore do banco de dados, foi criado um job sidecar-init que restaura o banco de dados com o dump dump.sql que está em um ConfigMap.
+
+## Diagrama da Arquitetura
+![Cluster Kubernetes](arquitetura/Kubernetes.jpg)

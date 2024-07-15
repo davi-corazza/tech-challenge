@@ -6,7 +6,7 @@ metadata:
   labels:
     app: tech-challenge
 spec:
-    replicas: 2
+    replicas: 1
     selector:
       matchLabels:
         app: tech-challenge
@@ -18,7 +18,7 @@ spec:
         spec:
             containers:
                 -   name: tech-challenge
-                    image: fwcpereira/tech-challenge:v1.0.0
+                    image: fwcpereira/tech-challenge:v2.0.0
                     imagePullPolicy: Always
                     ports:
                         -   containerPort: 3000
@@ -27,24 +27,33 @@ spec:
                             name: tech-challenge-configmap
                         - secretRef:
                             name: tech-challenge-secret
-#                    livenessProbe:
-#                        httpGet:
-#                          path: /v1/category/all
-#                          port: 3000
-#                        initialDelaySeconds: 10
-#                        failureThreshold: 3
-#                        periodSeconds: 10
-#                        successThreshold: 1
-#                        timeoutSeconds: 1
-#                    readinessProbe:
-#                        httpGet:
-#                            path: /v1/category/all
-#                            port: 3000
-#                        initialDelaySeconds: 10
-#                        failureThreshold: 3
-#                        periodSeconds: 30
-#                        successThreshold: 3
-#                        timeoutSeconds: 1
+                    livenessProbe:
+                        httpGet:
+                          path: /heathlz
+                          port: 3000
+                        initialDelaySeconds: 10
+                        failureThreshold: 3
+                        periodSeconds: 10
+                        successThreshold: 1
+                        timeoutSeconds: 1
+                    readinessProbe:
+                        httpGet:
+                            path: /heathlz
+                            port: 3000
+                        initialDelaySeconds: 5
+                        failureThreshold: 3
+                        periodSeconds: 10
+                        successThreshold: 1
+                        timeoutSeconds: 1
+                    startupProbe:
+                        httpGet:
+                            path: /heathlz
+                            port: 3000
+                        initialDelaySeconds: 10
+                        failureThreshold: 3
+                        periodSeconds: 10
+                        successThreshold: 1
+                        timeoutSeconds: 1
                     resources:
                         requests:
                             memory: "350Mi"
