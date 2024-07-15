@@ -1,0 +1,10 @@
+# Description: ConfigMap for sidecar container
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: sidecar-configmap
+    namespace: sidecar
+    labels:
+        job: sidecar
+data:
+    POSTGRES_DB: tech_challenge

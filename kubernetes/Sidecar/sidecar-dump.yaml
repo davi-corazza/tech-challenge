@@ -1,4 +1,4 @@
-# Description: This file contains the PostgreSQL dump secret configuration.
+# Description: ConfigMap with a SQL dump file
 apiVersion: v1
 data:
   dump.sql: "--\r\n-- PostgreSQL database dump\r\n--\r\n\r\n-- Dumped from database
@@ -355,7 +355,7 @@ data:
     dump complete\r\n--\r\n\r\n"
 kind: ConfigMap
 metadata:
-  name: postgresql-dump
-  namespace: postgresql
+  name: sidecar-dump
+  namespace: sidecar
   labels:
-    app: postgresql
+    job: sidecar

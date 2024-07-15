@@ -1,0 +1,6 @@
+# Description: Create the namespace for sidecar
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: sidecar
+
