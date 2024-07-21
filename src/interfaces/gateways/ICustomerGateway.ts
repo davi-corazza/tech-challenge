@@ -5,6 +5,8 @@ export interface ICustomerGateway {
 
 	newCustomer(customer: Customer): Promise<Customer>;
 
+	getCustomerById(condition?: any): Promise<Customer[]>;
+
 	searchCustomer(cpf: string): Promise<Customer>;
 
 	updateCustomer(

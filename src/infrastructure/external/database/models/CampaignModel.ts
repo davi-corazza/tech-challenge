@@ -24,7 +24,7 @@ export class Campaign extends Model {
 		type: DataType.DATEONLY,
 		allowNull: true,
 	})
-	endDate: string;
+	endDate: Date;
 
 	@Column({
 		type: DataType.STRING(150),

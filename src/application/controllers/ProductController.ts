@@ -37,7 +37,7 @@ export class ProductController {
 
 	async updateProduct(req, res) {
 		try {
-			const result = await this.productUseCase.updateProduct(req.body);
+			const result = await this.productUseCase.updateProduct(req.params.id, req.body);
 			defaultReturnStatement(res, "Product updated successfully", result);
 		} catch (err) {
 			console.error(err);

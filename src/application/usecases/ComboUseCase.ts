@@ -3,19 +3,21 @@ import { Combo } from "@entities/Combo";
 import { Product } from "@entities/Product";
 
 export class ComboUseCase {
-	constructor(private readonly comboGateway: IComboGateway) {}
+	constructor(private readonly comboGateway: IComboGateway) { }
 
 	async getAll(): Promise<Combo[]> {
 		return await this.comboGateway.allCombos();
 	}
 
-	async getComboById(id: number): Promise<Combo[]> {
-		return await this.comboGateway.getComboById({ where: { id } });
+	async getComboById(id: number): Promise<Combo | null> {
+		const combos = await this.comboGateway.getComboById({ where: { id } });
+		return combos.length ? combos[0] : null;
 	}
 
-	async createCombo(data: any): Promise<Combo> {
-		const newCombo = { ...data };
-		return await this.comboGateway.newCombo(newCombo);
+	async createCombo(data: Partial<Combo>): Promise<Combo> {
+		const { name, discount } = data;
+		const combo = new Combo(name, discount);
+		return await this.comboGateway.newCombo(combo);
 	}
 
 	async createComboProductAssociation(data: any): Promise<void> {

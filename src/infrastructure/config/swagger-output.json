@@ -135,7 +135,7 @@
         "tags": [
           "Product"
         ],
-        "description": "",
+        "description": "Update Product by ID",
         "parameters": [
           {
             "name": "id",
@@ -149,6 +149,16 @@
         "responses": {
           "default": {
             "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
           }
         }
       }
@@ -1097,7 +1107,7 @@
             "type": "string",
             "example": "Name of customer"
           },
-          "phoneNumer": {
+          "phoneNumber": {
             "type": "string",
             "example": "(99) 99999-9999"
           },
@@ -1179,7 +1189,7 @@
             "type": "string",
             "example": "Campaign Name"
           },
-          "rule": {
+          "campaignRule": {
             "type": "string",
             "example": "Campaign Rule"
           },

@@ -78,7 +78,7 @@ export class OrderController {
 
 	async getOrderProducts(req, res) {
 		try {
-			const products = await this.orderUseCase.getOrderProducts(req.params.Id);
+			const products = await this.orderUseCase.getOrderProducts(req.params.id);
 			defaultReturnStatement(res, "Order Products", products);
 		} catch (err) {
 			console.error(err);

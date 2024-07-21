@@ -10,6 +10,10 @@ export class EmployeeAdapter implements IEmployeeGateway {
 		return Employee.create(values);
 	}
 
+	getEmployeeById(params?: any): Promise<Employee[]> {
+		return Employee.findAll(params);
+	}
+
 	findEmployee(cpf: string): Promise<Employee> {
 		return Employee.findOne({ where: { cpf } });
 	}

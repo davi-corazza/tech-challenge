@@ -30,7 +30,7 @@ export class Customer extends Model {
 		type: DataType.STRING,
 		allowNull: true,
 	})
-	phoneNumer: string;
+	phoneNumber: string;
 
 	@Column({
 		type: DataType.STRING,

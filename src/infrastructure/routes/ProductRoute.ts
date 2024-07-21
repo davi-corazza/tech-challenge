@@ -12,23 +12,23 @@ const productController = new ProductController(productUseCase);
 productRoute.get("/all", (req, res) => {
 	// #swagger.tags = ['Product']
 	/* #swagger.responses[200] = {
-            description: 'Return all products',
-            schema: { $ref: '#/definitions/Product' }
-    } */
+			description: 'Return all products',
+			schema: { $ref: '#/definitions/Product' }
+	} */
 	productController.getAll(req, res);
 });
 
 productRoute.post("/create", (req, res) => {
 	// #swagger.tags = ['Product']
 	/* #swagger.requestBody = {
-            required: true,
-            content: {
-                "application/json": {
-                    schema: { $ref: '#/definitions/AddProduct' }
-                }
-            }
-        }
-    */
+			required: true,
+			content: {
+				"application/json": {
+					schema: { $ref: '#/definitions/AddProduct' }
+				}
+			}
+		}
+	*/
 	productController.createProduct(req, res);
 });
 
@@ -39,6 +39,16 @@ productRoute.delete("/delete/:id", (req, res) => {
 
 productRoute.put("/update/:id", (req, res) => {
 	// #swagger.tags = ['Product']
+	// #swagger.description = 'Update Product by ID'
+	/* #swagger.requestBody = {
+			required: true,
+			content: {
+				"application/json": {
+					schema: { $ref: '#/definitions/Product' }
+				}
+			}
+		}
+	*/
 	productController.updateProduct(req, res);
 });
 

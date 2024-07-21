@@ -5,6 +5,8 @@ export interface IEmployeeGateway {
 
 	newEmployee(employee: Employee): Promise<Employee>;
 
+	getEmployeeById(condition?: any): Promise<Employee[]>;
+
 	findEmployee(cpf: string): Promise<Employee>;
 
 	updateEmployee(

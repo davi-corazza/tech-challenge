@@ -18,7 +18,7 @@ const doc = {
 		Customer: {
 			cpf: "555.555.555-55",
 			name: "Name of customer",
-			phoneNumer: "(99) 99999-9999",
+			phoneNumber: "(99) 99999-9999",
 			email: "email@example.com",
 		},
 		Combo: {
@@ -40,7 +40,7 @@ const doc = {
 		},
 		Campaign: {
 			name: "Campaign Name",
-			rule: "Campaign Rule",
+			campaignRule: "Campaign Rule",
 			discount: "10",
 			endDate: "2021-10-20",
 		},
@@ -96,6 +96,6 @@ const doc = {
 };
 
 const outputFile = "./swagger-output.json";
-const endpointsFiles = ["./src/config/routes.ts"];
+const endpointsFiles = ["./src/infrastructure/config/routes.ts"];
 
 swaggerAutogen({ openapi: "3.0.0" })(outputFile, endpointsFiles, doc);

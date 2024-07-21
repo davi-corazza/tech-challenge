@@ -13,6 +13,10 @@ export class CustomerAdapter implements ICustomerGateway {
 		return Customer.create(values);
 	}
 
+	getCustomerById(params?: any): Promise<Customer[]> {
+		return Customer.findAll(params);
+	}
+
 	searchCustomer(cpf: string): Promise<Customer> {
 		return Customer.findOne({ where: { cpf } });
 	}
