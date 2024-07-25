@@ -861,7 +861,7 @@
         }
       }
     },
-    "/campaign/campaign/association/create": {
+    "/campaign/customer/association/create": {
       "post": {
         "tags": [
           "Campaign"

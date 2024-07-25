@@ -13,9 +13,9 @@ campaignRoute.get("/all", (req, res) => {
 	// #swagger.tags = ['Campaign']
 	// #swagger.description = 'Get all campaigns'
 	/* #swagger.responses[200] = {
-            description: 'Return all campaigns',
-            schema: { $ref: '#/definitions/Campaign' }
-    } */
+			description: 'Return all campaigns',
+			schema: { $ref: '#/definitions/Campaign' }
+	} */
 	campaignController.getAll(req, res);
 });
 
@@ -28,18 +28,18 @@ campaignRoute.post("/create", (req, res) => {
 	// #swagger.tags = ['Campaign']
 	// #swagger.description = 'Create a new campaign'
 	/* #swagger.requestBody = {
-            required: true,
-            content: {
-                "application/json": {
-                    schema: { $ref: '#/definitions/Campaign' }
-                }
-            }
-        }
-    */
+			required: true,
+			content: {
+				"application/json": {
+					schema: { $ref: '#/definitions/Campaign' }
+				}
+			}
+		}
+	*/
 	campaignController.createCampaign(req, res);
 });
 
-campaignRoute.post("/campaign/association/create", (req, res) => {
+campaignRoute.post("/customer/association/create", (req, res) => {
 	// #swagger.tags = ['Campaign']
 	// #swagger.description = 'Create a new campaign Customer association'
 	/* #swagger.requestBody = {

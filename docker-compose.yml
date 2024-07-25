@@ -12,22 +12,7 @@ services:
             - .env
         tty: true
         ports:
-            - '3000:3000'
-        depends_on:
-            - sidecar
-            - postgres-db
-
-    sidecar:
-        build:
-            context: .
-            dockerfile: ./docker/Dockerfile_sidecar
-        container_name: sidecar
-        hostname: sidecar
-        tty: true
-        env_file:
-            - .env
-        networks:
-            - tech-network
+            - "3000:3000"
         depends_on:
             postgres-db:
                 condition: service_healthy
@@ -43,11 +28,11 @@ services:
             - .env
         tty: true
         ports:
-            - '5432:5432'
+            - "5432:5432"
         volumes:
             - ./postgresql_data:/var/lib/postgresql/data
         healthcheck:
-            test: [ "CMD-SHELL", "pg_isready" ]
+            test: ["CMD-SHELL", "pg_isready"]
             interval: 10s
             timeout: 5s
             retries: 5

@@ -11,7 +11,7 @@ export class OrderUseCase {
 		private readonly customerGateway: ICustomerGateway,
 		private readonly comboGateway: IComboGateway,
 		private readonly campaignGateway: ICampaignGateway
-	) {}
+	) { }
 
 	async getAll(): Promise<Order[]> {
 		return await this.orderGateway.allOrders();
@@ -165,13 +165,15 @@ export class OrderUseCase {
 			}
 		}
 
-		const campaign = await this.campaignGateway.getCampaignById(order[0].dataValues.fk_idCampaign);
-		orderPrice -= orderPrice * campaign[0].discount;
+		if (order[0].dataValues.fk_idCampaign) {
+			const campaign = await this.campaignGateway.getCampaignById(order[0].dataValues.fk_idCampaign);
+			orderPrice -= orderPrice * campaign[0].discount;
 
-		const orderUpdated = new Order(order[0]);
-		orderUpdated.price = orderPrice.toString();
+			const orderUpdated = new Order(order[0]);
+			orderUpdated.price = orderPrice.toString();
 
-		await this.orderGateway.updateOrder(orderUpdated, { where: { id } });
+			await this.orderGateway.updateOrder(orderUpdated, { where: { id } });
+		}
 	}
 
 	async updateOrderStatus(orderData: any): Promise<number> {
