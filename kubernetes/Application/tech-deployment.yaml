@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tech-challenge-deployment
-  namespace: tech-challenge
+  namespace: core
   labels:
     app: tech-challenge
 spec:
@@ -57,10 +57,10 @@ spec:
                     resources:
                         requests:
                             memory: "350Mi"
-                            cpu: "100m"
+                            cpu: "400m"
                         limits:
                             memory: "450Mi"
-#                            cpu: "1000m"
+                            cpu: "600m"
             restartPolicy: Always
             terminationGracePeriodSeconds: 30
 

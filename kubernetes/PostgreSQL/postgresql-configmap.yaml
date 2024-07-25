@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
     name: postgresql-configmap
-    namespace: postgresql
+    namespace: tool-database
     labels:
         app: postgresql
 data:

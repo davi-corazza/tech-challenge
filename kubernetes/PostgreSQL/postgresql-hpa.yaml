@@ -3,7 +3,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
     name: postgresql
-    namespace: postgresql
+    namespace: tool-database
     labels:
         app: postgresql
 spec:
