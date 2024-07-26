@@ -15,7 +15,6 @@ spec:
         metadata:
             labels:
                 app: postgresql
-                version: v1
         spec:
             containers:
                 - name: postgresql
@@ -82,3 +81,4 @@ spec:
                       items:
                           - key: pg_hba.conf
                             path: pg_hba.conf
+            serviceAccountName: postgresql-service-account
