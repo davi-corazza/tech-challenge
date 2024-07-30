@@ -2,13 +2,13 @@
 
 ### Descrição
 
-Este projeto é uma aplicação Node.js estruturada com TypeScript e seguindo a arquitetura hexagonal. Utilizamos Express para criar a API, Sequelize como database connector e PostgreSQL como banco de dados relacional. O projeto está dockerizado, com suporte a Docker Compose para facilitar o processo de desenvolvimento e implantação.
+Este projeto é uma aplicação Node.js estruturada com TypeScript e seguindo os conceitos da Clean Architecture / Clean Code e aplicando as regras de SOLID. Utilizamos Express para criar a API, Sequelize como database connector e PostgreSQL como banco de dados relacional. O projeto está dockerizado, com suporte a Docker Compose para facilitar o processo de desenvolvimento e implantação.
 
 ### Tecnologias do Projeto
 
-| Docker | PostgreSQL | Node.js  | NPM    |
-|--------|------------|----------|--------|
-| *      | *          | v16.15.0 | v8.5.5 |
+| Docker | PostgreSQL | Node.js  | Npm    | Kubernetes  |
+|--------|------------|----------|--------|-------------|
+| *      | *          | v16.15.0 | v8.5.5 | v1.30.2     |
 
 ### Membros do Projeto
 
@@ -26,35 +26,46 @@ Este projeto é uma aplicação Node.js estruturada com TypeScript e seguindo a 
 ## Estrutura do Projeto
 
 	src
-	├── adapters
-	│   ├── api
-	│   ├── database
-	├── config
-	├── core
-	│   ├── models
-	│   ├── ports
-	│   │   ├── in
-	│   │   └── out
-	├── ├── services
-	├── ├── utils
+	├── application
+	│   ├── adapters
+	│   ├── controllers
+	│   ├── usecases
+	│   └── utils
+	├── domain
+	│   └── entities
+	├── infrastructure
+	│   ├── config
+	│   ├── external
+	│   │   ├── database
+	│   │   │   └── models
+	│   │   └── index.ts
+	│	└── routes
+	├── interfaces
+	│   └── gateways
 	└── main.ts
 
 ### Mais Detalhes
 - `src:` Diretório principal onde o código fonte da aplicação está localizado.
-	- `adapters:` Contém implementações de conexões externas.
-		- `api:` Implementações relacionadas às rotas e controllers da API.
-		- `database:` Configurações e implementações relacionadas ao banco de dados.
-	- `config:` Arquivos de configuração da aplicação, bem como express, fator de conexão, morgan e swagger.
-	- `core:` Contém a lógica de negócios da aplicação.
-		- `models:` Definições dos modelos/entidades para uso na camada core.
-		- `ports:` Definição de interfaces para entrada e saída.
-			- `in:` Interfaces para services e controllers.
-			- `out:` Interfaces para repositórios e gateways.
-		- `services:` Implementação dos casos de uso e lógica de negócio.
-		- `utils:` Utilitários e helpers genéricos.
+	- `application:` Contém a lógica de aplicação.
+		- `adapters:` Contém implementações de conexões externas.
+		- `controllers:` Camada de controle, gerenciando as requisições recebidas e direcionando para os casos de uso apropriados.
+		- `usecases:` Implementação dos casos de uso e lógica de negócio.
+		- `utils:` Utilitários e helpers genéricos para uso da aplicação.
+	- `domain:` Contém as entidades e a lógica de domínio.
+		- `entities:` Definições das entidades e modelos de domínio.
+	- `infrastructure:` Configurações e integrações externas.
+		- `config:` Arquivos de configuração da aplicação, incluindo express, fator de conexão, morgan, swagger e newman.
+		- `external:` Integrações externas, como banco de dados.
+			- `database:` Configurações de acesso ao banco de dados.
+				- `models:`  Definições dos modelos de dados para o banco de dados.
+		- `routes:` Definição das rotas da aplicação.
+	- `interfaces:` Definições das interfaces para entrada e saída.
+		- `gateways:` Interfaces para repositórios e gateways externos.
 	- `main.ts:` Ponto de entrada da aplicação.
 
 ## Iniciando a aplicação
+
+### Executando em Docker
 - Clone o repositório:
 
 		git clone https://github.com/davi-corazza/tech-challenge.git
@@ -70,7 +81,40 @@ Este projeto é uma aplicação Node.js estruturada com TypeScript e seguindo a 
 
 			docker compose up --build
 
-- A aplicação estará disponível em http://localhost:3000.
+A aplicação estará disponível em [http://localhost:3000](http://localhost:3000).
+
+### Executando em Kubernetes
+
+#### Simular Ambiente Kubernetes
+
+Para simular um ambiente Kubernetes, é necessário habilitar a função Kubernetes no Docker Desktop e instalar a ferramenta Kubectl.
+
+#### Criar os Namespaces
+
+```sh
+kubectl apply -f kubernetes/PostgreSQL/postgresql-namespace.yaml
+kubectl apply -f kubernetes/Application/tech-namespace.yaml
+```
+
+#### Criar os Recursos do Banco de Dados PostgreSQL
+
+```sh
+kubectl apply -f kubernetes/PostgreSQL
+```
+
+#### Criar os Recursos da Aplicação
+
+```sh
+kubectl apply -f kubernetes/Application
+```
+
+#### Abrir a Aplicação
+
+```sh
+kubectl port-forward service/tech-service 3000:3000 -n core
+```
+
+A aplicação estará disponível em [http://localhost:3000](http://localhost:3000).
 
 ## Documentação da API
 A documentação da API, gerada com Swagger, estará disponível em http://localhost:3000/swagger/.
