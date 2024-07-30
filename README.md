@@ -80,5 +80,46 @@ A documentação da API, gerada com Swagger, estará disponível em http://local
 - O banco de dados PostgreSQL foi configurado em um namespace separado, com um serviço para comunicação com a aplicação.
 - Para realizar o restore do banco de dados, foi criado um job sidecar-init que restaura o banco de dados com o dump dump.sql que está em um ConfigMap.
 
+## Estrutura do Cluster Kubernetes
+
+```
+├── Application
+│   ├── tech-configmap.yaml
+│   ├── tech-deployment.yaml
+│   ├── tech-hpa.yaml
+│   ├── tech-namespace.yaml
+│   ├── tech-role-binding.yaml
+│   ├── tech-role.yaml
+│   ├── tech-secret.yaml
+│   ├── tech-service-account.yaml
+│   └── tech-service.yaml
+├── PostgreSQL
+│   ├── postgresql-configmap.yaml
+│   ├── postgresql-connection.yaml
+│   ├── postgresql-deployment.yaml
+│   ├── postgresql-hpa.yaml
+│   ├── postgresql-namespace.yaml
+│   ├── postgresql-pvc.yaml
+│   ├── postgresql-role-binding.yaml
+│   ├── postgresql-role.yaml
+│   ├── postgresql-secret.yaml
+│   ├── postgresql-service-account.yaml
+│   └── postgresql-service.yaml
+└── Test-k6s
+    ├── index.js  -> Script de teste de carga
+    └── tech-challenge-report.pdf -> Relatório do teste de carga
+```
+
 ## Diagrama da Arquitetura
+
+A imagem abaixo ilustra a arquitetura do cluster Kubernetes, com os namespaces e serviços configurados.
+
 ![Cluster Kubernetes](arquitetura/Kubernetes.jpg)
+
+## Resultado do Teste de Carga com K6s
+
+Realizamos um teste de carga utilizando K6s para avaliar o desempenho e a capacidade de nosso sistema. O relatório detalhado dos resultados pode ser acessado através do link abaixo:
+
+[Veja o Relatório Completo do Teste de Carga](kubernetes/Test-k6s/tech-challenge-report.pdf)
+
+
