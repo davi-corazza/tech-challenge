@@ -1,15 +1,21 @@
+# Description: This file is responsible for deploying the application in the Kubernetes cluster.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tech-challenge-deployment
+  name: tech-challenge
   namespace: core
   labels:
     app: tech-challenge
 spec:
-    replicas: 1
+    replicas: 2
     selector:
       matchLabels:
         app: tech-challenge
+    strategy:
+        type: RollingUpdate
+        rollingUpdate:
+            maxSurge: 1
+            maxUnavailable: 1
     template:
         metadata:
             labels:
@@ -23,9 +29,9 @@ spec:
                         -   containerPort: 3000
                     envFrom:
                         - configMapRef:
-                            name: tech-challenge-configmap
+                            name: tech-challenge
                         - secretRef:
-                            name: tech-challenge-secret
+                            name: tech-challenge
                     livenessProbe:
                         httpGet:
                           path: /heathlz
@@ -34,23 +40,23 @@ spec:
                         failureThreshold: 3
                         periodSeconds: 10
                         successThreshold: 1
-                        timeoutSeconds: 1
+                        timeoutSeconds: 5
                     readinessProbe:
-                        httpGet:
-                            path: /heathlz
-                            port: 3000
-                        initialDelaySeconds: 5
-                        failureThreshold: 3
-                        periodSeconds: 10
-                        successThreshold: 1
-                        timeoutSeconds: 1
-                    startupProbe:
                         httpGet:
                             path: /heathlz
                             port: 3000
                         initialDelaySeconds: 10
                         failureThreshold: 3
                         periodSeconds: 10
+                        successThreshold: 1
+                        timeoutSeconds: 1
+                    startupProbe:
+                        exec:
+                            command:
+                                - /bin/sh
+                                - -c
+                                - node -v
+                        initialDelaySeconds: 5
                         successThreshold: 1
                         timeoutSeconds: 1
                     resources:

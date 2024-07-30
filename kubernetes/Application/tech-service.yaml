@@ -1,7 +1,8 @@
+# Description: This file is used to create a service for the tech-challenge application.
 apiVersion: v1
 kind: Service
 metadata:
-  name: tech-challenge-service
+  name: tech-challenge
   namespace: core
   labels:
     app: tech-challenge

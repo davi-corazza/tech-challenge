@@ -7,7 +7,7 @@ metadata:
     labels:
         app: postgresql
 spec:
-    replicas: 1
+    replicas: 2
     selector:
         matchLabels:
             app: postgresql
@@ -46,8 +46,8 @@ spec:
                         readOnly: true
                   resources:
                       requests:
-                          memory: "128Mi"
-                          cpu: "100m"
+                          memory: "228Mi"
+                          cpu: "150m"
                       limits:
                           memory: "512Mi"
                           cpu: "500m"

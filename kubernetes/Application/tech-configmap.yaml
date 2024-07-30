@@ -1,7 +1,8 @@
+# Description: This file contains the configuration for the application.
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: tech-challenge-configmap
+  name: tech-challenge
   namespace: core
 data:
     POSTGRES_DB: "tech_challenge"

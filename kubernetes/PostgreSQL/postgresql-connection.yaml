@@ -1,4 +1,4 @@
-# Description: ConfigMap for PostgreSQL configuration file pg_hba.conf
+# Description: ConfigMap for PostgreSQL configuration file pg_hba.conf.
 apiVersion: v1
 kind: ConfigMap
 metadata:

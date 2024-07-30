@@ -1,4 +1,4 @@
-# Description: Horizontal Pod Autoscaler for PostgreSQL deployment
+# Description: Horizontal Pod Autoscaler for PostgreSQL deployment.
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:

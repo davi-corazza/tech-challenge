@@ -1,4 +1,4 @@
-# Description: Create the namespace for PostgreSQL
+# Description: Create the namespace for PostgreSQL.
 apiVersion: v1
 kind: Namespace
 metadata:

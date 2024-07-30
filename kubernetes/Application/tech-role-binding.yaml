@@ -1,3 +1,4 @@
+# Description: This file is responsible for creating a RoleBinding in the Kubernetes cluster.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
