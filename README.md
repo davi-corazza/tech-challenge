@@ -22,6 +22,7 @@ Este projeto é uma aplicação Node.js estruturada com TypeScript e seguindo a 
 #### `Link do Miro` - Documentação do sistema (DDD) com Event Storming, incluindo todos os passos/tipos de diagrama 
 [Miro - Tech Challenge](https://miro.com/app/board/uXjVKWk2FRY=/?share_link_id=272701004394)
 
+
 ## Estrutura do Projeto
 
 	src
@@ -115,6 +116,13 @@ A documentação da API, gerada com Swagger, estará disponível em http://local
 A imagem abaixo ilustra a arquitetura do cluster Kubernetes, com os namespaces e serviços configurados.
 
 ![Cluster Kubernetes](arquitetura/Kubernetes.jpg)
+
+
+## Link do Video de Apresentação
+
+O vídeo de apresentação do projeto está disponível no YouTube. Nele, apresentamos a aplicação, a arquitetura do cluster Kubernetes e os resultados do teste de carga.
+
+[Video de Apresentação](https://www.youtube.com/watch?v=CQdSKTqmasw)
 
 ## Resultado do Teste de Carga com K6s
 
