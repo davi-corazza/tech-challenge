@@ -6,6 +6,10 @@ export class PaymentAdapter implements IPaymentGateway {
 		return Payment.findAll();
 	}
 
+	getPaymentByMp(params?: any): Promise<Payment[]> {
+		return Payment.findAll(params);
+	}
+
 	newPayment(values: any): Promise<Payment> {
 		return Payment.create(values);
 	}

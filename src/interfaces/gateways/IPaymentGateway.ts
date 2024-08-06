@@ -3,6 +3,8 @@ import { Payment } from "@entities/Payment";
 export interface IPaymentGateway {
 	allPayments(): Promise<Payment[]>;
 
+	getPaymentByMp(condition?: any): Promise<Payment[]>;
+
 	newPayment(Payment: Payment): Promise<Payment>;
 
 	updatePayment(

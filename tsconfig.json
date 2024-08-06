@@ -19,6 +19,7 @@
 			"@config/*": ["src/infrastructure/config/*"],
 			"@database": ["src/infrastructure/external/database/index"],
 			"@database/*": ["src/infrastructure/external/database/models/*"],
+			"@api/*": ["src/infrastructure/external/api/*"],
 			"@routes/*": ["src/infrastructure/routes/*"],
 			"@routes": ["src/infrastructure/routes/index"],
 			"@gateways/*": ["src/interfaces/gateways/*"]

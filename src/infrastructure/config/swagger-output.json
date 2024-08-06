@@ -790,6 +790,39 @@
         }
       }
     },
+    "/payment/webhook": {
+      "post": {
+        "tags": [
+          "WebhookCheckout"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookCheckout"
+              }
+            }
+          }
+        }
+      }
+    },
     "/campaign/all": {
       "get": {
         "tags": [
@@ -1276,6 +1309,25 @@
         },
         "xml": {
           "name": "FakeCheckout"
+        }
+      },
+      "WebhookCheckout": {
+        "type": "object",
+        "properties":{
+          "action": "payment.updated",
+          "api_version": "v1",
+          "data": {
+            "id": "1325501889"
+          },
+          "date_created": "2021-11-01T02:02:02Z",
+          "id": "1325501889",
+          "live_mode": false,
+          "type": "payment",
+          "user_id": 151008103          
+        },
+        
+        "xml": {
+          "name": "WebhookCheckout"
         }
       },
       "getEmployee": {

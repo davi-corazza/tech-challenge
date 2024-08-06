@@ -44,4 +44,14 @@ export class PaymentController {
 			res.status(err.message === "Payment not found" ? 404 : 500).json({ status: err.message === "Payment not found" ? 404 : 500, error: err });
 		}
 	}
+
+	async webhookPayment(req, res) {
+		try {
+			const result = await this.paymentUseCase.webhookPayment(req.body);
+			defaultReturnStatement(res, "Payment and Order updated successfully", result);
+		} catch (err) {
+			console.error(err);
+			res.status(err.message === "Payment not executed" ? 404 : 500).json({ status: err.message === "Payment not executed" ? 404 : 500, error: err });
+		}
+	}
 }

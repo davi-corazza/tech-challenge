@@ -62,6 +62,9 @@ const doc = {
 			status: "PAID",
 			fk_idOrder: 1,
 		},
+		WebhookCheckout: {			
+			id: 1,
+		},
 		getEmployee: {
 			cpf: "555.555.555-55",
 			name: "Name of employee",
