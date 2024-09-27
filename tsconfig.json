@@ -9,7 +9,8 @@
 		"emitDecoratorMetadata": true,
 		"resolveJsonModule": true,
 		"allowJs": true,
-		"target": "es6",
+		"target": "es2016",
+    	"lib": ["es2016", "dom"],
 		"paths": {
 			"@adapters/*": ["src/application/adapters/*"],
 			"@controllers/*": ["src/application/controllers/*"],
@@ -19,10 +20,14 @@
 			"@config/*": ["src/infrastructure/config/*"],
 			"@database": ["src/infrastructure/external/database/index"],
 			"@database/*": ["src/infrastructure/external/database/models/*"],
+			"@mappers/*": ["src/infrastructure/mappers/*"],
 			"@routes/*": ["src/infrastructure/routes/*"],
 			"@routes": ["src/infrastructure/routes/index"],
-			"@gateways/*": ["src/interfaces/gateways/*"]
+			"@gateways/*": ["src/interfaces/gateways/*"],
+			"@type/*": ["src/application/types/*"]
 		},
 		"baseUrl": "./"
-	}
+	},
+	"include": ["src/**/*.ts", "src/**/*.d.ts"],
+	"exclude": ["node_modules"]
 }

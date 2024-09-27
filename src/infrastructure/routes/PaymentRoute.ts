@@ -20,6 +20,11 @@ paymentRoute.get("/all", (req, res) => {
 	paymentController.getAll(req, res);
 });
 
+paymentRoute.get("/:Id", (req, res) => {
+	// #swagger.tags = ['Payment']
+	paymentController.getPaymentById(req, res);
+});
+
 paymentRoute.post("/create", (req, res) => {
 	// #swagger.tags = ['Payment']
 	/* #swagger.requestBody = {

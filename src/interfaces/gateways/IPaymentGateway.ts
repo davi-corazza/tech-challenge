@@ -1,14 +1,14 @@
 import { Payment } from "@entities/Payment";
+import { Payment as PaymentData } from "@type/Payment";
 
 export interface IPaymentGateway {
 	allPayments(): Promise<Payment[]>;
 
-	newPayment(Payment: Payment): Promise<Payment>;
+	getPaymentById(id: number): Promise<Payment>;
 
-	updatePayment(
-		Payment: Payment,
-		params: any
-	): Promise<[affectedCount: number]>;
+	newPayment(payment: Payment): Promise<Payment>;
+
+	updatePayment(id: number, payment: Payment): Promise<number>;
 
 	deletePayment(params: any): Promise<number>;
 }

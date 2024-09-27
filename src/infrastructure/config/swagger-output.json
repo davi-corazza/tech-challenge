@@ -1139,7 +1139,7 @@
       "Order": {
         "type": "object",
         "properties": {
-          "fk_idCustomer": {
+          "customerId": {
             "type": "number",
             "example": 1
           },
@@ -1245,7 +1245,7 @@
             "type": "string",
             "example": "toPay"
           },
-          "fk_idOrder": {
+          "orderId": {
             "type": "number",
             "example": 1
           }
@@ -1269,7 +1269,7 @@
             "type": "string",
             "example": "PAID"
           },
-          "fk_idOrder": {
+          "orderId": {
             "type": "number",
             "example": 1
           }
@@ -1313,7 +1313,7 @@
             "type": "string",
             "example": "Product Description"
           },
-          "fk_idCategory": {
+          "categoryId": {
             "type": "number",
             "example": 1
           }
@@ -1325,7 +1325,19 @@
       "AddOrder": {
         "type": "object",
         "properties": {
-          "fk_idCustomer": {
+          "customerId": {
+            "type": "number",
+            "example": 1
+          }
+        },
+        "xml": {
+          "name": "AddOrder"
+        }
+      },
+      "UpdateOrder": {
+        "type": "object",
+        "properties": {
+          "customerId": {
             "type": "number",
             "example": 1
           },
@@ -1339,17 +1351,17 @@
           }
         },
         "xml": {
-          "name": "AddOrder"
+          "name": "UpdateOrder"
         }
       },
       "AddComboProduct": {
         "type": "object",
         "properties": {
-          "fk_idCombo": {
+          "comboId": {
             "type": "number",
             "example": 1
           },
-          "fk_idProduct": {
+          "productId": {
             "type": "number",
             "example": 1
           }
@@ -1361,7 +1373,7 @@
       "AddOrderProduct": {
         "type": "object",
         "properties": {
-          "fk_idOrder": {
+          "orderId": {
             "type": "number",
             "example": 1
           },
@@ -1370,7 +1382,7 @@
             "items": {
               "type": "object",
               "properties": {
-                "fk_idCombo": {
+                "comboId": {
                   "type": "number",
                   "example": 1
                 }
@@ -1382,7 +1394,7 @@
             "items": {
               "type": "object",
               "properties": {
-                "fk_idProduct": {
+                "productId": {
                   "type": "number",
                   "example": 2
                 }
@@ -1401,11 +1413,11 @@
       "AddCampaignCustomer": {
         "type": "object",
         "properties": {
-          "fk_idCampaign": {
+          "campaignId": {
             "type": "number",
             "example": 1
           },
-          "fk_idCustomer": {
+          "customerId": {
             "type": "number",
             "example": 1
           }

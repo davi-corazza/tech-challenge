@@ -1,8 +1,9 @@
 import { IPaymentGateway } from "@gateways/IPaymentGateway";
 import { IOrderGateway } from "@gateways/IOrderGateway";
+import { OrderAdapter } from "@adapters/OrderAdapter";
 import { Order as OrderEntitie } from "@entities/Order";
 import { Payment } from "@entities/Payment";
-
+import { PaymentMapper } from "@mappers/PaymentMapper";
 export class PaymentUseCase {
 	constructor(
 		private readonly paymentGateway: IPaymentGateway,
@@ -13,27 +14,23 @@ export class PaymentUseCase {
 		return await this.paymentGateway.allPayments();
 	}
 
-	async createPayment(data: Partial<Payment>): Promise<Payment> {
-		const { paymentMethod, paymentCode, status, fk_idOrder } = data;
-		const payment = new Payment(paymentMethod, paymentCode, status, fk_idOrder);
-		return await this.paymentGateway.newPayment(payment);
+	async getPaymentById(id: number): Promise<Payment | null> {
+		const payment = await this.paymentGateway.getPaymentById(id);
+		return payment ? payment : null;
 	}
 
-	async updatePayment(paymentData: Payment, paymentId: string): Promise<any> {
-		if (!paymentId) throw new Error("Missing required field: id");
+	async createPayment(data: Payment): Promise<Payment> {
+		return await this.paymentGateway.newPayment(data);
+	}
 
-		const result = await this.paymentGateway.updatePayment(
-			{ ...paymentData },
-			{ where: { id: paymentId } }
-		);
 
-		if (result[0] === 0) throw new Error("Payment not executed");
+	async updatePayment(id: number, data: Payment): Promise<any> {
+		const existingPayment = await this.getPaymentById(id);
+        if (!existingPayment) {
+            throw new Error("Payment not found");
+        }
 
-		const orderData = await this.orderGateway.getOrderById({ where: { id: paymentData.fk_idOrder } });
-		let orderUpdated = new OrderEntitie(orderData);
-		orderUpdated.status = "Recebido";
-
-		await this.orderGateway.updateOrder(orderUpdated, { where: { id: paymentData.fk_idOrder } });
+		await this.paymentGateway.updatePayment(id, data);       
 
 		return "Payment and Order updated successfully";
 	}

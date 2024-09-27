@@ -26,7 +26,7 @@ const doc = {
 			discount: "10",
 		},
 		Order: {
-			fk_idCustomer: 1,
+			customerId: 1,
 			status: "Created",
 			price: "19.90",
 		},
@@ -54,13 +54,13 @@ const doc = {
 			paymentMethod: "MercadoPago",
 			paymentCode: "sdofjsiodj",
 			status: "toPay",
-			fk_idOrder: 1,
+			orderId: 1,
 		},
 		FakeCheckout: {
 			paymentMethod: "MercadoPago",
 			paymentCode: "sdofjsiodj",
 			status: "PAID",
-			fk_idOrder: 1,
+			orderId: 1,
 		},
 		getEmployee: {
 			cpf: "555.555.555-55",
@@ -71,26 +71,29 @@ const doc = {
 			name: "Product Name",
 			price: "8.90",
 			description: "Product Description",
-			fk_idCategory: 1,
+			categoryId: 1,
 		},
 		AddOrder: {
-			fk_idCustomer: 1,
+			customerId: 1
+		},
+		UpdateOrder: {
+			customerId: 1,
 			status: "Initial Status",
 			price: "19.90",
 		},
 		AddComboProduct: {
-			fk_idCombo: 1,
-			fk_idProduct: 1,
+			comboId: 1,
+			productId: 1,
 		},
 		AddOrderProduct: {
-			fk_idOrder: 1,
-			combos: [{ fk_idCombo: 1 }],
-			products: [{ fk_idProduct: 2 }, { fk_idProduct: 2 }],
+			orderId: 1,
+			combos: [{ comboId: 1 }],
+			products: [{ productId: 2 }, { productId: 2 }],
 			observation: "Some Observations",
 		},
 		AddCampaignCustomer: {
-			fk_idCampaign: 1,
-			fk_idCustomer: 1,
+			campaignId: 1,
+			customerId: 1,
 		},
 	},
 };

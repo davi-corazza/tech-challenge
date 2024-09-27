@@ -14,6 +14,20 @@ export class PaymentController {
 		}
 	}
 
+	async getPaymentById(req, res): Promise<void> {
+        try {
+            const { Id } = req.params;
+            const payment = await this.paymentUseCase.getPaymentById(Id);
+            if (payment) {
+                res.json(payment);
+            } else {
+                res.status(404).json({ error: "Payment not found" });
+            }
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
 	async createPayment(req, res) {
 		try {
 			const payment = await this.paymentUseCase.createPayment(req.body);

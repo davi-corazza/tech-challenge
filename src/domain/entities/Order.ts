@@ -1,15 +1,56 @@
-export class Order {
-	[x: string]: any;
+import { Product } from '@entities/Product';
 
-	constructor(params: any) {
-		if (params.id !== undefined) this.id = params.id;
-		this.fk_idCustomer = params.fk_idCustomer;
-		this.status = params.status;
-		this.price = params.price;
+export class Order {
+	private id?: number;
+	private customerId: number;
+	private status: string;
+	private price: number;
+	private campaignId?: number;
+	// private products: Product[] = []; // Associação com OrderProduct
+	
+
+	constructor(customerId: number, status: string, price: number, campaignId?: number, id?: number) {
+		this.customerId = customerId;
+		this.status = status;
+		this.price = price;
+		this.campaignId = campaignId;		
+		this.id = id;
 	}
 
-	id?: number;
-	fk_idCustomer: number;
-	status: string;
-	price: string;
+	getId(): number | undefined {
+		return this.id;
+	}
+
+	getStatus(): string {
+		return this.status;
+	}
+
+	getPrice(): number {
+		return this.price;
+	}
+
+	getCustomer(): number | undefined {
+        return this.customerId;
+    }
+
+	getCampaign(): number | undefined {
+        return this.campaignId;
+    }
+	
+	// getProducts(): Product[] {
+	// 	return this.products;
+	// }
+	
+	// addProduct(product: Product): void {
+	// 	this.products.push(product);
+	// }
+
+	// Métodos para manipular o preço
+	addToTotalPrice(amount: number): void {
+		this.price += amount;
+	}
+
+	applyCampaignDiscount(discountPercentage: number): void {
+	this.price -= this.price * (discountPercentage / 100);
+	}
 }
