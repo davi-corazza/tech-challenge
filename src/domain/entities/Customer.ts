@@ -12,7 +12,7 @@ export class Customer {
 		this.setCpf(cpf);
 		this.name = name;
 		this.phoneNumber = phoneNumber;
-		this.email = email;
+		this.setEmail(email);
 		this.id = id;
 	}
 
@@ -21,7 +21,7 @@ export class Customer {
 	}
 
 	public getCpf(): string {
-		return this.cpf;
+		return this.cpf.replace(/\D/g, "");
 	}
 
 	public setCpf(cpf: string): void {
@@ -59,5 +59,17 @@ export class Customer {
 			throw new Error("Invalid email format");
 		}
 		this.email = email;
+	}
+
+	// Método para retornar o primeiro e o último nome
+	public getFirstAndLastName(): { firstName: string; lastName: string } {
+		const nameParts = this.name.trim().split(/\s+/); // Divide o nome por espaços em branco
+		const firstName = nameParts[0]; // Primeiro nome
+		const lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : ""; // Último nome ou vazio
+	
+		return {
+		  firstName,
+		  lastName,
+		}
 	}
 }

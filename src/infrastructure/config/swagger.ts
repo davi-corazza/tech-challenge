@@ -56,6 +56,10 @@ const doc = {
 			status: "toPay",
 			orderId: 1,
 		},
+		webhookPayment: {
+			paymentCode: "12345678",
+			type: "payment"			
+		},
 		FakeCheckout: {
 			paymentMethod: "MercadoPago",
 			paymentCode: "sdofjsiodj",

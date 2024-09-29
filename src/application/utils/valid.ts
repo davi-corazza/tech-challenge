@@ -39,7 +39,7 @@ const isValidEmail = (
 
 const isValidStatus = (status: string) => {
     // Define valid statuses
-    const validStatuses = ["Created", "Processed", "Shipped", "Delivered", "Cancelled"];
+    const validStatuses = ["Created", "Processed", "Shipped", "Delivered", "Cancelled", "Waiting Payment"];
     return validStatuses.includes(status);
 }
 

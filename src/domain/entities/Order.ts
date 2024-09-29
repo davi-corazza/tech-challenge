@@ -25,8 +25,22 @@ export class Order {
 		return this.status;
 	}
 
+	public setStatus(status: string): void {
+		if (!status) {
+			throw new Error("Name cannot be empty");
+		}
+		this.status = status;
+	}
+
 	getPrice(): number {
 		return this.price;
+	}
+
+	public setPrice(price: string): void {
+		if (!price) {
+			throw new Error("Price cannot be empty");
+		}
+		this.status = status;
 	}
 
 	getCustomer(): number | undefined {
@@ -36,14 +50,6 @@ export class Order {
 	getCampaign(): number | undefined {
         return this.campaignId;
     }
-	
-	// getProducts(): Product[] {
-	// 	return this.products;
-	// }
-	
-	// addProduct(product: Product): void {
-	// 	this.products.push(product);
-	// }
 
 	// Métodos para manipular o preço
 	addToTotalPrice(amount: number): void {

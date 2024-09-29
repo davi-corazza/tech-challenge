@@ -14,6 +14,16 @@ export class PaymentAdapter implements IPaymentGateway {
         return PaymentMapper.toEntity(paymentModel);	
     }
 
+	async getPaymentByOrderId(id:number): Promise<Payment> {
+        const paymentOrderModel = await PaymentModel.findOne({ where: { orderId:id } });
+        return PaymentMapper.toEntity(paymentOrderModel);	
+    }
+
+	async getPaymentByMp(paymentCode:string): Promise<Payment> {
+        const paymentModel = await PaymentModel.findOne({ where: { paymentCode:paymentCode } });
+        return PaymentMapper.toEntity(paymentModel);	
+    }
+
 	async newPayment(values: any): Promise<Payment> {
 		const paymentModels = await PaymentModel.create(values);
         return PaymentMapper.toEntity(paymentModels);		

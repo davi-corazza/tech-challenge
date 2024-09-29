@@ -1254,6 +1254,22 @@
           "name": "Payment"
         }
       },
+      "webhookPayment": {
+        "type": "object",
+        "properties": {          
+          "paymentCode": {
+            "type": "string",
+            "example": "12345678"
+          },
+          "type": {
+            "type": "string",
+            "example": "payment"
+          }          
+        },
+        "xml": {
+          "name": "Payment"
+        }
+      },
       "FakeCheckout": {
         "type": "object",
         "properties": {

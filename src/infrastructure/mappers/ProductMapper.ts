@@ -4,11 +4,11 @@ export class ProductMapper {
   // Mapeia de ProductModel (banco) para Product (domínio)
   static toEntity(productModel: any): Product {
     return new Product(            
-        productModel.id,
-        productModel.name,
-        productModel.description,
-        productModel.price,
-        productModel.categoryId        
+      productModel.name,
+      productModel.description,
+      productModel.price,
+      productModel.categoryId,        
+      productModel.id
     );
   }
   // Mapeia de Product (domínio) para ProductModel (banco)

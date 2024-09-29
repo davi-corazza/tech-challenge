@@ -3,12 +3,14 @@ import { PaymentAdapter } from "@adapters/PaymentAdapter";
 import { PaymentUseCase } from "@usecases/PaymentUseCase";
 import { PaymentController } from "@controllers/PaymentController";
 import { OrderAdapter } from "@adapters/OrderAdapter";
+import { CustomerAdapter } from "@adapters/CustomerAdapter";
 
 export const paymentRoute = Router();
 
 const paymentAdapter = new PaymentAdapter();
 const orderAdapter = new OrderAdapter();
-const paymentUseCase = new PaymentUseCase(paymentAdapter, orderAdapter);
+const customerAdapter = new CustomerAdapter();
+const paymentUseCase = new PaymentUseCase(paymentAdapter, orderAdapter, customerAdapter);
 const paymentController = new PaymentController(paymentUseCase);
 
 paymentRoute.get("/all", (req, res) => {
@@ -37,6 +39,20 @@ paymentRoute.post("/create", (req, res) => {
         }
     */
 	paymentController.createPayment(req, res);
+});
+
+paymentRoute.post("/webhook", (req, res) => {
+	// #swagger.tags = ['Payment']
+	/* #swagger.requestBody = {
+            required: true,
+            content: {
+                "application/json": {
+                    schema: { $ref: '#/definitions/webhookPayment' }
+                }
+            }
+        }
+    */
+	paymentController.webhook(req, res);
 });
 
 paymentRoute.delete("/delete/:id", (req, res) => {

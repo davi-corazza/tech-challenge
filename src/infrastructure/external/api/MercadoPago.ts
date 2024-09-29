@@ -6,8 +6,9 @@ const clientMercadoPago = new MercadoPagoConfig({ accessToken: process.env.MERCA
 const paymentMercadoPago = new Payment(clientMercadoPago);
 
 
-const  createMercadoPago = async (id,price,email) => {
+const  createMercadoPago = async (id,price,customer) => {
 
+    const { firstName, lastName } = customer.getFirstAndLastName();    
     return await paymentMercadoPago.create({
         body: { 
             transaction_amount: price,
@@ -15,7 +16,18 @@ const  createMercadoPago = async (id,price,email) => {
             payment_method_id: 'pix',
             external_reference: id,
             payer: {
-                email: email								
+                email: customer.getEmail(),
+                identification:{
+                    type:'CPF',
+                    number: customer.getCpf()
+                }	
+            },
+            additional_info: {
+                payer: {
+                    first_name: firstName,
+                    last_name: lastName,
+                    							
+                }
             },
             notification_url: process.env.WEBHOOK + "/payment/webhook"			
         }
@@ -25,7 +37,7 @@ const  createMercadoPago = async (id,price,email) => {
 const  searchMercadoPago = async (id) => {    
     return await paymentMercadoPago.search({
         options: {
-            external_reference: id	    
+            id: id	    
         } 
     })
 }

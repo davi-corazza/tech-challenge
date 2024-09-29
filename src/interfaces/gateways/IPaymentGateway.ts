@@ -1,10 +1,13 @@
 import { Payment } from "@entities/Payment";
-import { Payment as PaymentData } from "@type/Payment";
 
 export interface IPaymentGateway {
 	allPayments(): Promise<Payment[]>;
 
 	getPaymentById(id: number): Promise<Payment>;
+
+	getPaymentByMp(paymentCode: string): Promise<Payment>;
+
+	getPaymentByOrderId(id:number): Promise<Payment>
 
 	newPayment(payment: Payment): Promise<Payment>;
 
