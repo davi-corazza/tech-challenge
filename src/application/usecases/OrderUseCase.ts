@@ -18,7 +18,18 @@ export class OrderUseCase {
 	) { }
 
 	async getAll(): Promise<Order[]> {
-		return await this.orderGateway.allOrders();
+		const validStatuses = ["Created", "Processed", "Shipped", "Delivered", "Cancelled", "Waiting Payment"];
+
+		const orders = await this.orderGateway.allOrders();
+
+		// Ordenar os pedidos de acordo com a ordem do array validStatuses
+		return orders.sort((a, b) => {
+		  const indexA = validStatuses.indexOf(a.getStatus());
+		  const indexB = validStatuses.indexOf(b.getStatus());
+	  
+		  return indexA - indexB;
+		});
+		
 	}
 
 	async getOrderById(id: number): Promise<Order | null> {
