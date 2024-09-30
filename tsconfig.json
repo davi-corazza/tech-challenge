@@ -9,8 +9,8 @@
 		"emitDecoratorMetadata": true,
 		"resolveJsonModule": true,
 		"allowJs": true,
-		"target": "es2016",
-    	"lib": ["es2016", "dom"],
+		"target": "es2017",
+    	"lib": ["es2017", "dom"],
 		"paths": {
 			"@adapters/*": ["src/application/adapters/*"],
 			"@controllers/*": ["src/application/controllers/*"],

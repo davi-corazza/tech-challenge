@@ -30,6 +30,15 @@ const doc = {
 			status: "Created",
 			price: "19.90",
 		},
+		Tracking: {
+			customerId: 1,
+			status: "Processed",
+			price: 65.90,
+			id: 1,
+			createdAt: "2024-09-27T02:26:48.176Z",
+			updatedAt: "2024-09-30T22:33:58.842Z",
+			timeElapsed: "92:07:10"
+		},
 		Product: {
 			name: "Product Name",
 			price: "8.90",
@@ -50,11 +59,8 @@ const doc = {
 			username: "employee@employee",
 			password: "E$%0of323!@#",
 		},
-		Payment: {
-			paymentMethod: "MercadoPago",
-			paymentCode: "sdofjsiodj",
-			status: "toPay",
-			orderId: 1,
+		Payment: {			
+			orderId: 1
 		},
 		webhookPayment: {
 			paymentCode: "12345678",

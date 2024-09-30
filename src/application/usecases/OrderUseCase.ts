@@ -7,6 +7,7 @@ import { Order } from "@entities/Order";
 import { OrderProduct } from "@entities/OrderProduct";
 import { Product } from "@entities/Product";
 import { OrderMapper } from "@mappers/OrderMapper";
+import { differenceInSeconds } from 'date-fns';
 
 export class OrderUseCase {
 	constructor(
@@ -30,6 +31,35 @@ export class OrderUseCase {
 		  return indexA - indexB;
 		});
 		
+	}
+
+	async getOrderTracking(): Promise<Order[]> { 
+		const validStatuses = ["Processed", "Shipped", "Delivered"];
+
+		const orderModels = await this.orderGateway.allOrders({
+			where: {
+			  status: validStatuses
+			}
+		  });
+
+		  return orderModels.map(model => {
+			const order = OrderMapper.toEntity(model);
+			
+			// Calcular a diferença em segundos entre data de criação e atualização
+			const createdAt = new Date(order.getCreatedAt());
+			const updatedAt = new Date(order.getUpdatedAt());
+			const timeDifferenceInSeconds = differenceInSeconds(updatedAt, createdAt);
+		
+			// Converter a diferença em segundos para hh:mm:ss
+			const hours = Math.floor(timeDifferenceInSeconds / 3600).toString().padStart(2, '0');
+			const minutes = Math.floor((timeDifferenceInSeconds % 3600) / 60).toString().padStart(2, '0');
+			const seconds = (timeDifferenceInSeconds % 60).toString().padStart(2, '0');
+		
+			// Atribuir o tempo decorrido ao objeto `order` (pode ser necessário adicionar um método `setTimeElapsed` na entidade `Order`)
+			order.setTimeElapsed(`${hours}:${minutes}:${seconds}`);
+			
+			return order;
+		  });
 	}
 
 	async getOrderById(id: number): Promise<Order | null> {

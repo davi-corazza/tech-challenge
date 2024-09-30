@@ -1,7 +1,6 @@
 import { Payment, MercadoPagoConfig } from 'mercadopago';
 
 const clientMercadoPago = new MercadoPagoConfig({ accessToken: process.env.MERCADOPAGO });
-//const clientMercadoPago = new MercadoPagoConfig({ accessToken: 'APP_USR-1223158960247728-051916-e13bbbfa80ecc7a0bc90ccf4495eff0a-151008103' });
 
 const paymentMercadoPago = new Payment(clientMercadoPago);
 

@@ -13,6 +13,15 @@ export class OrderController {
         }
     }
 
+    async getOrderTracking(req, res): Promise<void> {
+        try {
+            const orders = await this.orderUseCase.getOrderTracking();
+            res.json(orders);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    }
+
     async getOrderById(req, res): Promise<void> {
         try {
             const { Id } = req.params;

@@ -6,14 +6,16 @@ export class Order {
 	private status: string;
 	private price: number;
 	private campaignId?: number;
-	// private products: Product[] = []; // Associação com OrderProduct
+	private createdAt?: Date; // Defina como opcional
+	private updatedAt?: Date; // Defina como opcional
+	private timeElapsed?: string;
 	
 
 	constructor(customerId: number, status: string, price: number, campaignId?: number, id?: number) {
 		this.customerId = customerId;
 		this.status = status;
 		this.price = price;
-		this.campaignId = campaignId;		
+		this.campaignId = campaignId;
 		this.id = id;
 	}
 
@@ -58,5 +60,31 @@ export class Order {
 
 	applyCampaignDiscount(discountPercentage: number): void {
 	this.price -= this.price * (discountPercentage / 100);
+	}
+
+	public getCreatedAt(): Date | undefined {
+		return this.createdAt;
+	}
+	
+	public getUpdatedAt(): Date | undefined {
+		return this.updatedAt;
+	}
+	
+	public getTimeElapsed(): string | undefined {
+		return this.timeElapsed;
+	}
+	
+	// Setter para timeElapsed
+	public setTimeElapsed(timeElapsed: string): void {
+		this.timeElapsed = timeElapsed;
+	}
+	
+	// Métodos para definir createdAt e updatedAt caso sejam necessários
+	public setCreatedAt(date: Date): void {
+		this.createdAt = date;
+	}
+	
+	public setUpdatedAt(date: Date): void {
+		this.updatedAt = date;
 	}
 }
