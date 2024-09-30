@@ -1,19 +1,19 @@
 import { Category } from "./Category";
 
 export class Product {
-	private id: number;
+	private id?: number;
 	private name: string;
 	private description: string;
 	private price: number;
 	private categoryId: number;
 
 
-	constructor(id: number, name: string, description: string, price: number, categoryId: number) {
-		this.id = id;
+	constructor(name: string, description: string, price: number, categoryId: number,id?: number) {
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.categoryId = categoryId;
+		this.id = id;
 	}
 
 	// Getters

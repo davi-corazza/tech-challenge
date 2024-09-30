@@ -49,12 +49,13 @@ export class PaymentUseCase {
 
 			const payment = new Payment(data.getPaymentMethod(), idPaymentMercadoPago.toString(), statusPaymentMercadoPago.toString(),order.getId());
 			
-			await this.paymentGateway.newPayment(payment);
+			const createPayment = await this.paymentGateway.newPayment(payment);
 			
 			order.setStatus("Waiting Payment");
-			await this.orderGateway.updateOrder(order.getId(), order);		
+			await this.orderGateway.updateOrder(order.getId(), order);			
+			
 
-			return payment;
+			return this.getPaymentById(createPayment.getId());
 		} catch (error) {
 			console.error(`Error in webhookPayment: ${error.message}`);
 			throw new Error("Failed to process create payment");
