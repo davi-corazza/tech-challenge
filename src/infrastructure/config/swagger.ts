@@ -63,7 +63,7 @@ const doc = {
 			orderId: 1
 		},
 		webhookPayment: {
-			paymentCode: "12345678",
+			id: "12345678",
 			type: "payment"			
 		},
 		FakeCheckout: {

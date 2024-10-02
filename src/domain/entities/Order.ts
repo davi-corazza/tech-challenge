@@ -1,5 +1,3 @@
-import { Product } from '@entities/Product';
-
 export class Order {
 	private id?: number;
 	private customerId: number;

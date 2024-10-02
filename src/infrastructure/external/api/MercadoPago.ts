@@ -1,45 +1,69 @@
-import { Payment, MercadoPagoConfig } from 'mercadopago';
+import axios from 'axios';
 
-const clientMercadoPago = new MercadoPagoConfig({ accessToken: process.env.MERCADOPAGO });
+const MERCADOPAGO_API_BASE = 'https://api.mercadopago.com';
 
-const paymentMercadoPago = new Payment(clientMercadoPago);
+// Função para criar o pagamento no Mercado Pago
+const createMercadoPago = async (id: number, price: number, customer: any) => {
+    const { firstName, lastName } = customer.getFirstAndLastName();
 
-
-const  createMercadoPago = async (id,price,customer) => {
-
-    const { firstName, lastName } = customer.getFirstAndLastName();    
-    return await paymentMercadoPago.create({
-        body: { 
-            transaction_amount: price,
-            description: 'Pedido: '+id,
-            payment_method_id: 'pix',
-            external_reference: id,
-            payer: {
-                email: customer.getEmail(),
-                identification:{
-                    type:'CPF',
-                    number: customer.getCpf()
-                }	
-            },
-            additional_info: {
+    try {
+        const response = await axios.post(
+            `${MERCADOPAGO_API_BASE}/v1/payments`,
+            {
+                transaction_amount: price,
+                description: `Pedido: ${id}`,
+                payment_method_id: 'pix',
+                external_reference: id.toString(),
                 payer: {
-                    first_name: firstName,
-                    last_name: lastName,
-                    							
-                }
+                    email: customer.getEmail(),
+                    identification: {
+                        type: 'CPF',
+                        number: customer.getCpf()
+                    }
+                },
+                additional_info: {
+                    payer: {
+                        first_name: firstName,
+                        last_name: lastName,
+                    }
+                },
+                notification_url: `${process.env.WEBHOOK}/payment/webhook`
             },
-            notification_url: process.env.WEBHOOK + "/payment/webhook"			
-        }
-    })
-}
+            {
+                headers: {
+                    Authorization: `Bearer ${process.env.MERCADOPAGO}`, // O token de acesso do Mercado Pago
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+        
+        return response.data;
+    } catch (error) {
+        console.error('Error creating Mercado Pago payment:', error.response ? error.response.data : error.message);
+        throw error;
+    }
+};
 
-const  searchMercadoPago = async (id) => {    
-    return await paymentMercadoPago.search({
-        options: {
-            id: id	    
-        } 
-    })
-}
+// Função para buscar informações de pagamento no Mercado Pago
+const searchMercadoPago = async (id: string) => {
+    try {
+        const response = await axios.get(
+            `${MERCADOPAGO_API_BASE}/v1/payments/search`,
+            {
+                headers: {
+                    Authorization: `Bearer ${process.env.MERCADOPAGO}`, // O token de acesso do Mercado Pago
+                },
+                params: {
+                    id: id.toString() // Procurar por external_reference com ID do pedido
+                }
+            }
+        );
 
+        return response.data;
+    } catch (error) {
+        console.error('Error searching Mercado Pago payment:', error.response ? error.response.data : error.message);
+        throw error;
+    }
+};
 
 export { createMercadoPago, searchMercadoPago };

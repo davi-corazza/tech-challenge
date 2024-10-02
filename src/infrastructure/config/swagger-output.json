@@ -1257,7 +1257,7 @@
       "webhookPayment": {
         "type": "object",
         "properties": {          
-          "paymentCode": {
+          "id": {
             "type": "string",
             "example": "12345678"
           },

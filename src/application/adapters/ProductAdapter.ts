@@ -1,9 +1,7 @@
 import { Product as ProductModel } from "@database/ProductModel";
 import { IProductGateway } from "@gateways/IProductGateway";
-import { ICategoryGateway } from "@gateways/ICategoryGateway";
 import { Product } from "@entities/Product";
 import { ProductMapper } from "@mappers/ProductMapper";
-import { Category as CategoryModel } from "@database/CategoryModel";
 
 export class ProductAdapter implements IProductGateway {
 	async allProducts(params?: any): Promise<Product[]> {

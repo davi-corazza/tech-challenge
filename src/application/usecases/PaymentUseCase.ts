@@ -1,9 +1,6 @@
 import { IPaymentGateway } from "@gateways/IPaymentGateway";
 import { IOrderGateway } from "@gateways/IOrderGateway";
-import { OrderAdapter } from "@adapters/OrderAdapter";
-import { Order as OrderEntitie } from "@entities/Order";
 import { Payment } from "@entities/Payment";
-import { PaymentMapper } from "@mappers/PaymentMapper";
 import { ICustomerGateway } from "@gateways/ICustomerGateway";
 import { createMercadoPago, searchMercadoPago } from "src/infrastructure/external/api/MercadoPago";
 
@@ -90,12 +87,13 @@ export class PaymentUseCase {
 		try {
 			// Busca o pagamento existente no banco de dados
 			const existingPayment = await this.paymentGateway.getPaymentByMp(paymentCode);
+			
 			if (!existingPayment) {
 				throw new Error("Payment record not found");
 			}
 			// Busca o pagamento no Mercado Pago usando a API
 			const paymentDetails = await searchMercadoPago(existingPayment.getPaymentCode());
-
+			console.log(paymentDetails)
 			if (!paymentDetails || !paymentDetails.results || paymentDetails.results.length === 0) {
 				throw new Error("No payment information returned from Mercado Pago");
 			}
@@ -123,7 +121,7 @@ export class PaymentUseCase {
 			return "Payment and Order updated successfully";
 		} catch (error) {
 			console.error(`Error in webhookPayment: ${error.message}`);
-			throw new Error("Failed to process webhook payment");
+			throw new Error(`Failed to process webhook payment: ${error.message}`);
 		}
 				
 	}

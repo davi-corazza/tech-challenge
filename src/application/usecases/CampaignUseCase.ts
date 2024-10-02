@@ -1,6 +1,5 @@
 import { ICampaignGateway } from "@gateways/ICampaignGateway";
 import { Campaign } from "@entities/Campaign";
-import { Customer } from "@entities/Customer";
 import { CampaignCustomer } from "@entities/CampaignCustomer";
 
 export class CampaignUseCase {

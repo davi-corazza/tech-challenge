@@ -25,10 +25,15 @@ export class Customer {
 	}
 
 	public setCpf(cpf: string): void {
-		if (!isValidCpf(cpf)) {
-			throw new Error("Invalid CPF");
+		// Remover todos os caracteres não numéricos do CPF
+		const cleanedCpf = cpf.replace(/\D/g, '');
+	
+		// Validar o CPF
+		if (!isValidCpf(cleanedCpf)) {
+		  throw new Error('Invalid CPF format');
 		}
-		this.cpf = cpf;
+	
+		this.cpf = cleanedCpf;
 	}
 
 	public getName(): string {
