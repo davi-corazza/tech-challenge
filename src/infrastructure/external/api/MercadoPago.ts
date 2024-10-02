@@ -32,6 +32,7 @@ const createMercadoPago = async (id: number, price: number, customer: any) => {
             {
                 headers: {
                     Authorization: `Bearer ${process.env.MERCADOPAGO}`, // O token de acesso do Mercado Pago
+                    'X-Idempotency-Key': '0d5020ed-1af6-469c-ae06-c3bec19954bb',
                     'Content-Type': 'application/json'
                 }
             }

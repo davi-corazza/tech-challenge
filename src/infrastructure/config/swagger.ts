@@ -59,7 +59,10 @@ const doc = {
 			username: "employee@employee",
 			password: "E$%0of323!@#",
 		},
-		Payment: {			
+		Payment: {	
+			paymentMethod: "MercadoPago",
+			paymentCode: "sdofjsiodj",
+			status: "ToPay",		
 			orderId: 1
 		},
 		webhookPayment: {
